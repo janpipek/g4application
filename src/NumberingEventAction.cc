@@ -8,14 +8,14 @@ namespace g4
 {
     NumberingEventAction::NumberingEventAction() : _loggingFrequency(0)
     {
-        _loggingFrequency = ApplicationConfiguration::GetValue<int>("app.logEvents");
+        _loggingFrequency = Configuration::GetValue<int>("app.logEvents");
     }
 
-    void NumberingEventAction::ApplicationConfigurationChanged(const std::string &key)
+    void NumberingEventAction::ConfigurationChanged(const std::string &key)
     {
         if (key == "app.logEvents")
         {
-            _loggingFrequency = ApplicationConfiguration::GetValue<int>("app.logEvents");
+            _loggingFrequency = Configuration::GetValue<int>("app.logEvents");
         }
     }
 

@@ -1,5 +1,5 @@
-#ifndef APPLICATIONCONFIGURATION_HH
-#define APPLICATIONCONFIGURATION_HH
+#ifndef CONFIGURATION_HH
+#define CONFIGURATION_HH
 
 #include <boost/variant.hpp>
 
@@ -16,21 +16,22 @@ namespace g4
     /**
      * @short Adaptable type used in our configuration system
      *
-     * Covers three basic reasonable types for paramaters.
+     * Covers three basic reasonable types for paramaters:
+     * - int, double & string  
      */
     typedef boost::variant<int, double, std::string> ConfigurationValue;
 
-    class ApplicationConfigurationListener;
+    class ConfigurationListener;
 
     /**
      * @brief General application configuration class with listeners.
      *
      * It is implemented as a dictionary (map) of string => string/int/double.
      */
-    class ApplicationConfiguration
+    class Configuration
     {     
     public:
-        friend class ApplicationConfigurationListener;
+        friend class ConfigurationListener;
 
         /**
          * @brief Casting of value to the required template parameter.
@@ -70,11 +71,11 @@ namespace g4
     private:
         static std::map<std::string, ConfigurationValue> _entries;
 
-        static std::vector<ApplicationConfigurationListener*> _listeners;
+        static std::vector<ConfigurationListener*> _listeners;
 
-        static void AddListener(ApplicationConfigurationListener* listener);
+        static void AddListener(ConfigurationListener* listener);
 
-        static void RemoveListener(ApplicationConfigurationListener* listener);
+        static void RemoveListener(ConfigurationListener* listener);
 
         static void NotifyListeners(const std::string& key);
 
@@ -84,16 +85,16 @@ namespace g4
      * @brief Abstract base class for the application configuration listener.
      *
      * Note that it is automatically registered.
-     * You have to provide your implementation for ApplicationConfigurationChanged.
+     * You have to provide your implementation for ConfigurationChanged.
      */
-    class ApplicationConfigurationListener
+    class ConfigurationListener
     {
     protected:
-        friend class ApplicationConfiguration;
+        friend class Configuration;
 
-        ApplicationConfigurationListener();
+        ConfigurationListener();
 
-        virtual ~ApplicationConfigurationListener();
+        virtual ~ConfigurationListener();
 
         /**
          * @brief Abstract method responding to each change of any configuration value.
@@ -101,8 +102,8 @@ namespace g4
          *
          * Respond to all keys you are interested in and do nothing for others.
          */
-        virtual void ApplicationConfigurationChanged(const std::string& key) = 0;
+        virtual void ConfigurationChanged(const std::string& key) = 0;
     };
 }
 
-#endif // APPLICATIONCONFIGURATION_HH
+#endif // CONFIGURATION_HH

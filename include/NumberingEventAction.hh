@@ -4,7 +4,7 @@
 #include <G4UserEventAction.hh>
 #include <ctime>
 
-#include "ApplicationConfiguration.hh"
+#include "Configuration.hh"
 
 namespace g4
 {
@@ -15,7 +15,7 @@ namespace g4
       *  - after each event (or N events), it writes how many events have been calculated
       *    ( macro command /g4/logEvents N )
       */
-    class NumberingEventAction : public G4UserEventAction, public ApplicationConfigurationListener
+    class NumberingEventAction : public G4UserEventAction, public ConfigurationListener
     {
     public:
         virtual void EndOfEventAction(const G4Event* anEvent);
@@ -24,7 +24,7 @@ namespace g4
 
         virtual ~NumberingEventAction() { }
 
-        virtual void ApplicationConfigurationChanged(const std::string& key);
+        virtual void ConfigurationChanged(const std::string& key);
 
     private:
         int _loggingFrequency;

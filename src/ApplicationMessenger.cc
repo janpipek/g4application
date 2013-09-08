@@ -6,7 +6,7 @@
 #include <boost/xpressive/xpressive.hpp>
 
 #include "G4Application.hh"
-#include "ApplicationConfiguration.hh"
+#include "Configuration.hh"
 
 using namespace boost::xpressive;
 using namespace std;
@@ -107,7 +107,7 @@ namespace g4
         {
             string key = command->GetKey(newValue);
             ValueType value = command->GetValue(newValue);
-            ApplicationConfiguration::SetValue(key, value);
+            Configuration::SetValue(key, value);
         }
         catch(const char* exception)
         {
@@ -138,7 +138,7 @@ namespace g4
         }
         else if (command == _logEventsCommand)
         {
-            ApplicationConfiguration::SetValue("app.logEvents", _logEventsCommand->GetNewIntValue(newValue));
+            Configuration::SetValue("app.logEvents", _logEventsCommand->GetNewIntValue(newValue));
         }
         else if (command == _generateRandomSeedCommand)
         {
@@ -158,7 +158,7 @@ namespace g4
         }
         else if (command == _printConfigurationCommand)
         {
-            ApplicationConfiguration::Print(G4cout);
+            Configuration::Print(G4cout);
         }
     }
     

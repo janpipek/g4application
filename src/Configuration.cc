@@ -1,4 +1,4 @@
-#include "ApplicationConfiguration.hh"
+#include "Configuration.hh"
 
 #include <algorithm>
 #include <iostream>
@@ -7,21 +7,21 @@ using namespace std;
 
 namespace g4
 {
-    std::map<std::string, ConfigurationValue> ApplicationConfiguration::_entries;
+    std::map<std::string, ConfigurationValue> Configuration::_entries;
 
-    std::vector<ApplicationConfigurationListener*> ApplicationConfiguration::_listeners;
+    std::vector<ConfigurationListener*> Configuration::_listeners;
 
-    ApplicationConfigurationListener::ApplicationConfigurationListener()
+    ConfigurationListener::ConfigurationListener()
     {
-        ApplicationConfiguration::AddListener(this);
+        Configuration::AddListener(this);
     }
 
-    ApplicationConfigurationListener::~ApplicationConfigurationListener()
+    ConfigurationListener::~ConfigurationListener()
     {
-        ApplicationConfiguration::RemoveListener(this);
+        Configuration::RemoveListener(this);
     }
 
-    void ApplicationConfiguration::AddListener(ApplicationConfigurationListener *listener)
+    void Configuration::AddListener(ConfigurationListener *listener)
     {
         if (std::find(_listeners.begin(), _listeners.end(), listener) == _listeners.end())
         {
@@ -29,24 +29,24 @@ namespace g4
         }
     }
 
-    void ApplicationConfiguration::RemoveListener(ApplicationConfigurationListener *listener)
+    void Configuration::RemoveListener(ConfigurationListener *listener)
     {
-        std::vector<ApplicationConfigurationListener*>::iterator needle = std::find(_listeners.begin(), _listeners.end(), listener);
+        std::vector<ConfigurationListener*>::iterator needle = std::find(_listeners.begin(), _listeners.end(), listener);
         if (needle != _listeners.end())
         {
             _listeners.erase(needle);
         }
     }
 
-    void ApplicationConfiguration::NotifyListeners(const std::string &key)
+    void Configuration::NotifyListeners(const std::string &key)
     {
         for (auto it = _listeners.begin(); it != _listeners.end(); it++)
         {
-            (*it)->ApplicationConfigurationChanged(key);
+            (*it)->ConfigurationChanged(key);
         }
     }
 
-    void ApplicationConfiguration::SetValue(const std::string &key, const ConfigurationValue &value)
+    void Configuration::SetValue(const std::string &key, const ConfigurationValue &value)
     {
         // cout << "Configuration: " << key << " = " << value << endl;
         ConfigurationValue oldValue = _entries[key];
@@ -57,12 +57,12 @@ namespace g4
         }
     }
 
-    bool ApplicationConfiguration::HasKey(const std::string &key)
+    bool Configuration::HasKey(const std::string &key)
     {
         return _entries.count(key);
     }
 
-    void ApplicationConfiguration::SetDefaultValue(const std::string &key, const ConfigurationValue &value)
+    void Configuration::SetDefaultValue(const std::string &key, const ConfigurationValue &value)
     {
         if (!HasKey(key))
         {
@@ -70,7 +70,7 @@ namespace g4
         }
     }
 
-    void ApplicationConfiguration::Print(ostream& stream)
+    void Configuration::Print(ostream& stream)
     {
         stream << "-------------" << endl;
         stream << "Configuration" << endl;
