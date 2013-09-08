@@ -1,7 +1,10 @@
 #include "RunManager.hh"
-#include "Plugin.hh"
 
 #include <signal.h>
+#include <unistd.h> 
+
+#include "Plugin.hh"
+#include "G4Application.hh"
 
 // Run a specific member function for all the plugins
 // TODO: Change from macro to member function pointer type

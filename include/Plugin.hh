@@ -20,15 +20,12 @@ extern "C" g4::Plugin* PLUGIN_MAIN_FUNCTION()\
 #include <G4VUserPhysicsList.hh>
 #include <G4UIdirectory.hh>
 
-#include "G4Application.hh"
 #include "PhysicsBuilder.hh"
 #include "GeometryBuilder.hh"
 #include "ParticleGeneratorBuilder.hh"
 
 namespace g4
 {
-    class G4Application;
-
     /**
       * @short Base class for any plugin. The plugin loader gets it from the plugin
       * and communicates with the plugin using this class.
