@@ -18,8 +18,8 @@
 
 namespace g4
 {
-    class PluginLoader;
     class ApplicationMessenger;
+    class PluginLoader;
     
     /**
       * Singleton application object.

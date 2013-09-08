@@ -1,10 +1,12 @@
 #include "ApplicationMessenger.hh"
-#include "ApplicationConfiguration.hh"
 
 #include <iostream>
 #include <limits>
 #include <unistd.h>
 #include <boost/xpressive/xpressive.hpp>
+
+#include "G4Application.hh"
+#include "ApplicationConfiguration.hh"
 
 using namespace boost::xpressive;
 using namespace std;
@@ -68,8 +70,7 @@ namespace g4
         return valueString;
     }
 
-    ApplicationMessenger::ApplicationMessenger(G4Application* application)
-        : _application(application)
+    ApplicationMessenger::ApplicationMessenger()
     {
         _waitCommand = new G4UIcmdWithAnInteger("/g4/wait", this);
         _waitCommand->SetGuidance("Wait");
@@ -116,6 +117,7 @@ namespace g4
     
     void ApplicationMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
     {
+        G4Application* application = G4Application::GetInstance();
         if (command == _waitCommand)
         {
             int seconds = _waitCommand->GetNewIntValue(newValue);
@@ -132,7 +134,7 @@ namespace g4
         }
         else if (command == _interactiveCommand)
         {
-            _application->EnterInteractiveMode();
+            application->EnterInteractiveMode();
         }
         else if (command == _logEventsCommand)
         {
@@ -140,7 +142,7 @@ namespace g4
         }
         else if (command == _generateRandomSeedCommand)
         {
-            _application->GenerateRandomSeed();
+            application->GenerateRandomSeed();
         }
         else if (command == _setDoubleCommand)
         {

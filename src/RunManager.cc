@@ -8,7 +8,7 @@
 #define PLUGINS_DO( name ) {\
     for (vector<Plugin*>::const_iterator it = plugins.begin(); it != plugins.end(); it++) \
     {\
-        (*it)->name(*(G4Application::GetInstance()));\
+        (*it)->name();\
     }\
 }
 
@@ -32,7 +32,7 @@ namespace g4
         // 1) Physics
         PLUGINS_DO( OnPhysicsInitializing );
         app->InitializePhysics();
-        app->InitializeUserActions();
+        app->InitializeUserActions(); // TODO: Move elsewhere?
 
         PLUGINS_DO( OnPhysicsInitialized );
         

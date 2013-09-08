@@ -57,37 +57,37 @@ namespace g4
         /**
           * @short Procedure that is called after loading the plugin.
           */
-        virtual void OnLoad( G4Application& ) { }
+        virtual void OnLoad() { }
         
         /** 
           * @short Procedure called before geometry is initialized.
           */
-        virtual void OnGeometryInitializing( G4Application& ) { }
+        virtual void OnGeometryInitializing() { }
         
         /**
           * @short Procedure called after geometry is initialized.
           */
-        virtual void OnGeometryInitialized( G4Application& ) { }
+        virtual void OnGeometryInitialized() { }
         
         /** 
           * @short Procedure called before physics is initialized.
           */
-        virtual void OnPhysicsInitializing( G4Application& ) { }
+        virtual void OnPhysicsInitializing() { }
         
         /**
           * @short Procedure called after physics is initialized.
           */
-        virtual void OnPhysicsInitialized( G4Application& ) { }
+        virtual void OnPhysicsInitialized() { }
 
         /** 
           * @short Procedure that is called before particle generator builder is initialized.
           */
-        virtual void OnParticleGeneratorInitializing( G4Application& ) { }
+        virtual void OnParticleGeneratorInitializing() { }
         
         /**
           * @short Procedure called immediatelly after particle generator builder is initialized.
           */
-        virtual void OnParticleGeneratorInitialized( G4Application& ) { }           
+        virtual void OnParticleGeneratorInitialized() { }           
         
         /** @see PhysicsBuilder */
         virtual PhysicsBuilder* GetPhysicsBuilder() { return NULL; }

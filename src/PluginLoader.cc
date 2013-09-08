@@ -11,6 +11,7 @@
 #include "GeometryBuilder.hh"
 #include "PhysicsBuilder.hh"
 #include "ParticleGeneratorBuilder.hh"
+#include "G4Application.hh"
 
 using namespace std;
 
@@ -18,14 +19,15 @@ namespace g4
 {
     typedef Plugin*(*plugin_load_function)();
     
-    PluginLoader::PluginLoader(G4Application& application) : _application(application)
+    PluginLoader::PluginLoader()
     {
         _messenger = new PluginMessenger(this);
-        // cout << "Loading plugin system." << endl;
     }
     
     int PluginLoader::Load(std::string name)
     {
+        G4Application* app = G4Application::GetInstance();
+
         // Check for application state
         G4ApplicationState state = G4StateManager::GetStateManager()->GetCurrentState();
         if (state != G4State_PreInit)
@@ -56,13 +58,13 @@ namespace g4
                 Plugin* plugin = (*PLUGIN_MAIN_FUNCTION)();
                 G4cout << "Loaded plugin `" << plugin->GetName() << "`." << endl;
                 
-                plugin->OnLoad(_application);
+                plugin->OnLoad();
 
                 // Geometry from plugin
                 GeometryBuilder* geomBuilder = plugin->GetGeometryBuilder();
                 if (geomBuilder)
                 {
-                    _application.GetGeometry()->AddGeometryBuilder(geomBuilder);
+                    app->GetGeometry()->AddGeometryBuilder(geomBuilder);
                     G4cout << "Using geometry definition from plugin `" << plugin->GetName() << "`." << endl;
                 }
                 
@@ -70,7 +72,7 @@ namespace g4
                 ParticleGeneratorBuilder* genBuilder = plugin->GetParticleGeneratorBuilder();
                 if (genBuilder)
                 {
-                    _application.SetParticleGeneratorBuilder(genBuilder);
+                    app->SetParticleGeneratorBuilder(genBuilder);
                     G4cout << "Using particle generator from plugin `" << plugin->GetName() << "`." << endl;
                 }
                 
@@ -78,7 +80,7 @@ namespace g4
                 PhysicsBuilder* physBuilder = plugin->GetPhysicsBuilder();
                 if (physBuilder)
                 {
-                    _application.SetPhysicsBuilder(physBuilder);
+                    app->SetPhysicsBuilder(physBuilder);
                     G4cout << "Using physics from plugin `" << plugin->GetName() << "`." << endl;
                 }
                 

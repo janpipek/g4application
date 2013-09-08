@@ -4,22 +4,18 @@
 #include <string>
 #include <vector>
 
-#include "G4Application.hh"
 #include "PluginMessenger.hh"
 #include "Plugin.hh"
 
 namespace g4
 {
     class PluginMessenger;
-    class G4Application;
-    
-    // Cyclic #includes require this
     class Plugin;
     
     class PluginLoader
     {
     public:
-        PluginLoader(G4Application& application);
+        PluginLoader();
         
         /**
           * @short Load a plugin dynamic library (.so) with full name +name+.
@@ -47,9 +43,7 @@ namespace g4
           */
         ~PluginLoader();
         
-    private:            
-        G4Application& _application;
-        
+    private:                   
         PluginMessenger* _messenger;
                 
         std::vector<void*> _libraries;

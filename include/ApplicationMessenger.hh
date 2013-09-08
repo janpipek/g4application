@@ -7,12 +7,8 @@
 #include <G4UIcommand.hh>
 #include <sstream>
 
-#include "G4Application.hh"
-
 namespace g4
 {
-	class G4Application;
-
     /**
      * @brief UI command for configuration (string + value type).
      *
@@ -45,7 +41,7 @@ namespace g4
 	class ApplicationMessenger : public G4UImessenger
 	{
 	public:
-		ApplicationMessenger(G4Application* application);
+		ApplicationMessenger();
 		
 		virtual ~ApplicationMessenger();
 		
@@ -54,8 +50,6 @@ namespace g4
 		
 	private:
         template <typename ValueType> void applyConfigurationCommand(const UIcmdConfiguration<ValueType>* command, const std::string& newValue);
-
-        G4Application* _application; // G4Application is a singleton...
 
 		G4UIcmdWithAnInteger* _waitCommand;
 		

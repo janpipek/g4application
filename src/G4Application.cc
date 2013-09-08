@@ -30,12 +30,12 @@ namespace g4
         _uiDirectory = new G4UIdirectory("/g4/");
         _uiDirectory->SetGuidance("G4Application commands");
 
-        _messenger = new ApplicationMessenger(this);
+        _messenger = new ApplicationMessenger();
         
         _runManager = new RunManager;
 
         // Plugin-loading system
-        _pluginLoader = new PluginLoader(*this);
+        _pluginLoader = new PluginLoader();
         
         // Visualization
         #ifdef G4VIS_USE
