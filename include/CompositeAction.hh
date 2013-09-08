@@ -2,9 +2,20 @@
 #define COMPOSITEACTION_HH
 
 #include <iostream>
+#include <list>
+#include <algorithm>
 
 namespace g4
 {
+    /**
+      * Composite action.
+      *
+      * In Geant4, you can typically add only one user action of each type.
+      * If you combine multiple libraries together, each of which wants to 
+      * define such action, a conflict arises.
+      *
+      * This class can be easily used on its own (as is).
+      */
     template<typename ActionType> class CompositeAction : public ActionType
     {
     public:
@@ -12,19 +23,25 @@ namespace g4
 
         void AddSubAction(ActionType* action)
         {
+            // TODO: Check if already present
             _actions.push_back(action);
         }
 
         void RemoveSubAction(ActionType* action)
         {
-            // TODO: Implement
+            // Erases just one (first) copy of the action.
+            typename std::list<ActionType*>::iterator it = find(_actions.begin(), _actions.end(), action);
+            if (it != _actions.end()) 
+            {
+                _actions.erase(it);
+            }
         }
 
     protected:
         template<typename ArgType> void Invoke(void (ActionType::*func)(ArgType), ArgType arg)
         {
             // All sub-actions
-            for (typename std::vector<ActionType*>::iterator it = _actions.begin(); it != _actions.end(); it++)
+            for (typename std::list<ActionType*>::iterator it = _actions.begin(); it != _actions.end(); it++)
             {
                 ActionType& action = **it;
 
@@ -34,7 +51,7 @@ namespace g4
             }
         }
 
-        std::vector<ActionType*> _actions;
+        std::list<ActionType*> _actions;
     };
 }
 
