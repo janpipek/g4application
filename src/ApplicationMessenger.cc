@@ -1,0 +1,175 @@
+#include "ApplicationMessenger.hh"
+#include "ApplicationConfiguration.hh"
+
+#include <iostream>
+#include <limits>
+#include <unistd.h>
+#include <boost/xpressive/xpressive.hpp>
+
+using namespace boost::xpressive;
+using namespace std;
+
+namespace g4
+{
+
+    // Forward declaration of functions for value retrieval from parameter string
+    template <typename ValueType> const ValueType parseValue(const std::string& valueString);
+    template <> const std::string parseValue<std::string>(const std::string& valueString);
+
+    // String defining the
+    // template <typename ValueType> const char* getParameterType<valueType>();
+
+    // Implementation of UIcmdConfiguration
+    template<typename ValueType> UIcmdConfiguration<ValueType>::UIcmdConfiguration(const char *theCommandPath, G4UImessenger *theMessenger)
+        : G4UIcommand(theCommandPath, theMessenger)
+    {
+        SetParameter(new G4UIparameter("key", 's', false));
+        // SetParameter(new G4UIParameter("value", 's', false));
+    }
+
+    template<typename ValueType> const std::string UIcmdConfiguration<ValueType>::GetKey(const std::string& paramString) const
+    {
+        sregex keyRegex = sregex::compile("^\\s*([a-zA-Z0-9\\._]+)\\s+");
+        smatch what;
+        if (regex_search(paramString, what, keyRegex))
+        {
+            return what[1];
+        }
+        else
+        {
+            throw "Cannot parse configuration key.";
+        }
+    }
+
+    template<typename ValueType> const ValueType UIcmdConfiguration<ValueType>::GetValue(const std::string& paramString) const
+    {
+        sregex keyAndValueRegex = sregex::compile("^\\s*([a-zA-Z0-9\\._]+)\\s+(.*)");
+        smatch what;
+        if (regex_search(paramString, what, keyAndValueRegex))
+        {
+        return parseValue<ValueType>(what[2]);
+        }
+        else
+        {
+            throw "Cannot parse configuration value.";
+        }
+    }
+
+    // Implementation of value-reading methods
+    template <typename ValueType> const ValueType parseValue(const std::string& valueString)
+    {
+        ValueType result;
+        std::stringstream(valueString) >> result;
+        return result;
+    }
+
+    template <> inline const std::string parseValue<std::string>(const std::string& valueString)
+    {
+        return valueString;
+    }
+
+    ApplicationMessenger::ApplicationMessenger(G4Application* application)
+        : _application(application)
+    {
+        _waitCommand = new G4UIcmdWithAnInteger("/g4/wait", this);
+        _waitCommand->SetGuidance("Wait");
+        _waitCommand->SetGuidance("0 - wait for a key press");
+        _waitCommand->SetGuidance(">0 - wait for a specified interval in seconds");
+        
+        _interactiveCommand = new G4UIcmdWithoutParameter("/g4/interactive", this);
+        _interactiveCommand->SetGuidance("Enter interactive mode");
+
+        _logEventsCommand = new G4UIcmdWithAnInteger("/g4/logEvents", this);
+        _logEventsCommand->SetGuidance("Write the number of events processed.");
+        _logEventsCommand->SetGuidance("It will be written each N events starting with 0.");
+        _logEventsCommand->SetGuidance("1 = each event, <= 0 no events");
+
+        _generateRandomSeedCommand = new G4UIcmdWithoutParameter("/g4/generateRandomSeed", this);
+        _generateRandomSeedCommand->SetGuidance("Generate a really random random seed.");
+
+        _setIntCommand = new UIcmdConfiguration<int>("/g4/setInt", this);
+        _setIntCommand->SetGuidance("Set an integer configuration value.");
+
+        _setDoubleCommand = new UIcmdConfiguration<double>("/g4/setDouble", this);
+        _setDoubleCommand->SetGuidance("Set a double configuration value.");
+
+        _setStringCommand = new UIcmdConfiguration<string>("/g4/setString", this);
+        _setStringCommand->SetGuidance("Set a string configuration value.");
+
+        _printConfigurationCommand = new G4UIcmdWithoutParameter("/g4/printConfiguration", this);
+        _printConfigurationCommand->SetGuidance("Print application configuration.");
+    }
+
+    template <typename ValueType> void ApplicationMessenger::applyConfigurationCommand(const UIcmdConfiguration<ValueType>* command, const string& newValue)
+    {
+        try
+        {
+            string key = command->GetKey(newValue);
+            ValueType value = command->GetValue(newValue);
+            ApplicationConfiguration::SetValue(key, value);
+        }
+        catch(const char* exception)
+        {
+            G4Exception("ApplicationMessenger", "app.configuration", FatalErrorInArgument, exception);
+        }
+    }
+    
+    void ApplicationMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
+    {
+        if (command == _waitCommand)
+        {
+            int seconds = _waitCommand->GetNewIntValue(newValue);
+            if (seconds)
+            {
+                std::cout << "Sleeping for " << seconds << " seconds." << endl;
+                sleep(seconds);
+            }
+            else
+            {
+                std::cout << "Press ENTER to continue...";
+                std::cin.ignore( std::numeric_limits <std::streamsize> ::max(), '\n' );
+            }
+        }
+        else if (command == _interactiveCommand)
+        {
+            _application->EnterInteractiveMode();
+        }
+        else if (command == _logEventsCommand)
+        {
+            ApplicationConfiguration::SetValue("app.logEvents", _logEventsCommand->GetNewIntValue(newValue));
+        }
+        else if (command == _generateRandomSeedCommand)
+        {
+            _application->GenerateRandomSeed();
+        }
+        else if (command == _setDoubleCommand)
+        {
+            applyConfigurationCommand(_setDoubleCommand, newValue);
+        }
+        else if (command == _setIntCommand)
+        {
+            applyConfigurationCommand(_setIntCommand, newValue);
+        }
+        else if (command == _setStringCommand)
+        {
+            applyConfigurationCommand(_setStringCommand, newValue);
+        }
+        else if (command == _printConfigurationCommand)
+        {
+            ApplicationConfiguration::Print(G4cout);
+        }
+    }
+    
+    ApplicationMessenger::~ApplicationMessenger()
+    {
+        delete _waitCommand;
+        delete _interactiveCommand;
+        delete _logEventsCommand;
+        delete _generateRandomSeedCommand;
+
+        delete _setIntCommand;
+        delete _setDoubleCommand;
+        delete _setStringCommand;
+        delete _printConfigurationCommand;
+    }
+}
