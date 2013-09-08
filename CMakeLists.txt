@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
 project(g4App)
 
-find_package(Boost 1.49 COMPONENTS system filesystem regex REQUIRED)
+find_package(Boost 1.49 COMPONENTS system filesystem REQUIRED)
 find_package(Geant4 REQUIRED qt)
 
 include(${Geant4_USE_FILE})
