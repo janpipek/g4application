@@ -18,7 +18,7 @@ namespace g4
       * because we want to postpone instantiating one till the 
       * last possible moment (i.e. just before the initialization
       * phase of the run manager). For this purpose it contains
-      * the inner class.
+      * an inner class.
       */
     class PluggableGeometry
     {
@@ -30,15 +30,34 @@ namespace g4
         
         virtual ~PluggableGeometry();
                 
+        /**
+         * @brief Add one geometry builder.
+         */
         void AddGeometryBuilder(GeometryBuilder* builder) { _builders.push_back(builder); }
         
+        /**
+         * @brief Get the detector contruction object.
+         */
         G4VUserDetectorConstruction* GetDetectorConstruction();
+
+        /**
+         * @brief Use user-provided world volume instead of a default one.
+         *
+         * @param volume The physical world volume being used.
+         */
+        void SetWorldVolume(G4VPhysicalVolume* volume);
         
     private:                        
         std::vector<GeometryBuilder*> _builders;
         
-        PluggableGeometryDetectorConstruction* _detectorConstruction;
+        PluggableGeometryDetectorConstruction* _detectorConstruction;        
+
+        G4VPhysicalVolume* _worldPhys;
+
+        G4LogicalVolume* _worldLog;
         
+
+
         /**
           * Private inner class that is a G4VUserDetectorConstruction.
           *
@@ -46,23 +65,17 @@ namespace g4
           * from the parent PluggableGeometry.
           */
         class PluggableGeometryDetectorConstruction : public G4VUserDetectorConstruction
-        {
+        {          
         public:
-            PluggableGeometryDetectorConstruction(const PluggableGeometry*);
+            PluggableGeometryDetectorConstruction(PluggableGeometry*);
             
-            G4LogicalVolume* GetWorldLogicalVolume() const { return _worldLog; }
-            
-        protected:          
+        protected:
             virtual G4VPhysicalVolume* Construct();
-                    
-        private:    
-            void CreateWorld();         
+
+        private:
+            void CreateWorld();
             
-            G4VPhysicalVolume* _worldPhys;      
-            
-            G4LogicalVolume* _worldLog;                 
-            
-            const PluggableGeometry* _parent;
+            PluggableGeometry* _parent;
         };
     };
 }
