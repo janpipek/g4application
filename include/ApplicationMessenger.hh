@@ -14,6 +14,8 @@ namespace g4
      *
      * First argument is a string key.
      * Second is a value of a specified type.
+     *
+     * Used for update Configuration object.
      */
     template <typename ValueType> class UIcmdConfiguration : public G4UIcommand
     {
