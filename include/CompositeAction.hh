@@ -21,12 +21,22 @@ namespace g4
     public:
         CompositeAction() : _actions() { }
 
+        /**
+         * @short Add action.
+         * 
+         * If already present, nothing happens.
+         */
         void AddSubAction(ActionType* action)
         {
-            // TODO: Check if already present
-            _actions.push_back(action);
+            if (find(_actions.begin(), _actions.end(), action) == _actions.end())
+            {
+                _actions.push_back(action);
+            }
         }
 
+        /**
+         * @short Remove action.
+         */
         void RemoveSubAction(ActionType* action)
         {
             // Erases just one (first) copy of the action.
@@ -38,6 +48,9 @@ namespace g4
         }
 
     protected:
+        /**
+          * @short Call a member method on all actions.
+          */
         template<typename ArgType> void Invoke(void (ActionType::*func)(ArgType), ArgType arg)
         {
             // All sub-actions
@@ -51,6 +64,8 @@ namespace g4
             }
         }
 
+
+    private:
         std::list<ActionType*> _actions;
     };
 }
