@@ -81,6 +81,7 @@ namespace g4
 
     };
 
+
     /**
      * @brief Abstract base class for the application configuration listener.
      *

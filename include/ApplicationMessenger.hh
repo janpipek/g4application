@@ -15,7 +15,7 @@ namespace g4
      * First argument is a string key.
      * Second is a value of a specified type.
      *
-     * Used for update Configuration object.
+     * Used to update the Configuration object.
      */
     template <typename ValueType> class UIcmdConfiguration : public G4UIcommand
     {
@@ -28,6 +28,7 @@ namespace g4
         const ValueType GetValue(const std::string& paramString) const;
     };
 	
+
     /**
      * @brief Main UI messenger for the application.
      *

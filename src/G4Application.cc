@@ -22,7 +22,8 @@ namespace g4
     G4Application* G4Application::_instance = 0;
 
     G4Application::G4Application(int argc, char** argv) :
-        _argc(argc), _argv(argv), _interactiveSession(0), _physicsBuilder(0), _particleGeneratorBuilder(0), _eventAction(0), _runAction(0)
+        _argc(argc), _argv(argv), _interactiveSession(0), _physicsBuilder(0),
+        _particleGeneratorBuilder(0), _eventAction(0), _runAction(0)
     {
         _geometry = new PluggableGeometry();
         
@@ -41,10 +42,6 @@ namespace g4
         #ifdef G4VIS_USE
           _visManager = new G4VisExecutive;
           _visManager->Initialize();
-        #endif
-          
-        #ifdef G4UI_USE_QT
-            // _interactiveSession = new G4UIQt(argc, argv);
         #endif      
     }
     

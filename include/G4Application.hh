@@ -27,6 +27,7 @@ namespace g4
     class G4Application
     {
     public:     
+        // TODO: This class is a typical "god object". Refactor.
         static void CreateInstance(int argc, char** argv);
         
         static G4Application* GetInstance();
@@ -94,9 +95,8 @@ namespace g4
         }
         
     private:
-        G4Application(int argc, char** argv);
-        
         // Ensure singleton behaviour
+        G4Application(int argc, char** argv);
         G4Application(const G4Application&) {};
         G4Application& operator= (const G4Application&);    
                     
@@ -127,6 +127,7 @@ namespace g4
         
         PluggableGeometry* _geometry;
 
+        // TODO: Move to separate
         NumberingEventAction* _numberingEventAction;
 
         CompositeEventAction* _eventAction;
