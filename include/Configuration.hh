@@ -24,9 +24,13 @@ namespace g4
     class ConfigurationListener;
 
     /**
-     * @brief General application configuration class with listeners.
+     * @brief General application configuration class (static class).
      *
-     * It is implemented as a dictionary (map) of string => string/int/double.
+     * It holds a dictionary of values (string/int/double as boost::variant). Keys are strings.
+     * Note that the client has to know of which type the value is.
+     * 
+     * Instances of classes inheriting from ApplicationConfigurationListener are 
+     * automatically registered as listeners of configuration changes.
      */
     class Configuration
     {     

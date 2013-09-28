@@ -14,7 +14,13 @@ namespace g4
       * If you combine multiple libraries together, each of which wants to 
       * define such action, a conflict arises.
       *
-      * This class can be easily used on its own (as is).
+      * All user action classes are given an implementation but for stacking action
+      * that has a return value for one of its methods and thus cannot be 
+      * used multiple times.
+      *
+      * This class can be easily used on its own (as is). In fact, it only 
+      * specifies the compositeness and any class with virtual void one-parametric
+      * methods can be composed (as ActionType).
       */
     template<typename ActionType> class CompositeAction : public ActionType
     {
@@ -36,6 +42,8 @@ namespace g4
 
         /**
          * @short Remove action.
+         *
+         * If trying to remove action that is not present, nothing happens.
          */
         void RemoveSubAction(ActionType* action)
         {
@@ -63,7 +71,6 @@ namespace g4
                 ((action).*(func))(arg);
             }
         }
-
 
     private:
         std::list<ActionType*> _actions;
