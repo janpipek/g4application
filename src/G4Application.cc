@@ -28,7 +28,7 @@ namespace g4
         _geometry = new PluggableGeometry();
         
         // Initialize directory for UI commands
-        _uiDirectory = new G4UIdirectory("/g4/");
+        _uiDirectory = new G4UIdirectory("/app/");
         _uiDirectory->SetGuidance("G4Application commands");
 
         _messenger = new ApplicationMessenger();

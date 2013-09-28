@@ -6,10 +6,10 @@ namespace g4
     PluginMessenger::PluginMessenger(PluginLoader* loader)
         : _loader(loader)
     {
-        _directory = new G4UIdirectory("/g4/plugin/");
+        _directory = new G4UIdirectory("/app/plugin/");
         _directory->SetGuidance("G4Application plugin system commands");
         
-        _loadCommand = new G4UIcmdWithAString("/g4/plugin/load", this);
+        _loadCommand = new G4UIcmdWithAString("/app/plugin/load", this);
         _loadCommand->SetGuidance("Loads a plugin - fully qualified dynamic library from current directory.");
     }
     

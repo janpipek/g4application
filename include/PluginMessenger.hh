@@ -30,12 +30,12 @@ namespace g4
         PluginLoader* _loader;
         
         /**
-          * Directory /g4/plugin/
+          * Directory /app/plugin/
           */
         G4UIdirectory* _directory;
         
         /**
-          * Command /g4/plugin/load
+          * Command /app/plugin/load
           *
           * When given an exact name of the DLL (including extension),
           * it loads it.

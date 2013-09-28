@@ -13,7 +13,7 @@ namespace g4
       *
       * It does following things:
       *  - after each event (or N events), it writes how many events have been calculated
-      *    ( macro command /g4/logEvents N )
+      *    ( macro command /app/logEvents N )
       */
     class NumberingEventAction : public G4UserEventAction, public ConfigurationListener
     {

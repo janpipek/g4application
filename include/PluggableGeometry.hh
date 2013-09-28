@@ -1,10 +1,10 @@
 #ifndef PLUGGABLEGEOMETRY_HH
 #define PLUGGABLEGEOMETRY_HH
 
+#include <vector>
+
 #include <G4VUserDetectorConstruction.hh>
 #include <G4LogicalVolume.hh>
-
-#include <vector>
 
 #include "GeometryBuilder.hh"
 

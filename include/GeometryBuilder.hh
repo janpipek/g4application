@@ -10,8 +10,8 @@ namespace g4
       *
       * To be used (mostly) in plugins.
       * If a geometry builder is returned by the plugin,
-      * it's used to add physical volumes into world logical volume.
-      *
+      * it's used to add physical volumes into world logical volume
+      * (initiated by PluggableGeometry).
       */
     class GeometryBuilder
     {

@@ -72,32 +72,32 @@ namespace g4
 
     ApplicationMessenger::ApplicationMessenger()
     {
-        _waitCommand = new G4UIcmdWithAnInteger("/g4/wait", this);
+        _waitCommand = new G4UIcmdWithAnInteger("/app/wait", this);
         _waitCommand->SetGuidance("Wait");
         _waitCommand->SetGuidance("0 - wait for a key press");
         _waitCommand->SetGuidance(">0 - wait for a specified interval in seconds");
         
-        _interactiveCommand = new G4UIcmdWithoutParameter("/g4/interactive", this);
+        _interactiveCommand = new G4UIcmdWithoutParameter("/app/interactive", this);
         _interactiveCommand->SetGuidance("Enter interactive mode");
 
-        _logEventsCommand = new G4UIcmdWithAnInteger("/g4/logEvents", this);
+        _logEventsCommand = new G4UIcmdWithAnInteger("/app/logEvents", this);
         _logEventsCommand->SetGuidance("Write the number of events processed.");
         _logEventsCommand->SetGuidance("It will be written each N events starting with 0.");
         _logEventsCommand->SetGuidance("1 = each event, <= 0 no events");
 
-        _generateRandomSeedCommand = new G4UIcmdWithoutParameter("/g4/generateRandomSeed", this);
+        _generateRandomSeedCommand = new G4UIcmdWithoutParameter("/app/generateRandomSeed", this);
         _generateRandomSeedCommand->SetGuidance("Generate a really random random seed.");
 
-        _setIntCommand = new UIcmdConfiguration<int>("/g4/setInt", this);
+        _setIntCommand = new UIcmdConfiguration<int>("/app/setInt", this);
         _setIntCommand->SetGuidance("Set an integer configuration value.");
 
-        _setDoubleCommand = new UIcmdConfiguration<double>("/g4/setDouble", this);
+        _setDoubleCommand = new UIcmdConfiguration<double>("/app/setDouble", this);
         _setDoubleCommand->SetGuidance("Set a double configuration value.");
 
-        _setStringCommand = new UIcmdConfiguration<string>("/g4/setString", this);
+        _setStringCommand = new UIcmdConfiguration<string>("/app/setString", this);
         _setStringCommand->SetGuidance("Set a string configuration value.");
 
-        _printConfigurationCommand = new G4UIcmdWithoutParameter("/g4/printConfiguration", this);
+        _printConfigurationCommand = new G4UIcmdWithoutParameter("/app/printConfiguration", this);
         _printConfigurationCommand->SetGuidance("Print application configuration.");
     }
 

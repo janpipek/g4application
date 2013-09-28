@@ -33,13 +33,13 @@ namespace g4
      * @brief Main UI messenger for the application.
      *
      * It provides following commands:
-     *  - /g4/generateRandomSeed
-     *  - /g4/interactive
-     *  - /g4/logEvents
-     *  - /g4/setInt
-     *  - /g4/setDouble
-     *  - /g4/setString
-     *  - /g4/printConfiguration
+     *  - /app/generateRandomSeed
+     *  - /app/interactive
+     *  - /app/logEvents
+     *  - /app/setInt
+     *  - /app/setDouble
+     *  - /app/setString
+     *  - /app/printConfiguration
      */
 	class ApplicationMessenger : public G4UImessenger
 	{
