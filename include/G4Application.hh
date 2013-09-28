@@ -15,6 +15,7 @@
 #include "CompositeEventAction.hh"
 #include "CompositeRunAction.hh"
 #include "CompositeSteppingAction.hh"
+#include "CompositeTrackingAction.hh"
 
 namespace g4
 {
@@ -93,6 +94,11 @@ namespace g4
         {
             _steppingAction->AddSubAction(action);
         }
+
+        void AddTrackingAction(G4UserTrackingAction* action)
+        {
+            _trackingAction->AddSubAction(action);
+        }
         
     private:
         // Ensure singleton behaviour
@@ -135,6 +141,8 @@ namespace g4
         CompositeRunAction* _runAction;
 
         CompositeSteppingAction* _steppingAction;
+
+        CompositeTrackingAction* _trackingAction;
     };
 }
 
