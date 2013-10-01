@@ -30,7 +30,62 @@
         <h1>
 <a name="g4application" class="anchor" href="#g4application"><span class="octicon octicon-link"></span></a>g4application</h1>
 
-<p>A simple generic application for Geant 4.</p>
+<p>A simple generic application for Geant 4. It works as a universal executable
+for geant4 tasks. It provides a plugin API which is used to implement
+specific behaviour (in one or more plugins in parallel).</p>
+
+<p>Apart from this, g4application offers features that are not tightly connected
+to plugin system but can make your life with Geant4 easier.</p>
+
+<h2>
+<a name="main-features" class="anchor" href="#main-features"><span class="octicon octicon-link"></span></a>Main features</h2>
+
+<ul>
+<li>typical macro-based / interactive workflow</li>
+<li>plugins</li>
+<li>configuration system - central configuration repository based on observer design pattern</li>
+<li>composite user action - these allow adding of more user actions of the same type</li>
+</ul><h2>
+<a name="plugin-system" class="anchor" href="#plugin-system"><span class="octicon octicon-link"></span></a>Plugin system</h2>
+
+<p><strong>TODO: describe</strong></p>
+
+<h2>
+<a name="how-to-build" class="anchor" href="#how-to-build"><span class="octicon octicon-link"></span></a>How to build</h2>
+
+<p>You will need:</p>
+
+<ul>
+<li>cmake</li>
+<li>geant4</li>
+<li>boost</li>
+<li>qt4 (probably should be reworked to compile without)</li>
+</ul><p>After building, you will obtain:</p>
+
+<ul>
+<li>g4 executable - this you will run</li>
+<li>libg4App.so shared library - you will need to link your plugins against this library (the aim is to remove this necessity)</li>
+</ul><p>Building tested on linux (Fedora Core 18, Scientific Linux 6.4), tests on other platforms are welcome.</p>
+
+<h2>
+<a name="history--motivation" class="anchor" href="#history--motivation"><span class="octicon octicon-link"></span></a>History &amp; Motivation</h2>
+
+<p>2010-2012 I was developing two similar models at a same time and I wanted them to share
+a lot of code. In the end, I made the application call the plugin instead of two application
+using the same library.</p>
+
+<p>2013: I hope that the application is universal enough to be used in other environments.</p>
+
+<h2>
+<a name="contact" class="anchor" href="#contact"><span class="octicon octicon-link"></span></a>Contact</h2>
+
+<p>I'd be happy to accept feature requests, cooperation, questions, bug reports...
+Please write to jan.pipek AT gmail.com</p>
+
+<h2>
+<a name="links" class="anchor" href="#links"><span class="octicon octicon-link"></span></a>Links</h2>
+
+<p><strong>TODO: add</strong></p>
       </section>
     </div>
     <footer>
