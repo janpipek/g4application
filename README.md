@@ -46,13 +46,11 @@ Contact
 I'd be happy to accept feature requests, cooperation, questions, bug reports...
 Please write to jan.pipek AT gmail.com
 
+Links
+-----
 * https://github.com/janpipek/g4application
 * http://janpipek.github.io/g4application/
 
 Other Useful Tools
 ------------------
 scoring_browser - tool for the visualization of scoring files ( https://github.com/janpipek/scoring_browser )
-
-Links
------
-**TODO: add**
