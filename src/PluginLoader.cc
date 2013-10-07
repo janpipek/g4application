@@ -107,6 +107,11 @@ namespace g4
     PluginLoader::~PluginLoader()
     {
         delete _messenger;
+        // Destroy all plugin objects
+        for (vector<Plugin*>::iterator it = _plugins.begin(); it != _plugins.end(); it++)
+        {
+            delete (*it);
+        }
         
         cout << "Unloading " << _libraries.size() << " plugins." << endl;
         // Unload all plugins

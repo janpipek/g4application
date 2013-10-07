@@ -189,8 +189,14 @@ namespace g4
         {
             G4cout << "No macro specified, entering interactive mode." << endl;
             EnterInteractiveMode();
-        }        
+        }
         G4cout << "Closing application..." << endl;
+        Destroy();
+    }
+
+    void G4Application::Destroy()
+    {
+        delete _pluginLoader;
     }
 
     void G4Application::GenerateRandomSeed()

@@ -71,6 +71,8 @@ namespace g4
           * Otherwise interactive mode (Qt by default) is entered.
           */
         void RunUI();
+
+        void Destroy();
         
         void InitializeGeometry();
         
