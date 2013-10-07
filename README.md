@@ -53,4 +53,4 @@ Links
 
 Other Useful Tools
 ------------------
-scoring_browser - tool for the visualization of scoring files ( https://github.com/janpipek/scoring_browser )
+scoring_browser - tool for the visualization of scoring files ( http://janpipek.github.io/scoring_browser/ )
