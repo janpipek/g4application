@@ -112,7 +112,6 @@ namespace g4
         {
             delete (*it);
         }
-        
         cout << "Unloading " << _libraries.size() << " plugins." << endl;
         // Unload all plugins
         for (vector<void*>::iterator it = _libraries.begin(); it != _libraries.end(); it++)

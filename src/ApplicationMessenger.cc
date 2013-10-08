@@ -13,7 +13,6 @@ using namespace std;
 
 namespace g4
 {
-
     // Forward declaration of functions for value retrieval from parameter string
     template <typename ValueType> const ValueType parseValue(const std::string& valueString);
     template <> const std::string parseValue<std::string>(const std::string& valueString);

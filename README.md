@@ -29,7 +29,7 @@ You will need:
 
 After building, you will obtain:
 * g4 executable - this you will run
-* libg4App.so shared library - you will need to link your plugins against this library (the aim is to remove this necessity)
+* libg4Application.so shared library - you will need to link your plugins against this library (the aim is to remove this necessity)
 
 Building tested on linux (Fedora Core 18, Scientific Linux 6.4), tests on other platforms are welcome.
 

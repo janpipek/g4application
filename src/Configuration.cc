@@ -48,7 +48,6 @@ namespace g4
 
     void Configuration::SetValue(const std::string &key, const ConfigurationValue &value)
     {
-        // cout << "Configuration: " << key << " = " << value << endl;
         ConfigurationValue oldValue = _entries[key];
         if (!(oldValue == value))
         {
