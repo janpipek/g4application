@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
-project(g4App)
+project(g4Application)
+
+set(CMAKE_INSTALL_PREFIX build)
 
 find_package(Boost 1.49 COMPONENTS system filesystem REQUIRED)
 find_package(Geant4 REQUIRED qt)
@@ -13,7 +15,7 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 add_executable(g4 g4.cc ${headers})
 add_library(g4Application SHARED ${sources} ${headers})
 
-add_dependencies(g4 g4App)
+add_dependencies(g4 g4Application)
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIR})
 

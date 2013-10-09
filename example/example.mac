@@ -1,0 +1,9 @@
+# Load the plugin
+/app/plugin/load libexamplePlugin.so
+
+# Set a configuration value
+/app/setDouble generator.energy 0.5
+
+# Run
+/run/initialize
+/run/beamOn 100

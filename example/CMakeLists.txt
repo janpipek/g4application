@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
+
 project(examplePlugin)
+
+set(CMAKE_INSTALL_PREFIX "../build/")
 
 # Use the FindG4Application.cmake file
 set(CMAKE_MODULE_PATH "../cmake/" ${CMAKE_MODULE_PATH})

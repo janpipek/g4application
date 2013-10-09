@@ -15,6 +15,8 @@ class ExamplePlugin : public g4::Plugin
 {
 public:
     ExamplePlugin();
+
+    ~ExamplePlugin();
     
     virtual const std::string GetName() const { return "Example Plugin"; }
     

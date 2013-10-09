@@ -6,6 +6,6 @@
 class ExampleGeometryBuilder : public g4::GeometryBuilder
 {
 public:
-    ExampleGeometryBuilder();
+    void BuildGeometry(G4LogicalVolume *);
 };
 #endif

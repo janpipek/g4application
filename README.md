@@ -19,6 +19,9 @@ Plugin system
 -------------
 **TODO: describe**
 
+There is an example plugin that uses most features of G4Application in the
+example/ subdirectory.
+
 How to build
 ------------
 You will need:
