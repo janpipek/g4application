@@ -17,6 +17,8 @@ namespace g4
     {
     public:
         virtual G4VUserPhysicsList* CreateUserPhysicsList() = 0;
+
+        virtual ~PhysicsBuilder() { }
     };
 }
 

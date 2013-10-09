@@ -18,6 +18,8 @@ namespace g4
     {
     public:
         virtual G4VUserPrimaryGeneratorAction* BuildParticleGenerator() = 0;
+
+        virtual ~ParticleGeneratorBuilder() { }
     };
 }
 
