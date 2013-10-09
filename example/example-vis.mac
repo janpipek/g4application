@@ -1,0 +1,15 @@
+# Load the plugin
+/app/plugin/load libexamplePlugin.so
+
+# Set a configuration value
+/app/setDouble generator.energy 0.5
+
+# Run
+/run/initialize
+
+# Visualize one trajectory and wait for user pressing Enter...
+/vis/open OGLSQt
+/vis/drawVolume
+/vis/scene/add/trajectories
+/run/beamOn 1
+/app/pause
