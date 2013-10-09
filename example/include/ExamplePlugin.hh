@@ -10,6 +10,7 @@
 #include "ExamplePhysicsBuilder.hh"
 #include "ExampleGeometryBuilder.hh"
 #include "ExampleParticleGeneratorBuilder.hh"
+#include "ExampleEventAction.hh"
 
 class ExamplePlugin : public g4::Plugin
 {
@@ -25,6 +26,8 @@ public:
     virtual g4::PhysicsBuilder* GetPhysicsBuilder() { return _physicsBuilder; }
 
     virtual g4::ParticleGeneratorBuilder* GetParticleGeneratorBuilder() { return _particleGeneratorBuilder; }
+
+    void OnRunInitialized();
     
 private:
     ExampleGeometryBuilder* _geometryBuilder;
@@ -32,6 +35,8 @@ private:
     ExamplePhysicsBuilder* _physicsBuilder;
 
     ExampleParticleGeneratorBuilder* _particleGeneratorBuilder;
+
+    ExampleEventAction* _eventAction;
 };
 
 #endif // EXAMPLEPLUGIN_HH
