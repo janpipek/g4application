@@ -98,6 +98,9 @@ namespace g4
 
         _printConfigurationCommand = new G4UIcmdWithoutParameter("/app/printConfiguration", this);
         _printConfigurationCommand->SetGuidance("Print application configuration.");
+
+        _pauseCommand = new G4UIcmdWithoutParameter("/app/pause", this);
+        _pauseCommand->SetGuidance("Pause and wait for user input.");
     }
 
     template <typename ValueType> void ApplicationMessenger::applyConfigurationCommand(const UIcmdConfiguration<ValueType>* command, const string& newValue)
@@ -159,6 +162,10 @@ namespace g4
         {
             Configuration::Print(G4cout);
         }
+        else if (command = _pauseCommand)
+        {
+            application->PauseExecution();
+        }
     }
     
     ApplicationMessenger::~ApplicationMessenger()
@@ -172,5 +179,6 @@ namespace g4
         delete _setDoubleCommand;
         delete _setStringCommand;
         delete _printConfigurationCommand;
+        delete _pauseCommand;
     }
 }

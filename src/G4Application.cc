@@ -169,6 +169,12 @@ namespace g4
             // ((G4UIQt*)_interactiveSession)->getMainWindow()->close();
         #endif
     }
+
+    void G4Application::PauseExecution()
+    {
+        G4cout << "Press ENTER to continue..." << endl;
+        G4cin.get();
+    }
     
     void G4Application::RunUI()
     {

@@ -40,6 +40,7 @@ namespace g4
      *  - /app/setDouble
      *  - /app/setString
      *  - /app/printConfiguration
+     *  - /app/pause
      */
 	class ApplicationMessenger : public G4UImessenger
 	{
@@ -69,6 +70,8 @@ namespace g4
         UIcmdConfiguration<double>* _setDoubleCommand;
 
         G4UIcmdWithoutParameter* _printConfigurationCommand;
+
+        G4UIcmdWithoutParameter* _pauseCommand;
     };
 
 }

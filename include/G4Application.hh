@@ -63,7 +63,12 @@ namespace g4
         void EnterInteractiveMode();
         
         void ExitInteractiveMode();
-        
+
+        /**
+          * @short Wait for the user to press ENTER.
+          */
+        void PauseExecution();
+
         /**
           * @short Run User Interface
           * 
