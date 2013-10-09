@@ -52,6 +52,7 @@ namespace g4
         G4cout << "Initializing Geant4 run manager." << endl;
         // Initialize Geant4's own run manager
         G4RunManager::Initialize();
+        PLUGINS_DO( OnRunInitialized );
         G4cout << "Run initialized." << endl;
     }
 

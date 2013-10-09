@@ -85,6 +85,11 @@ namespace g4
           * @short Procedure called immediatelly after particle generator builder is initialized.
           */
         virtual void OnParticleGeneratorInitialized() { }           
+
+        /**
+          * @short Procedure called at the end of /run/initialize call.
+          */
+        virtual void OnRunInitialized() { }
         
         /** @see PhysicsBuilder */
         virtual PhysicsBuilder* GetPhysicsBuilder() { return NULL; }
