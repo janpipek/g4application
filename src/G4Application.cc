@@ -23,8 +23,7 @@ namespace g4
 
     G4Application::G4Application(int argc, char** argv) :
         _argc(argc), _argv(argv), _interactiveSession(0), _physicsBuilder(0),
-        _particleGeneratorBuilder(0), _eventAction(0), _runAction(0),
-        _trackingAction(0)
+        _particleGeneratorBuilder(0)
     {
         _geometry = new PluggableGeometry();
         
@@ -97,22 +96,6 @@ namespace g4
             G4cerr << "Warning: None of the plugins provided a particle generator." << std::endl;
         }
         G4cout << "Particle generator initialized." << std::endl;
-    }
-
-    void G4Application::InitializeUserActions()
-    {
-        _eventAction = new CompositeEventAction;
-        _numberingEventAction = new NumberingEventAction;
-        AddEventAction(_numberingEventAction);
-
-        _runAction = new CompositeRunAction;
-        _steppingAction = new CompositeSteppingAction;
-        _trackingAction = new CompositeTrackingAction;
-
-        _runManager->SetUserAction(_eventAction);
-        _runManager->SetUserAction(_runAction);
-        _runManager->SetUserAction(_steppingAction);
-        _runManager->SetUserAction(_trackingAction);
     }
 
     void G4Application::SetPhysicsBuilder(PhysicsBuilder* physicsBuilder)

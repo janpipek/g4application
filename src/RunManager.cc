@@ -27,6 +27,14 @@ namespace g4
         sleep(1);
     }
 
+    RunManager::RunManager()
+        : _eventAction(0), _runAction(0), _trackingAction(0),
+          _steppingAction(0)
+    {
+
+
+    }
+
     void RunManager::Initialize()
     {
         G4Application* app = G4Application::GetInstance();  
@@ -35,7 +43,7 @@ namespace g4
         // 1) Physics
         PLUGINS_DO( OnPhysicsInitializing );
         app->InitializePhysics();
-        app->InitializeUserActions(); // TODO: Move elsewhere?
+        InitializeUserActions(); // TODO: Move elsewhere?
 
         PLUGINS_DO( OnPhysicsInitialized );
         
@@ -66,5 +74,21 @@ namespace g4
     {
         (void) signal(SIGINT, SIG_DFL);
         G4RunManager::RunTermination();
+    }
+
+    void RunManager::InitializeUserActions()
+    {
+        _eventAction = new CompositeEventAction;
+        // _numberingEventAction = new NumberingEventAction;
+        // AddEventAction(_numberingEventAction);
+
+        _runAction = new CompositeRunAction;
+        _steppingAction = new CompositeSteppingAction;
+        _trackingAction = new CompositeTrackingAction;
+
+        SetUserAction(_eventAction);
+        SetUserAction(_runAction);
+        SetUserAction(_steppingAction);
+        SetUserAction(_trackingAction);
     }
 }

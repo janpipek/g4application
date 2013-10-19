@@ -3,6 +3,11 @@
 
 #include <G4RunManager.hh>
 
+#include "CompositeEventAction.hh"
+#include "CompositeRunAction.hh"
+#include "CompositeSteppingAction.hh"
+#include "CompositeTrackingAction.hh"
+
 namespace g4
 {
     /**
@@ -14,7 +19,9 @@ namespace g4
       */
     class RunManager : public G4RunManager
     {
-    public:     
+    public:
+        RunManager();
+
         /**
           * Do what is necessary for the application and do standard initialize.
           *
@@ -26,6 +33,39 @@ namespace g4
         virtual void DoEventLoop(G4int n_event,const char* macroFile=0,G4int n_select=-1);
 
         virtual void RunTermination();
+
+        void AddEventAction(G4UserEventAction* action)
+        {
+            _eventAction->AddSubAction(action);
+        }
+
+        void AddRunAction(G4UserRunAction* action)
+        {
+            _runAction->AddSubAction(action);
+        }
+
+        void AddSteppingAction(G4UserSteppingAction* action)
+        {
+            _steppingAction->AddSubAction(action);
+        }
+
+        void AddTrackingAction(G4UserTrackingAction* action)
+        {
+            _trackingAction->AddSubAction(action);
+        }
+
+        void InitializeUserActions();
+
+
+    private:
+
+        CompositeEventAction* _eventAction;
+
+        CompositeRunAction* _runAction;
+
+        CompositeSteppingAction* _steppingAction;
+
+        CompositeTrackingAction* _trackingAction;
     };
 }
 

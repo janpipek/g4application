@@ -12,10 +12,6 @@
 #include "PluginLoader.hh"
 #include "ApplicationMessenger.hh"
 #include "NumberingEventAction.hh"
-#include "CompositeEventAction.hh"
-#include "CompositeRunAction.hh"
-#include "CompositeSteppingAction.hh"
-#include "CompositeTrackingAction.hh"
 
 namespace g4
 {
@@ -37,11 +33,11 @@ namespace g4
         
         PluggableGeometry* GetGeometry() const { return _geometry; }
         
-        G4RunManager* GetRunManager() const { return _runManager; }
+        RunManager* GetRunManager() const { return _runManager; }
         
         PluginLoader* GetPluginLoader() const { return _pluginLoader; }
 
-        NumberingEventAction* GetEventAction() const { return _numberingEventAction; }
+        // NumberingEventAction* GetEventAction() const { return _numberingEventAction; }
         
         // PhysicsBuilder* GetPhysicsBuilder() const { return _physicsBuilder; }
         
@@ -82,31 +78,9 @@ namespace g4
         void InitializeGeometry();
         
         void InitializePhysics();
-
-        void InitializeUserActions();
         
         void InitializeParticleGenerator();     
 
-        void AddEventAction(G4UserEventAction* action)
-        {
-            _eventAction->AddSubAction(action);
-        }
-
-        void AddRunAction(G4UserRunAction* action)
-        {
-            _runAction->AddSubAction(action);
-        }
-
-        void AddSteppingAction(G4UserSteppingAction* action)
-        {
-            _steppingAction->AddSubAction(action);
-        }
-
-        void AddTrackingAction(G4UserTrackingAction* action)
-        {
-            _trackingAction->AddSubAction(action);
-        }
-        
     private:
         // Ensure singleton behaviour
         G4Application(int argc, char** argv);
@@ -124,7 +98,7 @@ namespace g4
           
         static G4Application* _instance;
         
-        G4RunManager* _runManager;
+        RunManager* _runManager;
         
         G4UIdirectory* _uiDirectory;
         
@@ -141,15 +115,7 @@ namespace g4
         PluggableGeometry* _geometry;
 
         // TODO: Move to separate
-        NumberingEventAction* _numberingEventAction;
-
-        CompositeEventAction* _eventAction;
-
-        CompositeRunAction* _runAction;
-
-        CompositeSteppingAction* _steppingAction;
-
-        CompositeTrackingAction* _trackingAction;
+        // NumberingEventAction* _numberingEventAction;
     };
 }
 
