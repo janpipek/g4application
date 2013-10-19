@@ -3,6 +3,8 @@
 
 #include <pthread.h>
 
+#include "ServerState.hh"
+
 namespace WPP
 {
     class Server;
@@ -15,9 +17,9 @@ namespace http
     class HttpServer
     {
     public:
-        HttpServer();       
+        ServerState* GetState() { return _state; }
 
-        ~HttpServer();
+        static HttpServer* GetInstance();
 
         void Start();
 
@@ -26,11 +28,17 @@ namespace http
         friend void startServer(void* arg);
 
     private:
+        HttpServer();
+
+        static HttpServer* _instance;
+
         WPP::Server* _wppServer;
 
         int _portNumber;
 
         pthread_t _wppServerThread;
+
+        ServerState* _state;
     };
 }
 

@@ -10,15 +10,14 @@ using namespace std;
 
 namespace http 
 {
-    HttpServer::HttpServer() 
-        : _wppServer(0), _portNumber(7070)
+    HttpServer* HttpServer::_instance = NULL;
+
+    ServerState* state = HttpServer::GetInstance()->GetState();
+
+    HttpServer::HttpServer()
+        : _wppServer(0), _portNumber(7070), _state(new ServerState)
     {
 
-    }
-
-    HttpServer::~HttpServer()
-    {
-        Stop();
     }
 
     void startServer(void* arg)
@@ -30,8 +29,16 @@ namespace http
 
     void webEventNumber(Request* req, Response* res)
     {
-        stringstream ss;
-        res->body << 4;
+        res->body << state->GetEventNumber();
+    }
+
+    HttpServer*HttpServer::GetInstance()
+    {
+        if (!_instance)
+        {
+            _instance = new HttpServer;
+        }
+        return _instance;
     }
 
     void HttpServer::Start()

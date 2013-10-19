@@ -4,7 +4,10 @@
 #include <string>
 
 #include "Plugin.hh"
+
 #include "HttpServer.hh"
+#include "ServerState.hh"
+#include "HttpEventAction.hh"
 
 namespace http 
 {
@@ -19,8 +22,12 @@ namespace http
 
         void OnLoad();
 
+        void OnRunInitialized();
+
     private:
         HttpServer* _server;
+
+        HttpEventAction* _action;
     };
 }
 

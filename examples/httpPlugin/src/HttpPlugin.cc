@@ -1,5 +1,9 @@
 #include "HttpPlugin.hh"
 
+#include "G4Application.hh"
+
+using namespace g4;
+
 namespace http
 {
     void HttpPlugin::OnLoad() 
@@ -8,15 +12,21 @@ namespace http
         _server->Start();
     }
 
-    HttpPlugin::HttpPlugin()
-        : _server(new HttpServer)
+    void HttpPlugin::OnRunInitialized()
     {
+        _action = new HttpEventAction(_server->GetState());
+        G4Application::GetInstance()->GetRunManager()->AddEventAction(_action);
+    }
 
+    HttpPlugin::HttpPlugin()
+        : _action(0)
+    {
+        _server = HttpServer::GetInstance();
     }
 
     HttpPlugin::~HttpPlugin()
     {
-        delete _server;
+        _server->Stop();
     }
 }
 
