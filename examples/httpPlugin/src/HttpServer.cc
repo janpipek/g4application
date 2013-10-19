@@ -7,12 +7,11 @@
 
 using namespace WPP;
 using namespace std;
+using namespace g4;
 
 namespace http 
 {
     HttpServer* HttpServer::_instance = NULL;
-
-    ServerState* state = HttpServer::GetInstance()->GetState();
 
     HttpServer::HttpServer()
         : _wppServer(0), _portNumber(7070), _state(new ServerState)
@@ -27,11 +26,6 @@ namespace http
         caller->_wppServer->start(caller->_portNumber);
     }
 
-    void webEventNumber(Request* req, Response* res)
-    {
-        res->body << state->GetEventNumber();
-    }
-
     HttpServer*HttpServer::GetInstance()
     {
         if (!_instance)
@@ -41,6 +35,52 @@ namespace http
         return _instance;
     }
 
+    ServerState* state = HttpServer::GetInstance()->GetState();
+
+    namespace www
+    {
+
+        void eventNumber(Request* req, Response* res)
+        {
+            res->body << state->GetEventNumber();
+        }
+
+        void index(Request* req, Response* res)
+        {
+            res->body << "<a href=eventNumber>Event number</a><br/>";
+            res->body << "<a href=configuration>Actual configuration</a><br/>";
+        }
+
+        void configuration(Request* req, Response* res)
+        {
+            res->type = "application/json";
+            res->body << "{\n";
+            std::map<string, g4::ConfigurationValue> conf = state->GetConfiguration();
+            int count = conf.size();
+            for (std::map<string, g4::ConfigurationValue>::iterator it = conf.begin(); it != conf.end(); it++)
+            {
+                res->body << "    \"";
+                res->body << it->first;
+                res->body << "\" : ";
+                ConfigurationValue value = it->second;
+                if (value.which() == 2) // is string;
+                {
+                    res->body << "\"" << value << "\"";
+                }
+                else
+                {
+                    res->body << value;
+                }
+                if (--count)
+                {
+                    res->body << ",";
+                }
+                res->body << "\n";
+            }
+            res->body << "}\n";
+        }
+    }
+
     void HttpServer::Start()
     {
         if (_wppServer)
@@ -48,7 +88,9 @@ namespace http
             throw "HTTP server already started.";
         }
         _wppServer = new Server();
-        _wppServer->get("/eventNumber", &webEventNumber);
+        _wppServer->get("/", &www::index);
+        _wppServer->get("/configuration", &www::configuration);
+        _wppServer->get("/eventNumber", &www::eventNumber);
 
         // Start in a new thread
         pthread_attr_t attr;
@@ -66,6 +108,18 @@ namespace http
             pthread_join(_wppServerThread, NULL);
             delete _wppServer;
             _wppServer = 0;
-        }   
+        }
+    }
+
+    void HttpServer::ConfigurationChanged(const string &key)
+    {
+        if (key == "http.port")
+        {
+            if (_wppServer)
+            {
+                throw "Cannot specify port for running server.";
+            }
+            _portNumber = Configuration::GetValue<int>("http.port");
+        }
     }
 }

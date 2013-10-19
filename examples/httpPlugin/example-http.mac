@@ -5,6 +5,8 @@
 # Set a configuration value
 /app/setDouble generator.energy 0.5
 
+/app/setInt http.port 7777
+
 # Run
 /run/initialize
 /run/beamOn 10000000

@@ -4,6 +4,7 @@
 #include <pthread.h>
 
 #include "ServerState.hh"
+#include "Configuration.hh"
 
 namespace WPP
 {
@@ -14,7 +15,7 @@ namespace http
 {
     void startServer(void* arg);
 
-    class HttpServer
+    class HttpServer : public g4::ConfigurationListener
     {
     public:
         ServerState* GetState() { return _state; }
@@ -39,6 +40,9 @@ namespace http
         pthread_t _wppServerThread;
 
         ServerState* _state;
+
+    protected:
+        void ConfigurationChanged(const string &key);
     };
 }
 

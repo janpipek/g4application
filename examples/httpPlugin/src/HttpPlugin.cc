@@ -8,12 +8,12 @@ namespace http
 {
     void HttpPlugin::OnLoad() 
     {
-        G4cout << "OnLoad" << G4endl;
-        _server->Start();
+
     }
 
     void HttpPlugin::OnRunInitialized()
     {
+        _server->Start();
         _action = new HttpEventAction(_server->GetState());
         G4Application::GetInstance()->GetRunManager()->AddEventAction(_action);
     }
