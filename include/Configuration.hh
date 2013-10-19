@@ -55,6 +55,13 @@ namespace g4
             }
         }
 
+        static ConfigurationValue& GetValue(const std::string& key)
+        {
+            return _entries[key];
+        }
+
+        static std::map<std::string, ConfigurationValue> GetItems();
+
         static void SetValue(const std::string& key, const ConfigurationValue& value);
 
         static bool HasKey(const std::string& key);

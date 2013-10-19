@@ -83,4 +83,9 @@ namespace g4
         }
         stream << "-------------" << endl;
     }
+
+    std::map<std::string, ConfigurationValue> Configuration::GetItems()
+    {
+        return _entries;
+    }
 }
