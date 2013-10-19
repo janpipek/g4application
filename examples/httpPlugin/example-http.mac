@@ -1,0 +1,10 @@
+# Load the plugin
+/app/plugin/load libsimplePlugin.so
+/app/plugin/load libhttpPlugin.so
+
+# Set a configuration value
+/app/setDouble generator.energy 0.5
+
+# Run
+/run/initialize
+/run/beamOn 10000
