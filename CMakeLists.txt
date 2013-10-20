@@ -9,8 +9,8 @@ find_package(Geant4 REQUIRED qt)
 
 include(${Geant4_USE_FILE})
 
-file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
-file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
+file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/src/*.cc)
+file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
 add_executable(g4 g4.cc ${headers})
 add_library(g4Application SHARED ${sources} ${headers})
