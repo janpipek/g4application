@@ -1,21 +1,24 @@
 #include <G4Event.hh>
 
-#include "NumberingEventAction.hh"
+#include "actions/NumberingEventAction.hh"
+
+#define LOGGING_FREQUENCY_KEY "app.logEvents"
 
 using namespace std;
 
 namespace g4
 {
-    NumberingEventAction::NumberingEventAction() : _loggingFrequency(0)
+    NumberingEventAction::NumberingEventAction()
     {
-        _loggingFrequency = Configuration::GetValue<int>("app.logEvents");
+        Configuration::SetDefaultValue(LOGGING_FREQUENCY_KEY, 1000);
+        _loggingFrequency = Configuration::GetValue<int>(LOGGING_FREQUENCY_KEY);
     }
 
     void NumberingEventAction::ConfigurationChanged(const std::string &key)
     {
-        if (key == "app.logEvents")
+        if (key == LOGGING_FREQUENCY_KEY)
         {
-            _loggingFrequency = Configuration::GetValue<int>("app.logEvents");
+            _loggingFrequency = Configuration::GetValue<int>(LOGGING_FREQUENCY_KEY);
         }
     }
 

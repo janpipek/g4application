@@ -79,11 +79,6 @@ namespace g4
         _interactiveCommand = new G4UIcmdWithoutParameter("/app/interactive", this);
         _interactiveCommand->SetGuidance("Enter interactive mode");
 
-        _logEventsCommand = new G4UIcmdWithAnInteger("/app/logEvents", this);
-        _logEventsCommand->SetGuidance("Write the number of events processed.");
-        _logEventsCommand->SetGuidance("It will be written each N events starting with 0.");
-        _logEventsCommand->SetGuidance("1 = each event, <= 0 no events");
-
         _generateRandomSeedCommand = new G4UIcmdWithoutParameter("/app/generateRandomSeed", this);
         _generateRandomSeedCommand->SetGuidance("Generate a really random random seed.");
 
@@ -138,10 +133,6 @@ namespace g4
         {
             application->EnterInteractiveMode();
         }
-        else if (command == _logEventsCommand)
-        {
-            Configuration::SetValue("app.logEvents", _logEventsCommand->GetNewIntValue(newValue));
-        }
         else if (command == _generateRandomSeedCommand)
         {
             application->GenerateRandomSeed();
@@ -172,7 +163,6 @@ namespace g4
     {
         delete _waitCommand;
         delete _interactiveCommand;
-        delete _logEventsCommand;
         delete _generateRandomSeedCommand;
 
         delete _setIntCommand;

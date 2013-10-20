@@ -35,7 +35,6 @@ namespace g4
      * It provides following commands:
      *  - /app/generateRandomSeed
      *  - /app/interactive
-     *  - /app/logEvents
      *  - /app/setInt
      *  - /app/setDouble
      *  - /app/setString
@@ -57,9 +56,7 @@ namespace g4
 
 		G4UIcmdWithAnInteger* _waitCommand;
 		
-		G4UIcmdWithoutParameter* _interactiveCommand;
-
-        G4UIcmdWithAnInteger* _logEventsCommand;
+        G4UIcmdWithoutParameter* _interactiveCommand;
 
         G4UIcmdWithoutParameter* _generateRandomSeedCommand;
 

@@ -11,7 +11,6 @@
 #include "PhysicsBuilder.hh"
 #include "PluginLoader.hh"
 #include "ApplicationMessenger.hh"
-#include "NumberingEventAction.hh"
 
 namespace g4
 {
