@@ -6,14 +6,15 @@
 
 #include "Configuration.hh"
 
+#define LOGGING_FREQUENCY_KEY "app.logEvents"
+
 namespace g4
 {
     /**
-      * Event action that is automatically included in the application.
+      * Event action that after each event (or N events), it writes how many events
+      * have been calculated (and approximate speed).
       *
-      * It does following things:
-      *  - after each event (or N events), it writes how many events have been calculated
-      *    ( macro command /app/logEvents N )
+      * Configuration value LOGGING_FREQUENCY_KEY (0 for no logging).
       */
     class NumberingEventAction : public G4UserEventAction, public ConfigurationListener
     {

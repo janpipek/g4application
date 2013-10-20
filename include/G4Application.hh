@@ -35,10 +35,6 @@ namespace g4
         RunManager* GetRunManager() const { return _runManager; }
         
         PluginLoader* GetPluginLoader() const { return _pluginLoader; }
-
-        // NumberingEventAction* GetEventAction() const { return _numberingEventAction; }
-        
-        // PhysicsBuilder* GetPhysicsBuilder() const { return _physicsBuilder; }
         
         void SetPhysicsBuilder(PhysicsBuilder*);
 

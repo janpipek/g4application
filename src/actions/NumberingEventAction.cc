@@ -2,8 +2,6 @@
 
 #include "actions/NumberingEventAction.hh"
 
-#define LOGGING_FREQUENCY_KEY "app.logEvents"
-
 using namespace std;
 
 namespace g4

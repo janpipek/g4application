@@ -16,6 +16,9 @@ namespace g4
       *
       * Note: it can be done in another way, from outside
       *   via special callback classes (see manual).
+      *
+      * AddXXXAction() methods register user actions
+      * inside the composite actions.
       */
     class RunManager : public G4RunManager
     {
