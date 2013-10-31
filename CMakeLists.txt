@@ -5,7 +5,8 @@ project(g4Application)
 set(CMAKE_INSTALL_PREFIX build)
 
 find_package(Boost 1.49 COMPONENTS system filesystem REQUIRED)
-find_package(Geant4 REQUIRED qt)
+find_package(Geant4 REQUIRED)
+find_package(Geant4 COMPONENTS qt)
 
 include(${Geant4_USE_FILE})
 
