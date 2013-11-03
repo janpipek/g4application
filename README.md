@@ -15,6 +15,13 @@ Main features
 * configuration system - central configuration repository based on observer design pattern
 * composite user action - these allow adding of more user actions of the same type
 
+Built-in user actions
+---------------------
+You can use a few user actions included in the application.
+They are loaded using `/app/addAction <actionname>` command
+* NumberingEventAction - prints a short status after each N events
+* MemoryRunAction - prints info about memory consumption before/after run
+
 Plugin system
 -------------
 **TODO: describe**

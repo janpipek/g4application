@@ -10,6 +10,7 @@
 
 // Actions to add
 #include "actions/NumberingEventAction.hh"
+#include "actions/MemoryRunAction.hh"
 
 using namespace boost::xpressive;
 using namespace std;
@@ -169,6 +170,10 @@ namespace g4
             if (newValue == "NumberingEventAction")
             {
                 application->GetRunManager()->AddAction(new NumberingEventAction);
+            }
+            else if (newValue == "MemoryRunAction")
+            {
+                application->GetRunManager()->AddAction(new MemoryRunAction);
             }
             else
             {
