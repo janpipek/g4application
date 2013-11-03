@@ -14,6 +14,7 @@ Main features
 * plugins
 * configuration system - central configuration repository based on observer design pattern
 * composite user action - these allow adding of more user actions of the same type
+* a few built-in user actins (see below)
 
 Built-in user actions
 ---------------------
@@ -26,16 +27,21 @@ Plugin system
 -------------
 **TODO: describe**
 
+
 There is an example plugin that uses most features of G4Application in the
 example/ subdirectory.
+
+
 
 How to build
 ------------
 You will need:
 * cmake
-* geant4
-* boost
-* qt4 (probably should be reworked to compile without)
+* geant4 (9.6 used for development)
+* boost > 0.49
+
+Optional:
+* qt4
 
 After building, you will obtain:
 * g4 executable - this you will run
