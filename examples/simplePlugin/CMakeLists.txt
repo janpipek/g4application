@@ -12,7 +12,8 @@ set(G4APPLICATION_DIR "../../")
 
 # Find the application library & Geant4
 find_package(G4Application REQUIRED)
-find_package(Geant4 REQUIRED qt)
+find_package(Geant4 REQUIRED)
+find_package(Geant4 COMPONENTS qt)
 
 include(${Geant4_USE_FILE})
 
