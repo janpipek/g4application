@@ -1,9 +1,17 @@
 # Load the plugin
-/app/plugin/load libexamplePlugin.so
+/app/plugin/load libsimplePlugin.so
 
 # Set a configuration value
 /app/setDouble generator.energy 0.5
 
+# Show configuration
+/app/printConfiguration
+
 # Run
 /run/initialize
+
+# Add one of the integrated actions and set a parameter for it
+/app/addAction NumberingEventAction
+/app/setInt app.logEvents 10
+
 /run/beamOn 100
