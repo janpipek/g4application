@@ -2,7 +2,14 @@ cmake_minimum_required(VERSION 2.8)
 
 project(httpPlugin)
 
-set(CMAKE_INSTALL_PREFIX "../../build/")
+# G4APP_PATH 
+if(DEFINED ENV{G4APP_PATH})
+    message(STATUS "Using install location: $ENV{G4APP_PATH}" )
+    set(CMAKE_INSTALL_PREFIX $ENV{G4APP_PATH})
+else()
+    message(STATUS "Using default install location.")
+    set(CMAKE_INSTALL_PREFIX "../../build/")
+endif()
 
 # Use the FindG4Application.cmake file
 set(CMAKE_MODULE_PATH "../../cmake/" ${CMAKE_MODULE_PATH})
@@ -24,7 +31,7 @@ add_library(httpPlugin SHARED ${sources} ${headers})
 
 target_link_libraries(httpPlugin ${Geant4_LIBRARIES} ${G4Application_LIBRARY})
 
-install(TARGETS httpPlugin DESTINATION bin)
+install(TARGETS httpPlugin DESTINATION .)
 
 
 

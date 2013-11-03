@@ -2,7 +2,14 @@ cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
 project(g4Application)
 
-set(CMAKE_INSTALL_PREFIX build)
+# G4APP_PATH 
+if(DEFINED ENV{G4APP_PATH})
+    message(STATUS "Using install location: $ENV{G4APP_PATH}" )
+    set(CMAKE_INSTALL_PREFIX $ENV{G4APP_PATH})
+else()
+    message(STATUS "Using default install location.")
+    set(CMAKE_INSTALL_PREFIX build)
+endif()
 
 find_package(Boost 1.49 COMPONENTS system filesystem REQUIRED)
 find_package(Geant4 REQUIRED)
@@ -22,8 +29,8 @@ link_directories(${Boost_LIBRARY_DIR})
 
 target_link_libraries(g4 g4Application ${Geant4_LIBRARIES} dl ${Boost_LIBRARIES})
 
-install(TARGETS g4 DESTINATION bin)
-install(TARGETS g4Application DESTINATION bin)
+install(TARGETS g4 DESTINATION .)
+install(TARGETS g4Application DESTINATION .)
 
 include_directories(include)
 
