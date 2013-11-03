@@ -37,22 +37,22 @@ namespace g4
 
         virtual void RunTermination();
 
-        void AddEventAction(G4UserEventAction* action)
+        void AddAction(G4UserEventAction* action)
         {
             _eventAction->AddSubAction(action);
         }
 
-        void AddRunAction(G4UserRunAction* action)
+        void AddAction(G4UserRunAction* action)
         {
             _runAction->AddSubAction(action);
         }
 
-        void AddSteppingAction(G4UserSteppingAction* action)
+        void AddAction(G4UserSteppingAction* action)
         {
             _steppingAction->AddSubAction(action);
         }
 
-        void AddTrackingAction(G4UserTrackingAction* action)
+        void AddAction(G4UserTrackingAction* action)
         {
             _trackingAction->AddSubAction(action);
         }
