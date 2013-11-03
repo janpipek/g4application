@@ -1,4 +1,4 @@
-# Load the plugin
+# Load the plugins
 /app/plugin/load libsimplePlugin.so
 /app/plugin/load libhttpPlugin.so
 
