@@ -14,7 +14,7 @@ Main features
 * plugins
 * configuration system - central configuration repository based on observer design pattern
 * composite user action - these allow adding of more user actions of the same type
-* a few built-in user actins (see below)
+* a few built-in user actions (see below)
 
 Built-in user actions
 ---------------------
@@ -27,9 +27,15 @@ Plugin system
 -------------
 **TODO: describe**
 
+Loading a plugin
+~~~~~~~~~~~~~~~~
+/app/plugin/load <somePlugin.so>
 
-There is an example plugin that uses most features of G4Application in the
-example/ subdirectory.
+Examples
+~~~~~~~~
+
+There are example plugin that use most features of G4Application in the
+examples/ subdirectory.
 
 
 
