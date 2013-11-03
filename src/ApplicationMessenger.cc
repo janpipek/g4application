@@ -8,6 +8,9 @@
 #include "G4Application.hh"
 #include "Configuration.hh"
 
+// Actions to add
+#include "actions/NumberingEventAction.hh"
+
 using namespace boost::xpressive;
 using namespace std;
 
@@ -96,6 +99,9 @@ namespace g4
 
         _pauseCommand = new G4UIcmdWithoutParameter("/app/pause", this);
         _pauseCommand->SetGuidance("Pause and wait for user input.");
+
+        _addActionCommand = new G4UIcmdWithAString("/app/addAction", this);
+        _addActionCommand->SetGuidance("Add one of the integrated actions.");
     }
 
     template <typename ValueType> void ApplicationMessenger::applyConfigurationCommand(const UIcmdConfiguration<ValueType>* command, const string& newValue)
@@ -157,6 +163,17 @@ namespace g4
         {
             application->PauseExecution();
         }
+        else if (command = _addActionCommand)
+        {
+            if (newValue == "NumberingEventAction")
+            {
+                application->GetRunManager()->AddAction(new NumberingEventAction);
+            }
+            else
+            {
+                throw "Unknown action to add: " + newValue;
+            }
+        }
     }
     
     ApplicationMessenger::~ApplicationMessenger()
@@ -170,5 +187,6 @@ namespace g4
         delete _setStringCommand;
         delete _printConfigurationCommand;
         delete _pauseCommand;
+        delete _addActionCommand;
     }
 }

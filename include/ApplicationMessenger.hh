@@ -2,6 +2,7 @@
 #define APPLICATIONMESSENGER_HH
 
 #include <G4UImessenger.hh>
+#include <G4UIcmdWithAString.hh>
 #include <G4UIcmdWithAnInteger.hh>
 #include <G4UIcmdWithoutParameter.hh>
 #include <G4UIcommand.hh>
@@ -65,6 +66,8 @@ namespace g4
         UIcmdConfiguration<int>* _setIntCommand;
 
         UIcmdConfiguration<double>* _setDoubleCommand;
+
+        G4UIcmdWithAString* _addActionCommand;
 
         G4UIcmdWithoutParameter* _printConfigurationCommand;
 
