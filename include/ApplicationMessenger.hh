@@ -41,6 +41,7 @@ namespace g4
      *  - /app/setString
      *  - /app/printConfiguration
      *  - /app/pause
+     *  - /app/addAction
      */
 	class ApplicationMessenger : public G4UImessenger
 	{

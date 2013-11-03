@@ -159,12 +159,13 @@ namespace g4
         {
             Configuration::Print(G4cout);
         }
-        else if (command = _pauseCommand)
+        else if (command == _pauseCommand)
         {
             application->PauseExecution();
         }
         else if (command = _addActionCommand)
         {
+            G4cout << "Trying to add action " << newValue << "..." << G4endl;
             if (newValue == "NumberingEventAction")
             {
                 application->GetRunManager()->AddAction(new NumberingEventAction);
