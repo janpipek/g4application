@@ -25,5 +25,10 @@ int main(int argc, char** argv)
         G4cerr << "Exception thrown: " << exc << endl;
         exit(-1);
     }
+    catch (const char* exc)
+    {
+        G4cerr << "Exception thrown: " << exc << endl;
+        exit(-1);
+    }
 }
 
