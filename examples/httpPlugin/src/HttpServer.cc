@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <globals.hh>
+#include <G4ScoringManager.hh>
 
 #include "web++.hpp"
 
@@ -37,9 +38,9 @@ namespace http
 
     ServerState* state = HttpServer::GetInstance()->GetState();
 
+    // Namespace with all request-handling methods.
     namespace www
     {
-
         void eventNumber(Request* req, Response* res)
         {
             res->body << state->GetEventNumber();
@@ -49,6 +50,7 @@ namespace http
         {
             res->body << "<a href=eventNumber>Event number</a><br/>";
             res->body << "<a href=configuration>Actual configuration</a><br/>";
+            res->body << "<a href=scoring>List of scoring meshes</a><br/>";
         }
 
         void configuration(Request* req, Response* res)
@@ -79,6 +81,38 @@ namespace http
             }
             res->body << "}\n";
         }
+
+        void scoring(Request* req, Response* res)
+        {
+            G4ScoringManager* scoring = G4ScoringManager::GetScoringManager();
+            size_t meshCount = scoring->GetNumberOfMesh();
+            res->body << "[\n";
+            for (size_t i = 0; i < meshCount; i++) {
+                G4VScoringMesh* mesh = scoring->GetMesh(i);
+                res->body << "  {\n";
+                res->body << "    \"shape\" : \"";
+                switch(mesh->GetShape())
+                {
+                case boxMesh:
+                    res->body << "box";
+                    break;
+                case cylinderMesh:
+                    res->body << "cylinder";
+                    break;
+                case sphereMesh:
+                    res->body << "sphere";
+                    break;
+                }
+                res->body << "\",\n";
+                G4ThreeVector size = mesh->GetSize();
+                res->body << "    \"size\" : ["
+                          << size.x() << ", "
+                          << size.y() << ", "
+                          << size.z() << "]\n";
+                res->body << "  }\n";
+            }
+            res->body << "]\n";
+        }
     }
 
     void HttpServer::Start()
@@ -91,6 +125,7 @@ namespace http
         _wppServer->get("/", &www::index);
         _wppServer->get("/configuration", &www::configuration);
         _wppServer->get("/eventNumber", &www::eventNumber);
+        _wppServer->get("/scoring", &www::scoring);
 
         // Start in a new thread
         pthread_attr_t attr;
