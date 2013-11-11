@@ -31,12 +31,11 @@ Loading a plugin
 ~~~~~~~~~~~~~~~~
 /app/plugin/load <somePlugin.so>
 
+
 Examples
 ~~~~~~~~
-
-There are example plugin that use most features of G4Application in the
+There are a few example plugins that use most features of G4Application in the
 examples/ subdirectory.
-
 
 
 How to build
