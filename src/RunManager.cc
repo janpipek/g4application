@@ -30,10 +30,7 @@ namespace g4
     RunManager::RunManager()
         : _eventAction(0), _runAction(0), _trackingAction(0),
           _steppingAction(0)
-    {
-
-
-    }
+    { }
 
     void RunManager::Initialize()
     {
@@ -79,9 +76,6 @@ namespace g4
     void RunManager::InitializeUserActions()
     {
         _eventAction = new CompositeEventAction;
-        // _numberingEventAction = new NumberingEventAction;
-        // AddEventAction(_numberingEventAction);
-
         _runAction = new CompositeRunAction;
         _steppingAction = new CompositeSteppingAction;
         _trackingAction = new CompositeTrackingAction;

@@ -145,13 +145,6 @@ namespace g4
         delete _interactiveSession;
         _interactiveSession = 0;
     }
-    
-    void G4Application::ExitInteractiveMode()
-    {
-        #ifdef G4UI_USE_QT
-            // ((G4UIQt*)_interactiveSession)->getMainWindow()->close();
-        #endif
-    }
 
     void G4Application::PauseExecution()
     {

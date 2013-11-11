@@ -52,8 +52,6 @@ namespace g4
           * Enter mode where user can manually type commands
           */
         void EnterInteractiveMode();
-        
-        void ExitInteractiveMode();
 
         /**
           * @short Wait for the user to press ENTER.
@@ -108,9 +106,6 @@ namespace g4
         ApplicationMessenger* _messenger;
         
         PluggableGeometry* _geometry;
-
-        // TODO: Move to separate
-        // NumberingEventAction* _numberingEventAction;
     };
 }
 

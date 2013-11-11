@@ -11,7 +11,7 @@ int main(int argc, char** argv)
 {
     try
     {
-    	// Run the application
+        // Run the application
         G4Application::CreateInstance(argc, argv);
         G4Application::GetInstance()->RunUI();
     }

@@ -19,6 +19,10 @@ namespace g4
       *
       * AddXXXAction() methods register user actions
       * inside the composite actions.
+      *
+      * Run manager catches SIGINT signal and stops the run
+      * instead of the whole application. Another interrupt 
+      * makes the application really stop.
       */
     class RunManager : public G4RunManager
     {
