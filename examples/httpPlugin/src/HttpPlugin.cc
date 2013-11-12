@@ -6,11 +6,6 @@ using namespace g4;
 
 namespace http
 {
-    void HttpPlugin::OnLoad() 
-    {
-
-    }
-
     void HttpPlugin::OnRunInitialized()
     {
         _server->Start();

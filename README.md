@@ -29,13 +29,16 @@ Plugin system
 
 Loading a plugin
 ~~~~~~~~~~~~~~~~
-/app/plugin/load <somePlugin.so>
+   /app/plugin/load <somePlugin.so>
 
 
 Examples
 ~~~~~~~~
 There are a few example plugins that use most features of G4Application in the
 examples/ subdirectory.
+
+- simplePlugin : basic example that defines physics, geometry & generator
+- httpPlugin : a simple integrated HTTP server informing about the application state
 
 
 How to build

@@ -22,7 +22,7 @@ namespace http
 
     void startServer(void* arg)
     {
-        G4cout << "Web thread started" << G4endl;
+        G4cout << "Web thread started." << G4endl;
         HttpServer* caller = (HttpServer*)arg;
         caller->_wppServer->start(caller->_portNumber);
     }
@@ -122,6 +122,8 @@ namespace http
             throw "HTTP server already started.";
         }
         _wppServer = new Server();
+
+        // Define all possible URLs
         _wppServer->get("/", &www::index);
         _wppServer->get("/configuration", &www::configuration);
         _wppServer->get("/eventNumber", &www::eventNumber);
@@ -131,7 +133,6 @@ namespace http
         pthread_attr_t attr;
         pthread_attr_init(&attr);
         pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
-
         pthread_create(&_wppServerThread, &attr, (void* (*)(void*))startServer, (void*)this);
     }
 

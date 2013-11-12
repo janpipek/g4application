@@ -8,11 +8,13 @@
 
 namespace WPP
 {
+    // Forward declaration of the class from web++
     class Server;
 }
 
 namespace http
 {
+    // Function that starts the server and is called from a new thread
     void startServer(void* arg);
 
     class HttpServer : public g4::ConfigurationListener

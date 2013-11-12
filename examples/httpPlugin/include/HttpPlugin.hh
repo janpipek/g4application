@@ -20,8 +20,6 @@ namespace http
 
         ~HttpPlugin();
 
-        void OnLoad();
-
         void OnRunInitialized();
 
     private:
