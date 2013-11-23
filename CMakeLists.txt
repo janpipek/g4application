@@ -2,10 +2,14 @@ cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
 project(g4Application)
 
-# G4APP_PATH 
+# G4APP_PATH (-D or env.variable)
 if(DEFINED ENV{G4APP_PATH})
-    message(STATUS "Using install location: $ENV{G4APP_PATH}" )
-    set(CMAKE_INSTALL_PREFIX $ENV{G4APP_PATH})
+    set(G4APP_PATH $ENV{G4APP_PATH})
+endif()
+
+if (DEFINED G4APP_PATH)
+    message(STATUS "Using install location: ${G4APP_PATH}" )
+    set(CMAKE_INSTALL_PREFIX ${G4APP_PATH})
 else()
     message(STATUS "Using default install location.")
     set(CMAKE_INSTALL_PREFIX build)

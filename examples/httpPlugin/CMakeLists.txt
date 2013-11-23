@@ -15,7 +15,7 @@ endif()
 set(CMAKE_MODULE_PATH "../../cmake/" ${CMAKE_MODULE_PATH})
 
 # Set the necessary variable for FindG4Application.cmake file
-set(G4APPLICATION_DIR "../../")
+set(G4APP_SOURCE_PATH "../../")
 
 # Find the application library & Geant4
 find_package(G4Application REQUIRED)

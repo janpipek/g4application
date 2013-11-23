@@ -44,7 +44,7 @@ examples/ subdirectory.
 How to build
 ------------
 You will need:
-* cmake
+* cmake >= 2.6 (not tested for lower) 
 * geant4 (9.6 used for development)
 * boost > 0.49
 
@@ -55,11 +55,16 @@ After building, you will obtain:
 * g4 executable - this you will run
 * libg4Application.so shared library - you will need to link your plugins against this library (the aim is to remove this necessity)
 
-Building tested on linux (Fedora Core 18, Scientific Linux 6.4), tests on other platforms are welcome.
+Environment variables (alternatively can be set as CMake variables):
+* G4APP_PATH - when you set this (optional), the built libraries and executable will be copied there. 
+* G4APP_SOURCE_PATH - if you use the provided FindG4Application.cmake (when building your modules),
+    this path is used for searching libraries and include directories of g4application (required).
+
+Building tested on Linux (Fedora Core 18, Scientific Linux 6.4), tests on other platforms are welcome.
 
 History & Motivation
 --------------------
-2010-2012 I was developing two similar models at a same time and I wanted them to share
+2010-2012: I was developing two similar models of Leksell Gamma Knife at a same time and I wanted them to share
 a lot of code. In the end, I made the application call the plugin instead of two application
 using the same library.
 
