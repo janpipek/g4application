@@ -49,32 +49,65 @@ to plugin system but can make your life with Geant4 easier.</p>
 <li>plugins</li>
 <li>configuration system - central configuration repository based on observer design pattern</li>
 <li>composite user action - these allow adding of more user actions of the same type</li>
+<li>a few built-in user actions (see below)</li>
+</ul><h2>
+<a name="built-in-user-actions" class="anchor" href="#built-in-user-actions"><span class="octicon octicon-link"></span></a>Built-in user actions</h2>
+
+<p>You can use a few user actions included in the application.
+They are loaded using <code>/app/addAction &lt;actionname&gt;</code> command</p>
+
+<ul>
+<li>NumberingEventAction - prints a short status after each N events</li>
+<li>MemoryRunAction - prints info about memory consumption before/after run</li>
 </ul><h2>
 <a name="plugin-system" class="anchor" href="#plugin-system"><span class="octicon octicon-link"></span></a>Plugin system</h2>
 
 <p><strong>TODO: describe</strong></p>
 
-<h2>
+<p>Loading a plugin</p>
+
+<pre><code>   /app/plugin/load &lt;somePlugin.so&gt;
+
+
+Examples
+</code></pre>
+
+<p>There are a few example plugins that use most features of G4Application in the
+examples/ subdirectory.</p>
+
+<ul>
+<li>simplePlugin : basic example that defines physics, geometry &amp; generator</li>
+<li>httpPlugin : a simple integrated HTTP server informing about the application state</li>
+</ul><h2>
 <a name="how-to-build" class="anchor" href="#how-to-build"><span class="octicon octicon-link"></span></a>How to build</h2>
 
 <p>You will need:</p>
 
 <ul>
-<li>cmake</li>
-<li>geant4</li>
-<li>boost</li>
-<li>qt4 (probably should be reworked to compile without)</li>
+<li>cmake &gt;= 2.6 (not tested for lower) </li>
+<li>geant4 (9.6 used for development)</li>
+<li>boost &gt; 0.49</li>
+</ul><p>Optional:</p>
+
+<ul>
+<li>qt4</li>
 </ul><p>After building, you will obtain:</p>
 
 <ul>
 <li>g4 executable - this you will run</li>
-<li>libg4App.so shared library - you will need to link your plugins against this library (the aim is to remove this necessity)</li>
-</ul><p>Building tested on linux (Fedora Core 18, Scientific Linux 6.4), tests on other platforms are welcome.</p>
+<li>libg4Application.so shared library - you will need to link your plugins against this library (the aim is to remove this necessity)</li>
+</ul><p>Environment variables (alternatively can be set as CMake variables):</p>
+
+<ul>
+<li>G4APP_PATH - when you set this (optional), the built libraries and executable will be copied there. </li>
+<li>G4APP_SOURCE_PATH - if you use the provided FindG4Application.cmake (when building your modules),
+this path is used for searching libraries and include directories of g4application (required).</li>
+</ul><p>Building tested on Linux (Fedora Core 18, Scientific Linux 6.4), tests on other platforms are welcome.</p>
 
 <h2>
 <a name="history--motivation" class="anchor" href="#history--motivation"><span class="octicon octicon-link"></span></a>History &amp; Motivation</h2>
 
-<p>2010-2012 I was developing two similar models at a same time and I wanted them to share
+<p>2010-2012: I was developing two similar models of Leksell Gamma Knife at a same time and I wanted them to share
 a lot of code. In the end, I made the application call the plugin instead of two application
 using the same library.</p>
 
