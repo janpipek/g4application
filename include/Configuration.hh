@@ -55,11 +55,17 @@ namespace g4
             }
         }
 
+        /**
+         * @brief Get a stored value without casting.
+         */
         static ConfigurationValue& GetValue(const std::string& key)
         {
             return _entries[key];
         }
 
+        /**
+         * @brief Get the underlying map object.
+         */
         static std::map<std::string, ConfigurationValue> GetItems();
 
         static void SetValue(const std::string& key, const ConfigurationValue& value);

@@ -29,8 +29,8 @@ Plugin system
 
 Loading a plugin
 ~~~~~~~~~~~~~~~~
-   /app/plugin/load <somePlugin.so>
 
+    /app/plugin/load <somePlugin.so>
 
 Examples
 ~~~~~~~~
@@ -56,9 +56,9 @@ After building, you will obtain:
 * libg4Application.so shared library - you will need to link your plugins against this library (the aim is to remove this necessity)
 
 Environment variables (alternatively can be set as CMake variables):
-* G4APP_PATH - when you set this (optional), the built libraries and executable will be copied there. 
+* G4APP_PATH - when you set this, the built libraries and executable will be copied there (optional). 
 * G4APP_SOURCE_PATH - if you use the provided FindG4Application.cmake (when building your modules),
-    this path is used for searching libraries and include directories of g4application (required).
+    this path is used for searching libraries and include directories of g4application (required in plugins).
 
 Building tested on Linux (Fedora Core 18, Scientific Linux 6.4), tests on other platforms are welcome.
 
