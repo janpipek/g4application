@@ -39,7 +39,7 @@ examples/ subdirectory.
 
 - simplePlugin : basic example that defines physics, geometry & generator
 - httpPlugin : a simple integrated HTTP server informing about the application state
-
+- g4application-dicom : a separate project with DICOM support *(planned)* - see https://github.com/janpipek/g4application-dicom
 
 How to build
 ------------
