@@ -24,7 +24,7 @@ namespace g4
     class ConfigurationListener;
 
     /**
-     * @brief General application configuration class (static class).
+     * @short General application configuration class (static class).
      *
      * It holds a dictionary of values (string/int/double as boost::variant). Keys are strings.
      * Note that the client has to know of which type the value is.
@@ -38,7 +38,7 @@ namespace g4
         friend class ConfigurationListener;
 
         /**
-         * @brief Casting of value to the required template parameter.
+         * @short Casting of value to the required template parameter.
          *
          * Guarded by boost exception.
          */
@@ -56,7 +56,7 @@ namespace g4
         }
 
         /**
-         * @brief Get a stored value without casting.
+         * @short Get a stored value without casting.
          */
         static ConfigurationValue& GetValue(const std::string& key)
         {
@@ -64,7 +64,7 @@ namespace g4
         }
 
         /**
-         * @brief Get the underlying map object.
+         * @short Get the underlying map object.
          */
         static std::map<std::string, ConfigurationValue> GetItems();
 
@@ -73,7 +73,7 @@ namespace g4
         static bool HasKey(const std::string& key);
 
         /**
-         * @brief Set value, but only if not present.
+         * @short Set value, but only if not present.
          *
          * This allows classes that use configuration, to provide meaningful values
          * when these are not set from outside.
@@ -81,7 +81,7 @@ namespace g4
         static void SetDefaultValue(const std::string& key, const ConfigurationValue& value);
 
         /**
-         * @brief Print the configuration in a human-readable form.
+         * @short Print the configuration in a human-readable form.
          */
         static void Print(std::ostream& stream);
 
@@ -99,7 +99,7 @@ namespace g4
     };
 
     /**
-     * @brief Abstract base class for the application configuration listener.
+     * @short Abstract base class for the application configuration listener.
      *
      * Note that it is automatically registered.
      * You have to provide your implementation for ConfigurationChanged.
@@ -114,7 +114,7 @@ namespace g4
         virtual ~ConfigurationListener();
 
         /**
-         * @brief Abstract method responding to each change of any configuration value.
+         * @short Abstract method responding to each change of any configuration value.
          * @param key Key of the value that was changed.
          *
          * Respond to all keys you are interested in and do nothing for others.

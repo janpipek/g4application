@@ -6,7 +6,7 @@
 namespace g4
 {
     /**
-      * Class that builds customized G4VUserPrimaryGeneratorAction upon request.
+      * @short Class that builds customized G4VUserPrimaryGeneratorAction upon request.
       *
       * To be used (mostly in plugins).
       *

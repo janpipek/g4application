@@ -11,7 +11,7 @@
 namespace g4
 {
     /**
-      * Custom version of G4RunManager that enables us to
+      * @short Custom version of G4RunManager that enables us to
       * step in the middle of state transitions.
       *
       * Note: it can be done in another way, from outside
@@ -30,7 +30,7 @@ namespace g4
         RunManager();
 
         /**
-          * Do what is necessary for the application and do standard initialize.
+          * @short Do what is necessary for the application and do standard initialize.
           *
           * This invokes all the builders from plugins.
           * It is called with /run/initialize         

@@ -11,7 +11,7 @@
 namespace g4
 {
     /**
-      * Event action that after each event (or N events), it writes how many events
+      * @short Event action that after each event (or N events), it writes how many events
       * have been calculated (and approximate speed).
       *
       * Configuration value LOGGING_FREQUENCY_KEY (0 for no logging).

@@ -11,7 +11,7 @@
 namespace g4
 {
     /**
-      * Class that collects all GeometryBuilders (from plugins)
+      * @short Class that collects all GeometryBuilders (from plugins)
       * and uses them to construct detector once requested.
       *
       * This class itself is not a G4VUserDetectorConstruction

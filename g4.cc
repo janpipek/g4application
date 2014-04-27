@@ -7,6 +7,12 @@
 using namespace g4;
 using namespace std;
 
+/**
+  * @short Simple main function.
+  *
+  * It only initializes and runs application and
+  * prints out all exceptions.
+  */
 int main(int argc, char** argv)
 {
     try

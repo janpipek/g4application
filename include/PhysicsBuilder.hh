@@ -6,7 +6,7 @@
 namespace g4
 {
     /**
-      * Plugin physics.
+      * @short Plugin physics.
       *
       * If this class is returned from the plugin, it's used to initialize
       * the physics.

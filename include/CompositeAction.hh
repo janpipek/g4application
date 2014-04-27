@@ -8,7 +8,7 @@
 namespace g4
 {
     /**
-      * Composite action.
+      * @short Composite action.
       *
       * In Geant4, you can typically add only one user action of each type.
       * If you combine multiple libraries together, each of which wants to 

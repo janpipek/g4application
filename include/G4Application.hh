@@ -18,7 +18,7 @@ namespace g4
     class PluginLoader;
     
     /**
-      * Singleton application object.
+      * @short Singleton application object.
       */
     class G4Application
     {

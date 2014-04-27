@@ -9,7 +9,7 @@
 namespace http
 {
     /**
-     * @brief Application state to be displayed in the HTTP server.
+     * @short Application state to be displayed in the HTTP server.
      *
      * Copies of configuration and event number are kept
      * so that no race conditions occur when accessing them.
@@ -24,7 +24,7 @@ namespace http
         void SetEventNumber(int);
 
         /**
-         * @brief A copy of application configuration.
+         * @short A copy of application configuration.
          *
          * It is automatically updated via the ConfigurationListener interface.
          */
