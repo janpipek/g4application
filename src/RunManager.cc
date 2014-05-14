@@ -2,14 +2,14 @@
 
 #include <signal.h>
 #include <unistd.h> 
+#include <algorithm>
 
-#include "Plugin.hh"
-#include "G4Application.hh"
+#include "RunListener.hh"
 
-// Run a specific member function for all the plugins
+// Run a specific member function for all the listeners.
 // TODO: Change from macro to member function pointer type
-#define PLUGINS_DO( name ) {\
-    for (vector<Plugin*>::const_iterator it = plugins.begin(); it != plugins.end(); it++) \
+#define LISTENERS_DO( name ) {\
+    for (vector<RunListener*>::const_iterator it = _listeners.begin(); it != _listeners.end(); it++) \
     {\
         (*it)->name();\
     }\
@@ -27,39 +27,57 @@ namespace g4
         sleep(1);
     }
 
-    RunManager::RunManager()
+    void RunManager::RunTermination()
+    {
+        (void) signal(SIGINT, SIG_DFL);
+        G4RunManager::RunTermination();
+    }
 
     RunManager::RunManager(RunInitializer& init)
         : _eventAction(0), _runAction(0), _trackingAction(0),
           _steppingAction(0), _initializer(init)
     { }
 
+    void RunManager::AddListener(RunListener* listener)
+    {
+        if (std::find(_listeners.begin(), _listeners.end(), listener) == _listeners.end())
+        {
+            _listeners.push_back(listener);
+        }
+    }
+
+    void RunManager::RemoveListener(RunListener* listener)
+    {
+        std::vector<RunListener*>::iterator needle = std::find(_listeners.begin(), _listeners.end(), listener);
+        if (needle != _listeners.end())
+        {
+            _listeners.erase(needle);
+        }        
+    }   
+
     void RunManager::Initialize()
     {
-        G4Application* app = G4Application::GetInstance();  
-        vector<Plugin*> plugins = app->GetPluginLoader()->GetPlugins();
-        
         // 1) Physics
-        PLUGINS_DO( OnPhysicsInitializing );
+        LISTENERS_DO( OnPhysicsInitializing );
         _initializer.InitializePhysics();
         InitializeUserActions(); // TODO: Move elsewhere?
 
-        PLUGINS_DO( OnPhysicsInitialized );
+        LISTENERS_DO( OnPhysicsInitialized );
         
         // 2) Geometry
-        PLUGINS_DO( OnGeometryInitializing );
+        LISTENERS_DO( OnGeometryInitializing );
         _initializer.InitializeGeometry();
-        PLUGINS_DO( OnGeometryInitialized );
+        LISTENERS_DO( OnGeometryInitialized );
         
         // 3) Particle Generator
-        PLUGINS_DO( OnParticleGeneratorInitializing );
+        LISTENERS_DO( OnParticleGeneratorInitializing );
         _initializer.InitializeParticleGenerator();
-        PLUGINS_DO( OnParticleGeneratorInitialized );
+        LISTENERS_DO( OnParticleGeneratorInitialized );
         
         G4cout << "Initializing Geant4 run manager." << endl;
         // Initialize Geant4's own run manager
         G4RunManager::Initialize();
-        PLUGINS_DO( OnRunInitialized );
+        LISTENERS_DO( OnRunInitialized );
         G4cout << "Run initialized." << endl;
     }
 
@@ -67,12 +85,6 @@ namespace g4
     {
         (void) signal(SIGINT, terminate_run);
         G4RunManager::DoEventLoop(n_event, macroFile, n_select);
-    }
-
-    void RunManager::RunTermination()
-    {
-        (void) signal(SIGINT, SIG_DFL);
-        G4RunManager::RunTermination();
     }
 
     void RunManager::InitializeUserActions()

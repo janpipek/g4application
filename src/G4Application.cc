@@ -36,7 +36,7 @@ namespace g4
         _runManager = new RunManager(*this);
 
         // Plugin-loading system
-        _pluginLoader = new PluginLoader();
+        _pluginLoader = new PluginLoader(_runManager);
         
         // Visualization
         #ifdef G4VIS_USE

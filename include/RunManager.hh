@@ -83,6 +83,9 @@ namespace g4
 
         void InitializeUserActions();
 
+        void AddListener(RunListener* listener);
+
+        void RemoveListener(RunListener* listener);
 
     private:
         RunInitializer& _initializer;
@@ -94,6 +97,8 @@ namespace g4
         CompositeSteppingAction* _steppingAction;
 
         CompositeTrackingAction* _trackingAction;
+
+        std::vector<RunListener*> _listeners;
     };
 }
 

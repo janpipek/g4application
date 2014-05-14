@@ -11,11 +11,12 @@ namespace g4
 {
     class PluginMessenger;
     class Plugin;
+    class RunManager;
     
     class PluginLoader
     {
     public:
-        PluginLoader();
+        PluginLoader(RunManager* runManager);
         
         /**
           * @short Load a plugin dynamic library (.so) with full name +name+.
@@ -43,8 +44,10 @@ namespace g4
           */
         ~PluginLoader();
         
-    private:                   
+    private:                  
         PluginMessenger* _messenger;
+
+        RunManager* _runManager;
                 
         std::vector<void*> _libraries;
         std::vector<Plugin*> _plugins;

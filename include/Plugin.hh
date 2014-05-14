@@ -23,6 +23,7 @@ extern "C" g4::Plugin* PLUGIN_MAIN_FUNCTION()\
 #include "PhysicsBuilder.hh"
 #include "GeometryBuilder.hh"
 #include "ParticleGeneratorBuilder.hh"
+#include "RunListener.hh"
 
 namespace g4
 {
@@ -34,14 +35,13 @@ namespace g4
       *  - PhysicsBuilder 
       *  - GeometryBuilder
       *  - ParticleGeneratorBuilder
+      * 
+      * It also inherits from @see RunListener that reacts to all state changes
+      * initiated by run manager.
       *
-      * Apart from that, there are customizable (empty by default) callbacks:         
-      *  - OnLoad - when the plugin is loaded
-      *  - For each XXX in (Physics, Geometry, ParticleGenerator):
-      *  --- OnXXXInitialiazing - before initializing
-      *  --- OnXXXInitialized - after initializing
+      * Apart from that, there is a customizable (empty by default) callback:         
       */
-    class Plugin
+    class Plugin : public RunListener
     {
     public:
         Plugin() : _uiDirectory(0) { }
@@ -55,41 +55,6 @@ namespace g4
           * @short Procedure that is called after loading the plugin.
           */
         virtual void OnLoad() { }
-        
-        /** 
-          * @short Procedure called before geometry is initialized.
-          */
-        virtual void OnGeometryInitializing() { }
-        
-        /**
-          * @short Procedure called after geometry is initialized.
-          */
-        virtual void OnGeometryInitialized() { }
-        
-        /** 
-          * @short Procedure called before physics is initialized.
-          */
-        virtual void OnPhysicsInitializing() { }
-        
-        /**
-          * @short Procedure called after physics is initialized.
-          */
-        virtual void OnPhysicsInitialized() { }
-
-        /** 
-          * @short Procedure that is called before particle generator builder is initialized.
-          */
-        virtual void OnParticleGeneratorInitializing() { }
-        
-        /**
-          * @short Procedure called immediatelly after particle generator builder is initialized.
-          */
-        virtual void OnParticleGeneratorInitialized() { }           
-
-        /**
-          * @short Procedure called at the end of /run/initialize call.
-          */
-        virtual void OnRunInitialized() { }
         
         /** @see PhysicsBuilder */
         virtual PhysicsBuilder* GetPhysicsBuilder() { return NULL; }

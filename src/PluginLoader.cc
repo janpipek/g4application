@@ -19,7 +19,8 @@ namespace g4
 {
     typedef Plugin*(*plugin_load_function)();
     
-    PluginLoader::PluginLoader()
+    PluginLoader::PluginLoader(RunManager* runManager) :
+        _runManager(runManager)
     {
         _messenger = new PluginMessenger(this);
     }
@@ -86,6 +87,8 @@ namespace g4
                 
                 _plugins.push_back(plugin);
                 _libraries.push_back(library);
+
+                _runManager->AddListener(plugin);
             }
             else
             {
@@ -110,6 +113,7 @@ namespace g4
         // Destroy all plugin objects
         for (vector<Plugin*>::iterator it = _plugins.begin(); it != _plugins.end(); it++)
         {
+            _runManager->RemoveListener(*it);
             delete (*it);
         }
         cout << "Unloading " << _libraries.size() << " plugins." << endl;
