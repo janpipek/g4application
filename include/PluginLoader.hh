@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-#include "PluginMessenger.hh"
 #include "Plugin.hh"
 
 namespace g4
@@ -27,6 +26,14 @@ namespace g4
           * The name, if not absolute path, should be in $LD_LIBRARY_PATH
           */
         int Load(std::string name);
+
+        /**
+          * Add a plugin.
+          *
+          * Such plugin needn't be loaded using Load method and doesn't
+          * need to come from an external library at all.
+          */
+        void AddPlugin(Plugin*);
         
         /** 
           * Vector of all loaded plugins.

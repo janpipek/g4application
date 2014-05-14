@@ -1,13 +1,12 @@
-// #include <cstdlib>
-// #include <cstdio>
-#include <dlfcn.h>
+#include "PluginLoader.hh"
 
+#include <dlfcn.h>
 #include <iostream>
 #include <sys/stat.h>
 
 #include <G4StateManager.hh>
 
-#include "PluginLoader.hh"
+#include "PluginMessenger.hh"
 #include "GeometryBuilder.hh"
 #include "PhysicsBuilder.hh"
 #include "ParticleGeneratorBuilder.hh"
@@ -27,8 +26,6 @@ namespace g4
     
     int PluginLoader::Load(std::string name)
     {
-        G4Application* app = G4Application::GetInstance();
-
         // Check for application state
         G4ApplicationState state = G4StateManager::GetStateManager()->GetCurrentState();
         if (state != G4State_PreInit)
@@ -57,38 +54,9 @@ namespace g4
             if (PLUGIN_MAIN_FUNCTION)
             {
                 Plugin* plugin = (*PLUGIN_MAIN_FUNCTION)();
-                G4cout << "Loaded plugin `" << plugin->GetName() << "`." << endl;
-                
-                plugin->OnLoad();
-
-                // Geometry from plugin
-                GeometryBuilder* geomBuilder = plugin->GetGeometryBuilder();
-                if (geomBuilder)
-                {
-                    app->GetGeometry()->AddGeometryBuilder(geomBuilder);
-                    G4cout << "Using geometry definition from plugin `" << plugin->GetName() << "`." << endl;
-                }
-                
-                // Particle generator from plugin
-                ParticleGeneratorBuilder* genBuilder = plugin->GetParticleGeneratorBuilder();
-                if (genBuilder)
-                {
-                    app->SetParticleGeneratorBuilder(genBuilder);
-                    G4cout << "Using particle generator from plugin `" << plugin->GetName() << "`." << endl;
-                }
-                
-                // Physics from plugin
-                PhysicsBuilder* physBuilder = plugin->GetPhysicsBuilder();
-                if (physBuilder)
-                {
-                    app->SetPhysicsBuilder(physBuilder);
-                    G4cout << "Using physics from plugin `" << plugin->GetName() << "`." << endl;
-                }
-                
-                _plugins.push_back(plugin);
+                AddPlugin(plugin);
                 _libraries.push_back(library);
-
-                _runManager->AddListener(plugin);
+                G4cout << "Loaded plugin `" << plugin->GetName() << "`." << endl;
             }
             else
             {
@@ -105,6 +73,39 @@ namespace g4
             return -1;
         }
         return 0;
+    }
+
+    void PluginLoader::AddPlugin(Plugin* plugin)
+    {       
+        G4Application* app = G4Application::GetInstance();
+        plugin->OnLoad();
+
+        // Geometry from plugin
+        GeometryBuilder* geomBuilder = plugin->GetGeometryBuilder();
+        if (geomBuilder)
+        {
+            app->GetGeometry()->AddGeometryBuilder(geomBuilder);
+            G4cout << "Using geometry definition from plugin `" << plugin->GetName() << "`." << endl;
+        }
+        
+        // Particle generator from plugin
+        ParticleGeneratorBuilder* genBuilder = plugin->GetParticleGeneratorBuilder();
+        if (genBuilder)
+        {
+            app->SetParticleGeneratorBuilder(genBuilder);
+            G4cout << "Using particle generator from plugin `" << plugin->GetName() << "`." << endl;
+        }
+        
+        // Physics from plugin
+        PhysicsBuilder* physBuilder = plugin->GetPhysicsBuilder();
+        if (physBuilder)
+        {
+            app->SetPhysicsBuilder(physBuilder);
+            G4cout << "Using physics from plugin `" << plugin->GetName() << "`." << endl;
+        }
+        
+        _plugins.push_back(plugin);
+        _runManager->AddListener(plugin);
     }
             
     PluginLoader::~PluginLoader()
