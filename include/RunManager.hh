@@ -10,6 +10,26 @@
 
 namespace g4
 {
+    class RunListener;
+
+    /**
+      * Class providing geometry, physics and particle generator
+      * for the RunManger.
+      *
+      * In this library, G4Application is the only subclass
+      * but it is possible to create other subclasses in applications
+      * without G4Application class.
+      */
+    class RunInitializer
+    {
+    public:   
+        virtual void InitializeGeometry() = 0;
+        
+        virtual void InitializePhysics() = 0;
+        
+        virtual void InitializeParticleGenerator() = 0;
+    };
+
     /**
       * @short Custom version of G4RunManager that enables us to
       * step in the middle of state transitions.
@@ -27,7 +47,7 @@ namespace g4
     class RunManager : public G4RunManager
     {
     public:
-        RunManager();
+        RunManager(RunInitializer& init);
 
         /**
           * @short Do what is necessary for the application and do standard initialize.
@@ -65,6 +85,7 @@ namespace g4
 
 
     private:
+        RunInitializer& _initializer;
 
         CompositeEventAction* _eventAction;
 

@@ -33,7 +33,7 @@ namespace g4
 
         _messenger = new ApplicationMessenger();
         
-        _runManager = new RunManager;
+        _runManager = new RunManager(*this);
 
         // Plugin-loading system
         _pluginLoader = new PluginLoader();

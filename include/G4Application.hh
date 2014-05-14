@@ -20,7 +20,7 @@ namespace g4
     /**
       * @short Singleton application object.
       */
-    class G4Application
+    class G4Application : public RunInitializer
     {
     public:     
         // TODO: This class is a typical "god object". Refactor.

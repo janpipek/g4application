@@ -28,8 +28,10 @@ namespace g4
     }
 
     RunManager::RunManager()
+
+    RunManager::RunManager(RunInitializer& init)
         : _eventAction(0), _runAction(0), _trackingAction(0),
-          _steppingAction(0)
+          _steppingAction(0), _initializer(init)
     { }
 
     void RunManager::Initialize()
@@ -39,19 +41,19 @@ namespace g4
         
         // 1) Physics
         PLUGINS_DO( OnPhysicsInitializing );
-        app->InitializePhysics();
+        _initializer.InitializePhysics();
         InitializeUserActions(); // TODO: Move elsewhere?
 
         PLUGINS_DO( OnPhysicsInitialized );
         
         // 2) Geometry
         PLUGINS_DO( OnGeometryInitializing );
-        app->InitializeGeometry();
+        _initializer.InitializeGeometry();
         PLUGINS_DO( OnGeometryInitialized );
         
         // 3) Particle Generator
         PLUGINS_DO( OnParticleGeneratorInitializing );
-        app->InitializeParticleGenerator();
+        _initializer.InitializeParticleGenerator();
         PLUGINS_DO( OnParticleGeneratorInitialized );
         
         G4cout << "Initializing Geant4 run manager." << endl;
