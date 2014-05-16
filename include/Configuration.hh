@@ -38,7 +38,7 @@ namespace g4
         friend class ConfigurationListener;
 
         /**
-         * @short Casting of value to the required template parameter.
+         * @short Get a stored key with casting.
          *
          * Guarded by boost exception.
          */
@@ -52,6 +52,23 @@ namespace g4
             {
                 std::cerr << "Invalid value stored in configuration key \"" << key << "\": " << _entries[key] << std::endl;
                 throw;
+            }
+        }
+
+        /**
+          * @short Get a stored key with casting and fallback value.
+          *
+          * @param fallback This value is returned if the key is not found.
+          */
+        template<typename ValueType> static const ValueType& GetValue(const std::string& key, const ValueType& fallback)
+        {
+            if (HasKey(key)) 
+            {
+                return GetValue<ValueType>(key);
+            }
+            else
+            {
+                return fallback;
             }
         }
 
