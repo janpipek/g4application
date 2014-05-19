@@ -1,7 +1,7 @@
 #ifndef GEOMETRYBUILDER_HH
 #define GEOMETRYBUILDER_HH
 
-#include <G4LogicalVolume.hh>
+class G4LogicalVolume;
 
 namespace g4
 {

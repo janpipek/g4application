@@ -1,9 +1,12 @@
+#include "PluggableGeometry.hh"
+
 #include <G4NistManager.hh>
 #include <G4Box.hh>
 #include <G4PVPlacement.hh>
 #include <G4VisAttributes.hh>
+#include <G4LogicalVolume.hh>
 
-#include "PluggableGeometry.hh"
+#include "GeometryBuilder.hh"
 
 using namespace std;
 

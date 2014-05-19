@@ -2,11 +2,11 @@
 #define APPLICATIONMESSENGER_HH
 
 #include <G4UImessenger.hh>
-#include <G4UIcmdWithAString.hh>
-#include <G4UIcmdWithAnInteger.hh>
-#include <G4UIcmdWithoutParameter.hh>
-#include <G4UIcommand.hh>
 #include <sstream>
+
+class G4UIcmdWithAString;
+class G4UIcmdWithAnInteger;
+class G4UIcmdWithoutParameter;
 
 namespace g4
 {

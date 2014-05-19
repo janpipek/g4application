@@ -1,4 +1,8 @@
 #include "PluginMessenger.hh"
+
+#include <G4UIdirectory.hh>
+#include <G4UIcmdWithAString.hh>
+
 #include "PluginLoader.hh"
 
 namespace g4

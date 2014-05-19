@@ -3,14 +3,18 @@
 
 #include <G4RunManager.hh>
 
-#include "CompositeEventAction.hh"
-#include "CompositeRunAction.hh"
-#include "CompositeSteppingAction.hh"
-#include "CompositeTrackingAction.hh"
+class G4UserEventAction;
+class G4UserRunAction;
+class G4UserSteppingAction;
+class G4UserTrackingAction;
 
 namespace g4
 {
     class RunListener;
+    class CompositeEventAction;
+    class CompositeRunAction;
+    class CompositeSteppingAction;
+    class CompositeTrackingAction;
 
     /**
       * Class providing geometry, physics and particle generator
@@ -61,25 +65,13 @@ namespace g4
 
         virtual void RunTermination();
 
-        void AddAction(G4UserEventAction* action)
-        {
-            _eventAction->AddSubAction(action);
-        }
+        void AddAction(G4UserEventAction* action);
 
-        void AddAction(G4UserRunAction* action)
-        {
-            _runAction->AddSubAction(action);
-        }
+        void AddAction(G4UserRunAction* action);
 
-        void AddAction(G4UserSteppingAction* action)
-        {
-            _steppingAction->AddSubAction(action);
-        }
+        void AddAction(G4UserSteppingAction* action);
 
-        void AddAction(G4UserTrackingAction* action)
-        {
-            _trackingAction->AddSubAction(action);
-        }
+        void AddAction(G4UserTrackingAction* action);
 
         void InitializeUserActions();
 

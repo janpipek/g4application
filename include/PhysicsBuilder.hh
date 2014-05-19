@@ -1,7 +1,7 @@
 #ifndef PHYSICSBUILDER_HH
 #define PHYSICSBUILDER_HH
 
-#include "G4VUserPhysicsList.hh"
+class G4VUserPhysicsList;
 
 namespace g4
 {

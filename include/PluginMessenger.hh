@@ -2,10 +2,9 @@
 #define PLUGINMESSENGER_HH
 
 #include <G4UImessenger.hh>
-#include <G4UIdirectory.hh>
-#include <G4UIcmdWithAString.hh>
 
-#include "PluginLoader.hh"
+class G4UIcmdWithAString;
+class G4UIdirectory;
 
 namespace g4
 {

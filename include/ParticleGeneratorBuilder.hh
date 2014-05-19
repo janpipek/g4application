@@ -1,7 +1,7 @@
 #ifndef PARTICLEGENERATORBUILDER_HH
 #define PARTICLEGENERATORBUILDER_HH
 
-#include <G4VUserPrimaryGeneratorAction.hh>
+class G4VUserPrimaryGeneratorAction;
 
 namespace g4
 {

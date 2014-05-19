@@ -4,6 +4,11 @@
 #include <unistd.h> 
 #include <algorithm>
 
+#include "CompositeEventAction.hh"
+#include "CompositeRunAction.hh"
+#include "CompositeSteppingAction.hh"
+#include "CompositeTrackingAction.hh"
+
 #include "RunListener.hh"
 
 // Run a specific member function for all the listeners.
@@ -98,5 +103,25 @@ namespace g4
         SetUserAction(_runAction);
         SetUserAction(_steppingAction);
         SetUserAction(_trackingAction);
+    }
+
+    void RunManager::AddAction(G4UserEventAction* action)
+    {
+        _eventAction->AddSubAction(action);
+    }
+
+    void RunManager::AddAction(G4UserRunAction* action)
+    {
+        _runAction->AddSubAction(action);
+    }
+
+    void RunManager::AddAction(G4UserSteppingAction* action)
+    {
+        _steppingAction->AddSubAction(action);
+    }
+
+    void RunManager::AddAction(G4UserTrackingAction* action)
+    {
+        _trackingAction->AddSubAction(action);
     }
 }

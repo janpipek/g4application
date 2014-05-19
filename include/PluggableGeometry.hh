@@ -4,12 +4,14 @@
 #include <vector>
 
 #include <G4VUserDetectorConstruction.hh>
-#include <G4LogicalVolume.hh>
 
-#include "GeometryBuilder.hh"
+class G4VPhysicalVolume;
+class G4LogicalVolume;
 
 namespace g4
 {
+    class GeometryBuilder;
+
     /**
       * @short Class that collects all GeometryBuilders (from plugins)
       * and uses them to construct detector once requested.
@@ -55,8 +57,6 @@ namespace g4
         G4VPhysicalVolume* _worldPhys;
 
         G4LogicalVolume* _worldLog;
-        
-
 
         /**
           * Private inner class that is a G4VUserDetectorConstruction.
