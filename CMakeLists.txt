@@ -15,11 +15,19 @@ else()
     set(CMAKE_INSTALL_PREFIX build)
 endif()
 
+set(CMAKE_MODULE_PATH "cmake/" ${CMAKE_MODULE_PATH})
+
 find_package(Boost 1.49 COMPONENTS system filesystem REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
+link_directories(${Boost_LIBRARY_DIR})
+
 find_package(Geant4 REQUIRED)
 find_package(Geant4 COMPONENTS qt)
 
 include(${Geant4_USE_FILE})
+
+find_package(JsonCpp REQUIRED)
+include_directories(${JsonCpp_INCLUDE_DIR})
 
 file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/include/*.hh)
@@ -28,10 +36,9 @@ add_executable(g4 g4.cc ${headers})
 add_library(g4Application SHARED ${sources} ${headers})
 
 add_dependencies(g4 g4Application)
-include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIR})
 
-target_link_libraries(g4 g4Application ${Geant4_LIBRARIES} dl ${Boost_LIBRARIES})
+target_link_libraries(g4 g4Application ${Geant4_LIBRARIES} 
+    dl ${Boost_LIBRARIES} ${JsonCpp_LIBRARY})
 
 install(TARGETS g4 DESTINATION .)
 install(TARGETS g4Application DESTINATION .)
