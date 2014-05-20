@@ -17,17 +17,18 @@ namespace g4
     {
     public:
         /**
-          * Creates part of the geometry and inserts it into
-          * provided G4LogicalVolume, being the world volume
-          * (in most cases)
+          * @short Create part of the geometry and insert it into
+          * provided G4LogicalVolume
+          *
+          * @param logVolume In most cases, this is the world volume (in most cases)
           */
-        virtual void BuildGeometry(G4LogicalVolume*) = 0;
+        virtual void BuildGeometry(G4LogicalVolume* logVolume) = 0;
 
         virtual ~GeometryBuilder() { }
         
     protected:
         /**
-          * Call whenever geometry is changed.
+          * @short Call whenever geometry is changed.
           *
           * Not necessary in the initial building.
           */

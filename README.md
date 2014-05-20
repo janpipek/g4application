@@ -27,13 +27,12 @@ Plugin system
 -------------
 **TODO: describe**
 
-Loading a plugin
-~~~~~~~~~~~~~~~~
+Loading a plugin:
 
     /app/plugin/load <somePlugin.so>
 
-Examples
-~~~~~~~~
+Examples:
+
 There are a few example plugins that use most features of G4Application in the
 examples/ subdirectory.
 
@@ -44,11 +43,13 @@ examples/ subdirectory.
 How to build
 ------------
 You will need:
+
 * cmake >= 2.6 (not tested for lower) 
 * geant4 (9.6 used for development)
 * boost > 0.49
 
 Optional:
+
 * qt4
 
 After building, you will obtain:
@@ -56,6 +57,7 @@ After building, you will obtain:
 * libg4Application.so shared library - you will need to link your plugins against this library (the aim is to remove this necessity)
 
 Environment variables (alternatively can be set as CMake variables):
+
 * G4APP_PATH - when you set this, the built libraries and executable will be copied there (optional). 
 * G4APP_SOURCE_PATH - if you use the provided FindG4Application.cmake (when building your modules),
     this path is used for searching libraries and include directories of g4application (required in plugins).

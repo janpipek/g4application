@@ -7,9 +7,12 @@ namespace g4
     /**
       * @short A class reacting to changes in run manager.
       *
-      *  For each XXX in (Physics, Geometry, ParticleGenerator), it defines
+      * For each XXX in (Physics, Geometry, ParticleGenerator), it defines
       *  - OnXXXInitialiazing - before initializing
       *  - OnXXXInitialized - after initializing
+      *
+      * Default implementations do nothing, you can therefore
+      * override only those that you are interested in.
       */
     class RunListener 
     {
@@ -17,37 +20,37 @@ namespace g4
 
     protected:
         /** 
-          * @short Procedure called before geometry is initialized.
+          * @short Method called before geometry is initialized.
           */
         virtual void OnGeometryInitializing() { }
         
         /**
-          * @short Procedure called after geometry is initialized.
+          * @short Method called after geometry is initialized.
           */
         virtual void OnGeometryInitialized() { }
         
         /** 
-          * @short Procedure called before physics is initialized.
+          * @short Method called before physics is initialized.
           */
         virtual void OnPhysicsInitializing() { }
         
         /**
-          * @short Procedure called after physics is initialized.
+          * @short Method called after physics is initialized.
           */
         virtual void OnPhysicsInitialized() { }
 
         /** 
-          * @short Procedure that is called before particle generator builder is initialized.
+          * @short Method that is called before particle generator builder is initialized.
           */
         virtual void OnParticleGeneratorInitializing() { }
         
         /**
-          * @short Procedure called immediatelly after particle generator builder is initialized.
+          * @short Method called immediatelly after particle generator builder is initialized.
           */
         virtual void OnParticleGeneratorInitialized() { }           
 
         /**
-          * @short Procedure called at the end of /run/initialize call.
+          * @short Method called at the end of /run/initialize call.
           */
         virtual void OnRunInitialized() { }
     };
