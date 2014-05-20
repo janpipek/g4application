@@ -11,6 +11,19 @@ namespace g4
 
     std::vector<ConfigurationListener*> Configuration::_listeners;
 
+    template<> const double Configuration::GetValue<double>(const std::string& key)
+    {
+        ConfigurationValue& val = GetValue(key);
+        if (val.which() == 0)
+        {
+            return boost::get<int>(val);
+        }
+        else
+        {
+            return boost::get<double>(val);
+        }
+    }    
+
     ConfigurationListener::ConfigurationListener()
     {
         Configuration::AddListener(this);
