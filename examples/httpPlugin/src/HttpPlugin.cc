@@ -22,6 +22,8 @@ namespace http
     HttpPlugin::~HttpPlugin()
     {
         _server->Stop();
+        // Thread joined, should be safe to delete.
+        delete _server;
     }
 }
 
