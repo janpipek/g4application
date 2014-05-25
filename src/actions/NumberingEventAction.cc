@@ -12,11 +12,11 @@ namespace g4
         _loggingFrequency = Configuration::GetValue<int>(LOGGING_FREQUENCY_KEY);
     }
 
-    void NumberingEventAction::ConfigurationChanged(const std::string &key)
+    void NumberingEventAction::ConfigurationChanged(const std::string &key, const ConfigurationValue &value)
     {
         if (key == LOGGING_FREQUENCY_KEY)
         {
-            _loggingFrequency = Configuration::GetValue<int>(LOGGING_FREQUENCY_KEY);
+            _loggingFrequency = boost::get<int>(value);
         }
     }
 

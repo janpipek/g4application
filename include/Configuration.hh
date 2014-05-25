@@ -75,7 +75,7 @@ namespace g4
         /**
          * @short Get a stored value without casting.
          */
-        static ConfigurationValue& GetValue(const std::string& key)
+        static const ConfigurationValue& GetValue(const std::string& key)
         {
             return _entries[key];
         }
@@ -100,7 +100,7 @@ namespace g4
          * This allows classes that use configuration, to provide meaningful values
          * when these are not set from outside.
          */
-        static void SetDefaultValue(const std::string& key, const ConfigurationValue& value);
+        static const ConfigurationValue& SetDefaultValue(const std::string& key, const ConfigurationValue& value);
 
         /**
          * @short Print the configuration in a human-readable form.
@@ -116,7 +116,7 @@ namespace g4
 
         static void RemoveListener(ConfigurationListener* listener);
 
-        static void NotifyListeners(const std::string& key);
+        static void NotifyListeners(const std::string& key, const ConfigurationValue& value);
 
     };
 
@@ -147,7 +147,7 @@ namespace g4
          *
          * Respond to all keys you are interested in and do nothing for others.
          */
-        virtual void ConfigurationChanged(const std::string& key) = 0;
+        virtual void ConfigurationChanged(const std::string& key, const ConfigurationValue& value) = 0;
     };
 }
 

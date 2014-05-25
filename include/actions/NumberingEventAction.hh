@@ -25,7 +25,7 @@ namespace g4
 
         virtual ~NumberingEventAction() { }
 
-        virtual void ConfigurationChanged(const std::string& key);
+        virtual void ConfigurationChanged(const std::string& key,  const ConfigurationValue& value);
 
     private:
         int _loggingFrequency;

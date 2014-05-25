@@ -13,7 +13,7 @@ namespace g4
 
     template<> const double Configuration::GetValue<double>(const std::string& key)
     {
-        ConfigurationValue& val = GetValue(key);
+        const ConfigurationValue& val = GetValue(key);
         if (val.which() == 0)
         {
             return boost::get<int>(val);
@@ -51,11 +51,11 @@ namespace g4
         }
     }
 
-    void Configuration::NotifyListeners(const std::string &key)
+    void Configuration::NotifyListeners(const std::string &key, const ConfigurationValue& value)
     {
         for (auto it = _listeners.begin(); it != _listeners.end(); it++)
         {
-            (*it)->ConfigurationChanged(key);
+            (*it)->ConfigurationChanged(key, value);
         }
     }
 
@@ -65,7 +65,7 @@ namespace g4
         if (!(oldValue == value))
         {
             _entries[key] = value;
-            NotifyListeners(key);
+            NotifyListeners(key, value);
         }
     }
 
@@ -74,12 +74,13 @@ namespace g4
         return _entries.count(key);
     }
 
-    void Configuration::SetDefaultValue(const std::string &key, const ConfigurationValue &value)
+    const ConfigurationValue& Configuration::SetDefaultValue(const std::string &key, const ConfigurationValue &value)
     {
         if (!HasKey(key))
         {
             SetValue(key, value);
         }
+        return GetValue(key);
     }
 
     void Configuration::Print(ostream& stream)
