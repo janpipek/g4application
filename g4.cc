@@ -36,5 +36,6 @@ int main(int argc, char** argv)
         G4cerr << "Exception thrown: " << exc << endl;
         exit(-1);
     }
+    G4cout << "Application exiting normally..." << G4endl;
 }
 
