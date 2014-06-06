@@ -32,6 +32,8 @@ namespace g4
         virtual void InitializePhysics() = 0;
         
         virtual void InitializeParticleGenerator() = 0;
+
+        virtual ~RunInitializer() { };
     };
 
     /**
