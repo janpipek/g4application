@@ -1,6 +1,10 @@
 #ifndef UTILJSON_HH
 #define UTILJSON_HH
 
+/**
+  * @short A few utilities for better work with input JSON files.
+  */
+
 #include <string>
 #include <memory>
 #include <stdexcept>
@@ -17,6 +21,9 @@ namespace g4
           */
         std::shared_ptr<Json::Value> parseJsonFile(const std::string& path);
 
+        /**
+          * @short Template-based JSON value parsing (for use in other templates).
+          */
         template<typename T> T readJsonValue(const Json::Value& value);
 
         template<> double readJsonValue<double>(const Json::Value& value)

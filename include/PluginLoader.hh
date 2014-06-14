@@ -28,15 +28,15 @@ namespace g4
         int Load(std::string name);
 
         /**
-          * Add a plugin.
+          * @short Add a plugin.
           *
           * Such plugin needn't be loaded using Load method and doesn't
           * need to come from an external library at all.
           */
         void AddPlugin(Plugin*);
         
-        /** 
-          * Vector of all loaded plugins.
+        /**
+          * @short Vector of all loaded plugins.
           */
         const std::vector<Plugin*>& GetPlugins() const
         {
@@ -44,7 +44,7 @@ namespace g4
         }
         
         /**
-          * Unload all plugins.
+          * @short Unload all plugins.
           *
           * Note: This has to be done as the last step as other classes
           *   use object from the plugins.

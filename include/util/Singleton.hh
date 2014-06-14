@@ -21,6 +21,9 @@ namespace g4
           *
           * Inspiration: http://www.codeproject.com/Articles/4750/Singleton-Pattern-A-review-and-analysis-of-existin
           *
+          * According to Alexandrescu's terminology (see Modern C++ Design), this is a create-new,
+          * phoenix, non-thread-safe singleton.
+          *
           * @code
           *   class AClass : public Singleton<AClass> { };
           *   AClass::Instance().DoSomething();
@@ -60,7 +63,7 @@ namespace g4
 
             virtual ~Singleton()
             {
-                _instance = 0;
+                _instance = 0; // enables further re-creation
             }
 
         private:

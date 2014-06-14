@@ -2,7 +2,7 @@
 #define OBSERVER_HH
 
 /**
-  * A pair of Observer<->Publisher templates based
+  * @short A pair of Observer<->Publisher templates based
   * on the Observer design pattern.
   */
 
@@ -84,6 +84,12 @@ namespace g4
           *
           * @code
           *     class SomePublisher : public Publisher<SomePublisher> { };
+          *     class SomeObserver : public Observer<SomePublisher> {
+          *         virtual void Update(SomePublisher&) { ... }
+          *     }
+          *
+          *     SomePublisher sp;
+          *     sp->AddObserver(new SomeObserver());
           * @endcode
           */
         template<typename T> class Publisher
