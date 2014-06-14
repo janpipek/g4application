@@ -19,7 +19,7 @@ int main(int argc, char** argv)
     {
         // Run the application
         G4Application::CreateInstance(argc, argv);
-        G4Application::GetInstance()->RunUI();
+        G4Application::Instance()->RunUI();
     }
     catch (const exception& exc)
     {

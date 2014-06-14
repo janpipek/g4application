@@ -10,7 +10,7 @@ namespace http
     {
         _server->Start();
         _action = new HttpEventAction(_server->GetState());
-        G4Application::GetInstance()->GetRunManager()->AddAction(_action);
+        G4Application::Instance()->GetRunManager()->AddAction(_action);
     }
 
     HttpPlugin::HttpPlugin()

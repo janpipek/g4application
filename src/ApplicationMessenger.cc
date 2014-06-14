@@ -125,7 +125,7 @@ namespace g4
     
     void ApplicationMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
     {
-        G4Application* application = G4Application::GetInstance();
+        G4Application* application = G4Application::Instance();
         if (command == _waitCommand)
         {
             int seconds = _waitCommand->GetNewIntValue(newValue);

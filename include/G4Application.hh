@@ -26,7 +26,7 @@ namespace g4
         // TODO: This class is a typical "god object". Refactor.
         static void CreateInstance(int argc, char** argv);
         
-        static G4Application* GetInstance();
+        static G4Application* Instance();
                     
         ~G4Application();
         

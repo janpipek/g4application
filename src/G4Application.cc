@@ -108,7 +108,7 @@ namespace g4
         _particleGeneratorBuilder = generatorBuilder;
     }
     
-    G4Application* G4Application::GetInstance()
+    G4Application* G4Application::Instance()
     {
         if (!_instance)
         {

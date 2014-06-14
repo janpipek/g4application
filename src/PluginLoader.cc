@@ -77,7 +77,7 @@ namespace g4
 
     void PluginLoader::AddPlugin(Plugin* plugin)
     {       
-        G4Application* app = G4Application::GetInstance();
+        G4Application* app = G4Application::Instance();
         plugin->OnLoad();
 
         // Geometry from plugin

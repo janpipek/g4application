@@ -27,5 +27,5 @@ void ExamplePlugin::OnRunInitialized()
 {
     G4cout << "ExamplePlugin::OnRunInitialized: adding event action..." << endl;
     _eventAction = new ExampleEventAction();
-    G4Application::GetInstance()->GetRunManager()->AddAction(_eventAction);
+    G4Application::Instance()->GetRunManager()->AddAction(_eventAction);
 }
