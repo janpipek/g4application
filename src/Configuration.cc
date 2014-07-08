@@ -9,7 +9,7 @@ namespace g4
 {
     std::map<std::string, ConfigurationValue> Configuration::_entries;
 
-    std::vector<ConfigurationListener*> Configuration::_listeners;
+    std::vector<ConfigurationObserver*> Configuration::_observers;
 
     template<> const double Configuration::GetValue<double>(const std::string& key)
     {
@@ -24,36 +24,36 @@ namespace g4
         }
     }    
 
-    ConfigurationListener::ConfigurationListener()
+    ConfigurationObserver::ConfigurationObserver()
     {
-        Configuration::AddListener(this);
+        Configuration::AddObserver(this);
     }
 
-    ConfigurationListener::~ConfigurationListener()
+    ConfigurationObserver::~ConfigurationObserver()
     {
-        Configuration::RemoveListener(this);
+        Configuration::RemoveObserver(this);
     }
 
-    void Configuration::AddListener(ConfigurationListener *listener)
+    void Configuration::AddObserver(ConfigurationObserver *observer)
     {
-        if (std::find(_listeners.begin(), _listeners.end(), listener) == _listeners.end())
+        if (std::find(_observers.begin(), _observers.end(), observer) == _observers.end())
         {
-            _listeners.push_back(listener);
+            _observers.push_back(observer);
         }
     }
 
-    void Configuration::RemoveListener(ConfigurationListener *listener)
+    void Configuration::RemoveObserver(ConfigurationObserver *observer)
     {
-        std::vector<ConfigurationListener*>::iterator needle = std::find(_listeners.begin(), _listeners.end(), listener);
-        if (needle != _listeners.end())
+        std::vector<ConfigurationObserver*>::iterator needle = std::find(_observers.begin(), _observers.end(), observer);
+        if (needle != _observers.end())
         {
-            _listeners.erase(needle);
+            _observers.erase(needle);
         }
     }
 
-    void Configuration::NotifyListeners(const std::string &key)
+    void Configuration::NotifyObservers(const std::string &key)
     {
-        for (auto it = _listeners.begin(); it != _listeners.end(); it++)
+        for (auto it = _observers.begin(); it != _observers.end(); it++)
         {
             (*it)->ConfigurationChanged(key);
         }
@@ -65,7 +65,7 @@ namespace g4
         if (!(oldValue == value))
         {
             _entries[key] = value;
-            NotifyListeners(key);
+            NotifyObservers(key);
         }
     }
 

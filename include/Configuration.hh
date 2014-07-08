@@ -21,7 +21,7 @@ namespace g4
      */
     typedef boost::variant<int, double, std::string> ConfigurationValue;
 
-    class ConfigurationListener;
+    class ConfigurationObserver;
 
     /**
      * @short General application configuration class (static class).
@@ -29,13 +29,13 @@ namespace g4
      * It holds a dictionary of values (string/int/double as boost::variant). Keys are strings.
      * Note that the client has to know of which type the value is.
      * 
-     * Instances of classes inheriting from ApplicationConfigurationListener are 
+     * Instances of classes inheriting from ConfigurationObserver are
      * automatically registered as listeners of configuration changes.
      */
     class Configuration
     {     
     public:
-        friend class ConfigurationListener;
+        friend class ConfigurationObserver;
 
         /**
          * @short Get a stored key with casting.
@@ -110,13 +110,13 @@ namespace g4
     private:
         static std::map<std::string, ConfigurationValue> _entries;
 
-        static std::vector<ConfigurationListener*> _listeners;
+        static std::vector<ConfigurationObserver*> _observers;
 
-        static void AddListener(ConfigurationListener* listener);
+        static void AddObserver(ConfigurationObserver* observer);
 
-        static void RemoveListener(ConfigurationListener* listener);
+        static void RemoveObserver(ConfigurationObserver* observer);
 
-        static void NotifyListeners(const std::string& key);
+        static void NotifyObservers(const std::string& key);
 
     };
 
@@ -127,19 +127,19 @@ namespace g4
     template<> const double Configuration::GetValue<double>(const std::string& key);  
 
     /**
-     * @short Abstract base class for the application configuration listener.
+     * @short Abstract base class for the application configuration observer.
      *
-     * Note that it is automatically registered.
+     * Note that it is automatically registered in constructor.
      * You have to provide your implementation for ConfigurationChanged.
      */
-    class ConfigurationListener
+    class ConfigurationObserver
     {
     protected:
         friend class Configuration;
 
-        ConfigurationListener();
+        ConfigurationObserver();
 
-        virtual ~ConfigurationListener();
+        virtual ~ConfigurationObserver();
 
         /**
          * @short Abstract method responding to each change of any configuration value.

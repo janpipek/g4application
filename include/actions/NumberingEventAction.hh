@@ -16,7 +16,7 @@ namespace g4
       *
       * Configuration value LOGGING_FREQUENCY_KEY (0 for no logging).
       */
-    class NumberingEventAction : public G4UserEventAction, public ConfigurationListener
+    class NumberingEventAction : public G4UserEventAction, public ConfigurationObserver
     {
     public:
         virtual void EndOfEventAction(const G4Event* anEvent);

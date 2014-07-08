@@ -9,7 +9,7 @@
 using namespace g4;
 using namespace std;
 
-class ExampleParticleGenerator : public G4VUserPrimaryGeneratorAction, ConfigurationListener
+class ExampleParticleGenerator : public G4VUserPrimaryGeneratorAction, ConfigurationObserver
 {
 public:
     ExampleParticleGenerator()

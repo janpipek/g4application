@@ -14,7 +14,7 @@ namespace http
      * Copies of configuration and event number are kept
      * so that no race conditions occur when accessing them.
      */
-    class ServerState : public g4::ConfigurationListener
+    class ServerState : public g4::ConfigurationObserver
     {
     public:
         ServerState();

@@ -17,7 +17,7 @@ namespace http
     // Function that starts the server and is called from a new thread
     void startServer(void* arg);
 
-    class HttpServer : public g4::ConfigurationListener
+    class HttpServer : public g4::ConfigurationObserver
     {
     public:
         ServerState* GetState() { return _state; }
