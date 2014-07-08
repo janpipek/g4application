@@ -1,5 +1,5 @@
-#ifndef PLUGGABLEGEOMETRY_HH
-#define PLUGGABLEGEOMETRY_HH
+#ifndef COMPOSITEGEOMETRY_HH
+#define COMPOSITEGEOMETRY_HH
 
 #include <vector>
 
@@ -22,15 +22,15 @@ namespace g4
       * phase of the run manager). For this purpose it contains
       * an inner class.
       */
-    class PluggableGeometry
+    class CompositeGeometry
     {
-        class PluggableGeometryDetectorConstruction;
-        friend class PluggableGeometryDetectorConstruction;
+        class CompositeGeometryDetectorConstruction;
+        friend class CompositeGeometryDetectorConstruction;
         
     public:
-        PluggableGeometry();
+        CompositeGeometry();
         
-        virtual ~PluggableGeometry();
+        virtual ~CompositeGeometry();
                 
         /**
          * @brief Add one geometry builder.
@@ -52,7 +52,7 @@ namespace g4
     private:                        
         std::vector<GeometryBuilder*> _builders;
         
-        PluggableGeometryDetectorConstruction* _detectorConstruction;        
+        CompositeGeometryDetectorConstruction* _detectorConstruction;
 
         G4VPhysicalVolume* _worldPhys;
 
@@ -62,12 +62,12 @@ namespace g4
           * Private inner class that is a G4VUserDetectorConstruction.
           *
           * When constructing detector, it reads all the builders
-          * from the parent PluggableGeometry.
+          * from the parent CompositeGeometry.
           */
-        class PluggableGeometryDetectorConstruction : public G4VUserDetectorConstruction
+        class CompositeGeometryDetectorConstruction : public G4VUserDetectorConstruction
         {          
         public:
-            PluggableGeometryDetectorConstruction(PluggableGeometry*);
+            CompositeGeometryDetectorConstruction(CompositeGeometry*);
             
         protected:
             virtual G4VPhysicalVolume* Construct();
@@ -75,9 +75,9 @@ namespace g4
         private:
             void CreateWorld();
             
-            PluggableGeometry* _parent;
+            CompositeGeometry* _parent;
         };
     };
 }
 
-#endif // PLUGGABLEGEOMETRY_HH
+#endif // COMPOSITEGEOMETRY_HH

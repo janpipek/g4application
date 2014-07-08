@@ -25,7 +25,7 @@ namespace g4
         _argc(argc), _argv(argv), _interactiveSession(0), _physicsBuilder(0),
         _particleGeneratorBuilder(0)
     {
-        _geometry = new PluggableGeometry();
+        _geometry = new CompositeGeometry();
         
         // Initialize directory for UI commands
         _uiDirectory = new G4UIdirectory("/app/");

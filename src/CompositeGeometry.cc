@@ -1,4 +1,4 @@
-#include "PluggableGeometry.hh"
+#include "CompositeGeometry.hh"
 
 #include <G4NistManager.hh>
 #include <G4Box.hh>
@@ -12,12 +12,12 @@ using namespace std;
 
 namespace g4
 {
-    PluggableGeometry::PluggableGeometry() :
+    CompositeGeometry::CompositeGeometry() :
         _detectorConstruction(0), _worldLog(0), _worldPhys(0)
     {       
     }
     
-    PluggableGeometry::~PluggableGeometry()
+    CompositeGeometry::~CompositeGeometry()
     {
         // Remove all builders
         for (vector<GeometryBuilder*>::iterator it = _builders.begin(); it != _builders.end(); it++)
@@ -26,7 +26,7 @@ namespace g4
         }
     }
 
-    void PluggableGeometry::SetWorldVolume(G4VPhysicalVolume* volume)
+    void CompositeGeometry::SetWorldVolume(G4VPhysicalVolume* volume)
     {
         if (_worldPhys)
         {
@@ -35,16 +35,16 @@ namespace g4
         _worldPhys = volume;
     }
     
-    G4VUserDetectorConstruction* PluggableGeometry::GetDetectorConstruction()
+    G4VUserDetectorConstruction* CompositeGeometry::GetDetectorConstruction()
     {
         if (!_detectorConstruction)
         {
-            _detectorConstruction = new PluggableGeometry::PluggableGeometryDetectorConstruction(this);
+            _detectorConstruction = new CompositeGeometry::CompositeGeometryDetectorConstruction(this);
         }
         return _detectorConstruction;
     }
     
-    G4VPhysicalVolume* PluggableGeometry::PluggableGeometryDetectorConstruction::Construct()
+    G4VPhysicalVolume* CompositeGeometry::CompositeGeometryDetectorConstruction::Construct()
     {
         if (!_parent->_worldPhys)
         {
@@ -62,12 +62,12 @@ namespace g4
         return _parent->_worldPhys;
     }
     
-    PluggableGeometry::PluggableGeometryDetectorConstruction::PluggableGeometryDetectorConstruction(PluggableGeometry * parent)
+    CompositeGeometry::CompositeGeometryDetectorConstruction::CompositeGeometryDetectorConstruction(CompositeGeometry * parent)
         : _parent(parent)
     {
     }
     
-    void PluggableGeometry::PluggableGeometryDetectorConstruction::CreateWorld()
+    void CompositeGeometry::CompositeGeometryDetectorConstruction::CreateWorld()
     {
         // 1 - solid
         G4double length = 2.5 * m;

@@ -6,7 +6,7 @@
 #include <G4UIsession.hh>
 
 #include "RunManager.hh"
-#include "PluggableGeometry.hh"
+#include "CompositeGeometry.hh"
 #include "ParticleGeneratorBuilder.hh"
 #include "PhysicsBuilder.hh"
 #include "PluginLoader.hh"
@@ -30,7 +30,7 @@ namespace g4
                     
         ~G4Application();
         
-        PluggableGeometry* GetGeometry() const { return _geometry; }
+        CompositeGeometry* GetGeometry() const { return _geometry; }
         
         RunManager* GetRunManager() const { return _runManager; }
         
@@ -105,7 +105,7 @@ namespace g4
         
         ApplicationMessenger* _messenger;
         
-        PluggableGeometry* _geometry;
+        CompositeGeometry* _geometry;
     };
 }
 
