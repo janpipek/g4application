@@ -1,7 +1,6 @@
 #ifndef COMPOSITEACTION_HH
 #define COMPOSITEACTION_HH
 
-#include <iostream>
 #include <list>
 #include <algorithm>
 
@@ -57,7 +56,7 @@ namespace g4
 
     protected:
         /**
-          * @short Call a member method on all actions.
+          * @short Call a member method on all actions (with argument).
           */
         template<typename ArgType> void Invoke(void (ActionType::*func)(ArgType), ArgType arg)
         {

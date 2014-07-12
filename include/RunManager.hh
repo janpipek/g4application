@@ -33,7 +33,7 @@ namespace g4
         
         virtual void InitializeParticleGenerator() = 0;
 
-        virtual ~RunInitializer() { };
+        virtual ~RunInitializer() { }
     };
 
     /**
