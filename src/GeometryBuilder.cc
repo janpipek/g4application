@@ -7,6 +7,6 @@ namespace g4
 {
     void GeometryBuilder::GeometryChanged()
     {
-        G4Application::Instance()->GetRunManager()->GeometryHasBeenModified();
+        G4Application::Instance().GetRunManager()->GeometryHasBeenModified();
     }   
 }

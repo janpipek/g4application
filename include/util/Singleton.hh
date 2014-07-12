@@ -8,6 +8,8 @@ namespace g4
 {
     namespace util
     {
+        template<typename T> bool instanceExists();
+
         /**
           * @short A simple, non-thread-safe singleton template.
           *
@@ -50,6 +52,8 @@ namespace g4
                 return *_instance;
             }
 
+            friend bool instanceExists<T>();
+
         protected:
             Singleton()
             {
@@ -79,6 +83,16 @@ namespace g4
         };
 
         template<typename T> T* Singleton<T>::_instance = 0;
+
+        /**
+          * @short Is an instance of singleton class T already created?
+          *
+          * Defined outside the class not to spoil the class namespace.
+          */
+        template<typename T> bool instanceExists()
+        {
+            return T::_instance != 0;
+        }
     }
 }
 

@@ -84,6 +84,9 @@ namespace g4
         _waitCommand->SetGuidance("0 - wait for a key press");
         _waitCommand->SetGuidance(">0 - wait for a specified interval in seconds");
         
+        _prepareInteractiveCommand = new G4UIcmdWithoutParameter("/app/prepareInteractive", this);
+        _prepareInteractiveCommand->SetGuidance("Prepares interactive mode.");
+
         _interactiveCommand = new G4UIcmdWithoutParameter("/app/interactive", this);
         _interactiveCommand->SetGuidance("Enter interactive mode");
 
@@ -125,7 +128,7 @@ namespace g4
     
     void ApplicationMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
     {
-        G4Application* application = G4Application::Instance();
+        G4Application& application = G4Application::Instance();
         if (command == _waitCommand)
         {
             int seconds = _waitCommand->GetNewIntValue(newValue);
@@ -142,11 +145,15 @@ namespace g4
         }
         else if (command == _interactiveCommand)
         {
-            application->EnterInteractiveMode();
+            application.EnterInteractiveMode();
+        }
+        else if (command == _prepareInteractiveCommand)
+        {
+            application.PrepareInteractiveMode();
         }
         else if (command == _generateRandomSeedCommand)
         {
-            application->GenerateRandomSeed();
+            application.GenerateRandomSeed();
         }
         else if (command == _setDoubleCommand)
         {
@@ -166,18 +173,18 @@ namespace g4
         }
         else if (command == _pauseCommand)
         {
-            application->PauseExecution();
+            application.PauseExecution();
         }
         else if (command = _addActionCommand)
         {
             G4cout << "Trying to add action " << newValue << "..." << G4endl;
             if (newValue == "NumberingEventAction")
             {
-                application->GetRunManager()->AddAction(new NumberingEventAction);
+                application.GetRunManager()->AddAction(new NumberingEventAction);
             }
             else if (newValue == "MemoryRunAction")
             {
-                application->GetRunManager()->AddAction(new MemoryRunAction);
+                application.GetRunManager()->AddAction(new MemoryRunAction);
             }
             else
             {

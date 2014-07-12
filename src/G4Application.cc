@@ -16,33 +16,60 @@
 #endif
 
 using namespace std;
+using namespace g4::util;
 
 namespace g4
 {
-    G4Application* G4Application::_instance = 0;
-
-    G4Application::G4Application(int argc, char** argv) :
-        _argc(argc), _argv(argv), _interactiveSession(0), _physicsBuilder(0),
-        _particleGeneratorBuilder(0)
+    G4Application::G4Application(int argc, char** argv)
     {
+        Initialize(argc, argv);
+    }
+
+    G4Application::G4Application()
+    {
+        G4cerr << "Warning: G4Application created without argc/argv!" << G4endl;
+        Initialize(0, 0);
+    }
+
+    void G4Application::Initialize(int argc, char** argv)
+    {
+        _argc = argc;
+        _argv = argv;
+        _interactiveSession = 0;
+        _physicsBuilder = 0;
+        _particleGeneratorBuilder = 0;
+
         _geometry = new CompositeGeometry();
-        
+
         // Initialize directory for UI commands
         _uiDirectory = new G4UIdirectory("/app/");
         _uiDirectory->SetGuidance("G4Application commands");
 
         _messenger = new ApplicationMessenger();
-        
+
         _runManager = new RunManager(*this);
 
         // Plugin-loading system
         _pluginLoader = new PluginLoader(_runManager);
-        
+
         // Visualization
         #ifdef G4VIS_USE
           _visManager = new G4VisExecutive;
           _visManager->Initialize();
-        #endif      
+        #endif
+    }
+
+    void G4Application::PrepareInteractiveMode()
+    {
+        #ifdef G4UI_USE_QT
+            _interactiveSession = new G4UIQt(_argc, _argv); // There are no arguments but nevermind.
+        #else
+            #ifdef G4UI_USE_TCSH
+                _interactiveSession = new G4UIterminal(new G4UItcsh);
+            #else
+                _interactiveSession = new G4UIterminal();
+            #endif
+        #endif
     }
     
     G4Application::~G4Application()
@@ -108,42 +135,22 @@ namespace g4
         _particleGeneratorBuilder = generatorBuilder;
     }
     
-    G4Application* G4Application::Instance()
-    {
-        if (!_instance)
-        {
-            G4Exception("G4Application", "NoInstance", FatalException, "There is no instance of G4pplication class.");
-        }
-        return _instance;
-    }
-    
     void G4Application::CreateInstance(int argc, char **argv)
     {
-        if (_instance)
+        if (instanceExists<G4Application>())
         {
             G4Exception("G4Application", "DuplicateInstance", FatalException, "Cannot create second instance of G4Application." );
         }
-        _instance = new G4Application(argc, argv);
+        new G4Application(argc, argv);
     }
     
     void G4Application::EnterInteractiveMode()
     {
-        // UI used (in order of preference): Qt, TCSH, default terminal
-        #ifdef G4UI_USE_QT
-            if (!_interactiveSession)
-            {
-                _interactiveSession = new G4UIQt(_argc, _argv); // There are no arguments but nevermind.
-            }
-        #else
-            #ifdef G4UI_USE_TCSH
-                _interactiveSession = new G4UIterminal(new G4UItcsh);
-            #else
-                _interactiveSession = new G4UIterminal();
-            #endif
-        #endif
+        if (!_interactiveSession)
+        {
+            PrepareInteractiveMode();
+        }
         _interactiveSession->SessionStart();
-        delete _interactiveSession;
-        _interactiveSession = 0;
     }
 
     void G4Application::PauseExecution()

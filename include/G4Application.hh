@@ -11,6 +11,7 @@
 #include "PhysicsBuilder.hh"
 #include "PluginLoader.hh"
 #include "ApplicationMessenger.hh"
+#include "util/Singleton.hh"
 
 namespace g4
 {
@@ -20,14 +21,14 @@ namespace g4
     /**
       * @short Singleton application object.
       */
-    class G4Application : public RunInitializer
+    class G4Application :
+            public RunInitializer,
+            public util::Singleton<G4Application>
     {
     public:     
         // TODO: This class is a typical "god object". Refactor.
         static void CreateInstance(int argc, char** argv);
-        
-        static G4Application* Instance();
-                    
+
         ~G4Application();
         
         CompositeGeometry* GetGeometry() const { return _geometry; }
@@ -47,6 +48,9 @@ namespace g4
           * to generate different results. Uses system rand() function.
           */
         void GenerateRandomSeed();
+
+
+        void PrepareInteractiveMode();
             
         /**
           * Enter mode where user can manually type commands
@@ -72,14 +76,17 @@ namespace g4
         
         void InitializePhysics();
         
-        void InitializeParticleGenerator();     
+        void InitializeParticleGenerator();  
+
+        friend class util::Singleton<G4Application>;   
 
     private:
-        // Ensure singleton behaviour
+        G4Application();
+
         G4Application(int argc, char** argv);
-        G4Application(const G4Application&) {};
-        G4Application& operator= (const G4Application&);    
-                    
+
+        void Initialize(int argc, char **argv);
+
         int _argc;
         
         char** _argv;
@@ -88,8 +95,6 @@ namespace g4
         #ifdef G4VIS_USE
           G4VisExecutive* _visManager;
         #endif
-          
-        static G4Application* _instance;
         
         RunManager* _runManager;
         

@@ -77,14 +77,14 @@ namespace g4
 
     void PluginLoader::AddPlugin(Plugin* plugin)
     {       
-        G4Application* app = G4Application::Instance();
+        G4Application& application = G4Application::Instance();
         plugin->OnLoad();
 
         // Geometry from plugin
         GeometryBuilder* geomBuilder = plugin->GetGeometryBuilder();
         if (geomBuilder)
         {
-            app->GetGeometry()->AddGeometryBuilder(geomBuilder);
+            application.GetGeometry()->AddGeometryBuilder(geomBuilder);
             G4cout << "Using geometry definition from plugin `" << plugin->GetName() << "`." << endl;
         }
         
@@ -92,7 +92,7 @@ namespace g4
         ParticleGeneratorBuilder* genBuilder = plugin->GetParticleGeneratorBuilder();
         if (genBuilder)
         {
-            app->SetParticleGeneratorBuilder(genBuilder);
+            application.SetParticleGeneratorBuilder(genBuilder);
             G4cout << "Using particle generator from plugin `" << plugin->GetName() << "`." << endl;
         }
         
@@ -100,7 +100,7 @@ namespace g4
         PhysicsBuilder* physBuilder = plugin->GetPhysicsBuilder();
         if (physBuilder)
         {
-            app->SetPhysicsBuilder(physBuilder);
+            application.SetPhysicsBuilder(physBuilder);
             G4cout << "Using physics from plugin `" << plugin->GetName() << "`." << endl;
         }
         
