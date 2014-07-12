@@ -10,7 +10,7 @@ class G4UserTrackingAction;
 
 namespace g4
 {
-    class RunListener;
+    class RunObserver;
     class CompositeEventAction;
     class CompositeRunAction;
     class CompositeSteppingAction;
@@ -77,9 +77,9 @@ namespace g4
 
         void InitializeUserActions();
 
-        void AddListener(RunListener* listener);
+        void AddObserver(RunObserver* observer);
 
-        void RemoveListener(RunListener* listener);
+        void RemoveObserver(RunObserver* observer);
 
     private:
         RunInitializer& _initializer;
@@ -92,7 +92,7 @@ namespace g4
 
         CompositeTrackingAction* _trackingAction;
 
-        std::vector<RunListener*> _listeners;
+        std::vector<RunObserver*> _observers;
     };
 }
 

@@ -1,5 +1,5 @@
-#ifndef RUNLISTENER_HH
-#define RUNLISTENER_HH
+#ifndef RUNOBSERVER_HH
+#define RUNOBSERVER_HH
 namespace g4
 {
     class RunManager;
@@ -14,7 +14,7 @@ namespace g4
       * Default implementations do nothing, you can therefore
       * override only those that you are interested in.
       */
-    class RunListener 
+    class RunObserver
     {
         friend class RunManager;
 

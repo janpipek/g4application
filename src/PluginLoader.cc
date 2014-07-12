@@ -105,7 +105,7 @@ namespace g4
         }
         
         _plugins.push_back(plugin);
-        _runManager->AddListener(plugin);
+        _runManager->AddObserver(plugin);
     }
             
     PluginLoader::~PluginLoader()
@@ -114,7 +114,7 @@ namespace g4
         // Destroy all plugin objects
         for (vector<Plugin*>::iterator it = _plugins.begin(); it != _plugins.end(); it++)
         {
-            _runManager->RemoveListener(*it);
+            _runManager->RemoveObserver(*it);
             delete (*it);
         }
         cout << "Unloading " << _libraries.size() << " plugins." << endl;

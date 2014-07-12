@@ -23,7 +23,7 @@ extern "C" g4::Plugin* PLUGIN_MAIN_FUNCTION()\
 #include "PhysicsBuilder.hh"
 #include "GeometryBuilder.hh"
 #include "ParticleGeneratorBuilder.hh"
-#include "RunListener.hh"
+#include "RunObserver.hh"
 
 namespace g4
 {
@@ -41,7 +41,7 @@ namespace g4
       *
       * Apart from that, there is a customizable (empty by default) callback:         
       */
-    class Plugin : public RunListener
+    class Plugin : public RunObserver
     {
     public:
         Plugin() : _uiDirectory(0) { }

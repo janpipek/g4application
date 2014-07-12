@@ -9,12 +9,12 @@
 #include "CompositeSteppingAction.hh"
 #include "CompositeTrackingAction.hh"
 
-#include "RunListener.hh"
+#include "RunObserver.hh"
 
 // Run a specific member function for all the listeners.
 // TODO: Change from macro to member function pointer type
-#define LISTENERS_DO( name ) {\
-    for (vector<RunListener*>::const_iterator it = _listeners.begin(); it != _listeners.end(); it++) \
+#define OBSERVERS_DO( name ) {\
+    for (vector<RunObserver*>::const_iterator it = _observers.begin(); it != _observers.end(); it++) \
     {\
         (*it)->name();\
     }\
@@ -43,46 +43,46 @@ namespace g4
           _steppingAction(0), _initializer(init)
     { }
 
-    void RunManager::AddListener(RunListener* listener)
+    void RunManager::AddObserver(RunObserver* observer)
     {
-        if (std::find(_listeners.begin(), _listeners.end(), listener) == _listeners.end())
+        if (std::find(_observers.begin(), _observers.end(), observer) == _observers.end())
         {
-            _listeners.push_back(listener);
+            _observers.push_back(observer);
         }
     }
 
-    void RunManager::RemoveListener(RunListener* listener)
+    void RunManager::RemoveObserver(RunObserver* observer)
     {
-        std::vector<RunListener*>::iterator needle = std::find(_listeners.begin(), _listeners.end(), listener);
-        if (needle != _listeners.end())
+        std::vector<RunObserver*>::iterator needle = std::find(_observers.begin(), _observers.end(), observer);
+        if (needle != _observers.end())
         {
-            _listeners.erase(needle);
+            _observers.erase(needle);
         }        
     }   
 
     void RunManager::Initialize()
     {
         // 1) Physics
-        LISTENERS_DO( OnPhysicsInitializing );
+        OBSERVERS_DO( OnPhysicsInitializing );
         _initializer.InitializePhysics();
         InitializeUserActions(); // TODO: Move elsewhere?
 
-        LISTENERS_DO( OnPhysicsInitialized );
+        OBSERVERS_DO( OnPhysicsInitialized );
         
         // 2) Geometry
-        LISTENERS_DO( OnGeometryInitializing );
+        OBSERVERS_DO( OnGeometryInitializing );
         _initializer.InitializeGeometry();
-        LISTENERS_DO( OnGeometryInitialized );
+        OBSERVERS_DO( OnGeometryInitialized );
         
         // 3) Particle Generator
-        LISTENERS_DO( OnParticleGeneratorInitializing );
+        OBSERVERS_DO( OnParticleGeneratorInitializing );
         _initializer.InitializeParticleGenerator();
-        LISTENERS_DO( OnParticleGeneratorInitialized );
+        OBSERVERS_DO( OnParticleGeneratorInitialized );
         
         G4cout << "Initializing Geant4 run manager." << endl;
         // Initialize Geant4's own run manager
         G4RunManager::Initialize();
-        LISTENERS_DO( OnRunInitialized );
+        OBSERVERS_DO( OnRunInitialized );
         G4cout << "Run initialized." << endl;
     }
 
