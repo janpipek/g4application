@@ -26,17 +26,17 @@ namespace g4
           */
         template<typename T> T readJsonValue(const Json::Value& value);
 
-        template<> double readJsonValue<double>(const Json::Value& value)
+        template<> inline double readJsonValue<double>(const Json::Value& value)
         {
             return value.asDouble();
         }
 
-        template<> std::string readJsonValue<std::string>(const Json::Value& value)
+        template<> inline std::string readJsonValue<std::string>(const Json::Value& value)
         {
             return value.asString();
         }
 
-        template<> int readJsonValue<int>(const Json::Value& value)
+        template<> inline int readJsonValue<int>(const Json::Value& value)
         {
             return value.asInt();
         }
