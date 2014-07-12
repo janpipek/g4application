@@ -29,6 +29,14 @@ namespace g4
         }
 
         /**
+          * @short Multiply vector by a constant.
+          */
+        template <typename T> std::vector<T> operator* (const T& value, const std::vector<T>& aVector)
+        {
+            return aVector * value;
+        }
+
+        /**
           * @short Divide vector by a constant.
           *
           * Useful when converting a vector to a different unit system.
@@ -39,6 +47,19 @@ namespace g4
             for (auto it = aVector.begin(); it != aVector.end(); it++)
             {
                 result.push_back((*it) / value );
+            }
+            return result;
+        }
+
+        /**
+          * @short Divide a constant by a vector.
+          */
+        template <typename T> std::vector<T> operator/ (const T& value, const std::vector<T>& aVector)
+        {
+            std::vector<T> result;
+            for (auto it = aVector.begin(); it != aVector.end(); it++)
+            {
+                result.push_back(value / (*it));
             }
             return result;
         }
@@ -56,6 +77,13 @@ namespace g4
             return result;
         }
 
+        /**
+          * @short Add a constant to a vector.
+          */
+        template <typename T> std::vector<T> operator+ (const T& value, const std::vector<T>& aVector)
+        {
+            return aVector + value;
+        }
 
         /**
           * @short Subtract a constant from a vector.
@@ -66,6 +94,19 @@ namespace g4
             for (auto it = aVector.begin(); it != aVector.end(); it++)
             {
                 result.push_back((*it) - value);
+            }
+            return result;
+        }
+
+        /**
+          * @short Subtract vector from a constant.
+          */
+        template <typename T> std::vector<T> operator- (const T& value, const std::vector<T>& aVector)
+        {
+            std::vector<T> result;
+            for (auto it = aVector.begin(); it != aVector.end(); it++)
+            {
+                result.push_back(value - (*it));
             }
             return result;
         }
