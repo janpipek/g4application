@@ -155,7 +155,7 @@ namespace http
             {
                 throw "Cannot specify port for running server.";
             }
-            _portNumber = Configuration::GetValue<int>("http.port");
+            _portNumber = Configuration::Get<int>("http.port");
         }
     }
 }

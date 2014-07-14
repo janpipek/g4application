@@ -11,9 +11,9 @@ namespace g4
 
     std::vector<ConfigurationObserver*> Configuration::_observers;
 
-    template<> const double Configuration::GetValue<double>(const std::string& key)
+    template<> const double Configuration::Get<double>(const std::string& key)
     {
-        ConfigurationValue& val = GetValue(key);
+        ConfigurationValue& val = Get(key);
         if (val.which() == 0)
         {
             return boost::get<int>(val);
@@ -59,7 +59,7 @@ namespace g4
         }
     }
 
-    void Configuration::SetValue(const std::string &key, const ConfigurationValue &value)
+    void Configuration::Set(const std::string &key, const ConfigurationValue &value)
     {
         ConfigurationValue oldValue = _entries[key];
         if (!(oldValue == value))
@@ -78,7 +78,7 @@ namespace g4
     {
         if (!HasKey(key))
         {
-            SetValue(key, value);
+            Set(key, value);
         }
     }
 

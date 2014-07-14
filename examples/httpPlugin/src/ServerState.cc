@@ -37,7 +37,7 @@ namespace http
     void ServerState::ConfigurationChanged(const string &key)
     {
         pthread_mutex_lock(&_stateMutex);
-        _configuration[key] = Configuration::GetValue(key);
+        _configuration[key] = Configuration::Get(key);
         pthread_mutex_unlock(&_stateMutex);
     }
 }

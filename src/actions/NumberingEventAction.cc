@@ -9,14 +9,14 @@ namespace g4
     NumberingEventAction::NumberingEventAction()
     {
         Configuration::SetDefaultValue(LOGGING_FREQUENCY_KEY, 1000);
-        _loggingFrequency = Configuration::GetValue<int>(LOGGING_FREQUENCY_KEY);
+        _loggingFrequency = Configuration::Get<int>(LOGGING_FREQUENCY_KEY);
     }
 
     void NumberingEventAction::ConfigurationChanged(const std::string &key)
     {
         if (key == LOGGING_FREQUENCY_KEY)
         {
-            _loggingFrequency = Configuration::GetValue<int>(LOGGING_FREQUENCY_KEY);
+            _loggingFrequency = Configuration::Get<int>(LOGGING_FREQUENCY_KEY);
         }
     }
 

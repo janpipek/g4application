@@ -118,7 +118,7 @@ namespace g4
         {
             string key = command->GetKey(newValue);
             ValueType value = command->GetValue(newValue);
-            Configuration::SetValue(key, value);
+            Configuration::Set(key, value);
         }
         catch(const char* exception)
         {

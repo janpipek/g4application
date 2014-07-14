@@ -42,7 +42,7 @@ namespace g4
          *
          * Guarded by boost exception.
          */
-        template<typename ValueType> static const ValueType GetValue(const std::string& key)// const
+        template<typename ValueType> static const ValueType Get(const std::string& key)// const
         {
             try
             {
@@ -60,11 +60,11 @@ namespace g4
           *
           * @param fallback This value is returned if the key is not found.
           */
-        template<typename ValueType> static const ValueType GetValue(const std::string& key, const ValueType& fallback)
+        template<typename ValueType> static const ValueType Get(const std::string& key, const ValueType& fallback)
         {
             if (HasKey(key)) 
             {
-                return GetValue<ValueType>(key);
+                return Get<ValueType>(key);
             }
             else
             {
@@ -75,7 +75,7 @@ namespace g4
         /**
          * @short Get a stored value without casting.
          */
-        static ConfigurationValue& GetValue(const std::string& key)
+        static ConfigurationValue& Get(const std::string& key)
         {
             return _entries[key];
         }
@@ -90,7 +90,7 @@ namespace g4
          *
          * The listeners get notified only if there really is a change.
          */
-        static void SetValue(const std::string& key, const ConfigurationValue& value);
+        static void Set(const std::string& key, const ConfigurationValue& value);
 
         static bool HasKey(const std::string& key);
 
@@ -124,7 +124,7 @@ namespace g4
      * @short Explicit specialization of the GetValue template
      *   so that int value can be used where doubles are expected.
      */
-    template<> const double Configuration::GetValue<double>(const std::string& key);  
+    template<> const double Configuration::Get<double>(const std::string& key);
 
     /**
      * @short Abstract base class for the application configuration observer.

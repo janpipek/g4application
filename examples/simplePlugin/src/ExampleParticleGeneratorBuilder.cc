@@ -50,7 +50,7 @@ private:
 
     void ApplyEnergyChange()
     {
-        _energy = Configuration::GetValue<double>("generator.energy");
+        _energy = Configuration::Get<double>("generator.energy");
         G4cout << "Generator energy changed to " << _energy << "." << endl;
         if (_gun)
         {
