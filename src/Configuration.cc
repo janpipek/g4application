@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <limits>
 
 using namespace std;
 
@@ -10,19 +11,6 @@ namespace g4
     std::map<std::string, ConfigurationValue> Configuration::_entries;
 
     std::vector<ConfigurationObserver*> Configuration::_observers;
-
-    template<> const double Configuration::Get<double>(const std::string& key)
-    {
-        ConfigurationValue& val = Get(key);
-        if (val.which() == 0)
-        {
-            return boost::get<int>(val);
-        }
-        else
-        {
-            return boost::get<double>(val);
-        }
-    }    
 
     ConfigurationObserver::ConfigurationObserver()
     {
@@ -100,5 +88,34 @@ namespace g4
     std::map<std::string, ConfigurationValue> Configuration::GetItems()
     {
         return _entries;
+    }
+
+    template<> const double getValue<double>(const ConfigurationValue& value)
+    {
+        if (value.which() == 0)
+        {
+            return boost::get<int>(value);
+        }
+        else
+        {
+            return boost::get<double>(value);
+        }
+    }
+
+    template<> const int getValue<int>(const ConfigurationValue& value)
+    {
+        if (value.which() == 1)
+        {
+            double val = boost::get<double>(value);
+            if ((double)(int)val != val)
+            {
+                boost::get<int>(value); // Raises exception
+            }
+            return val;
+        }
+        else
+        {
+            return boost::get<int>(value);
+        }
     }
 }

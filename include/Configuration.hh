@@ -17,9 +17,20 @@ namespace g4
      * @short Adaptable type used in our configuration system
      *
      * Covers three basic reasonable types for paramaters:
-     * - int, double & string  
+     * - long, double & string
      */
     typedef boost::variant<int, double, std::string> ConfigurationValue;
+
+    /**
+      * @short Get configuration value as desired type.
+      *
+      * Below, two specializations allow automatic treatment
+      * of ints as doubles and doubles as ints.
+      */
+    template<typename ValueType> const ValueType getValue(const ConfigurationValue& value)
+    {
+        return boost::get<ValueType>(value);
+    }
 
     class ConfigurationObserver;
 
@@ -46,7 +57,7 @@ namespace g4
         {
             try
             {
-                return boost::get<ValueType>(_entries[key]);
+                return getValue<ValueType>(_entries[key]);
             }
             catch (const boost::bad_get&)
             {
@@ -120,11 +131,9 @@ namespace g4
 
     };
 
-    /**
-     * @short Explicit specialization of the GetValue template
-     *   so that int value can be used where doubles are expected.
-     */
-    template<> const double Configuration::Get<double>(const std::string& key);
+    template<> const double getValue<double>(const ConfigurationValue& value);
+
+    template<> const int getValue<int>(const ConfigurationValue& value);
 
     /**
      * @short Abstract base class for the application configuration observer.
