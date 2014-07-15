@@ -17,7 +17,7 @@ namespace g4
      * @short Adaptable type used in our configuration system
      *
      * Covers three basic reasonable types for paramaters:
-     * - long, double & string
+     * - int, double & string
      */
     typedef boost::variant<int, double, std::string> ConfigurationValue;
 
@@ -38,7 +38,8 @@ namespace g4
      * @short General application configuration class (static class).
      *
      * It holds a dictionary of values (string/int/double as boost::variant). Keys are strings.
-     * Note that the client has to know of which type the value is.
+     * Note that the client has to know of which type the value is. On the other hand,
+     * it is possible to use doubles as ints (if there is no fractional part) and ints as doubles.
      * 
      * Instances of classes inheriting from ConfigurationObserver are
      * automatically registered as listeners of configuration changes.
@@ -103,6 +104,9 @@ namespace g4
          */
         static void Set(const std::string& key, const ConfigurationValue& value);
 
+        /**
+         * @short Whether is a configuration value of a given name.
+         */
         static bool HasKey(const std::string& key);
 
         /**
@@ -138,7 +142,7 @@ namespace g4
     /**
      * @short Abstract base class for the application configuration observer.
      *
-     * Note that it is automatically registered in constructor.
+     * Note that it is automatically registered in constructor and deregistered in destructor.
      * You have to provide your implementation for ConfigurationChanged.
      */
     class ConfigurationObserver
