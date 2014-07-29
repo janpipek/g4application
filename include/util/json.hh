@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include <json/reader.h>
+#include <json/json.h>
 
 namespace g4
 {
