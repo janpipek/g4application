@@ -27,11 +27,8 @@ find_package(Geant4 COMPONENTS qt)
 
 include(${Geant4_USE_FILE})
 
-file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/src/*.cc)
-file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/lib/json/jsoncpp.cpp)
-
-file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/include/*.hh)
-file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/lib/json/json/*.h)
+file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/src/*.cc ${PROJECT_SOURCE_DIR}/lib/json/jsoncpp.cpp)
+file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/include/*.hh ${PROJECT_SOURCE_DIR}/lib/json/json/*.h)
 
 add_executable(g4 g4.cc ${headers})
 add_library(g4Application SHARED ${sources} ${headers})
@@ -43,8 +40,8 @@ add_dependencies(g4 g4Application)
 
 target_link_libraries(g4 g4Application ${Geant4_LIBRARIES} 
     dl ${Boost_LIBRARIES})
-set_target_properties(g4 PROPERTIES LINKER_LANGUAGE CXX)
-set_target_properties(g4Application PROPERTIES LINKER_LANGUAGE CXX)
+# set_target_properties(g4 PROPERTIES LINKER_LANGUAGE CXX)
+# set_target_properties(g4Application PROPERTIES LINKER_LANGUAGE CXX)
 
 install(TARGETS g4 DESTINATION .)
 install(TARGETS g4Application DESTINATION .)
