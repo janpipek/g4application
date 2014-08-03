@@ -40,8 +40,6 @@ add_dependencies(g4 g4Application)
 
 target_link_libraries(g4 g4Application ${Geant4_LIBRARIES} 
     dl ${Boost_LIBRARIES})
-# set_target_properties(g4 PROPERTIES LINKER_LANGUAGE CXX)
-# set_target_properties(g4Application PROPERTIES LINKER_LANGUAGE CXX)
 
 install(TARGETS g4 DESTINATION .)
 install(TARGETS g4Application DESTINATION .)
