@@ -39,15 +39,16 @@ namespace g4
         }
     }
 
-    void Configuration::NotifyObservers(const std::string &key)
+    void Configuration::NotifyObservers(const std::string &key, ConfigurationObserver* observerToIgnore = 0)
     {
         for (auto it = _observers.begin(); it != _observers.end(); it++)
         {
+            if (*it == observerToIgnore) continue;
             (*it)->ConfigurationChanged(key);
         }
     }
 
-    void Configuration::Set(const std::string &key, const ConfigurationValue &value)
+    void Configuration::Set(const std::string &key, const ConfigurationValue &value, ConfigurationObserver* observerToIgnore)
     {
         ConfigurationValue oldValue = _entries[key];
         if (!(oldValue == value))

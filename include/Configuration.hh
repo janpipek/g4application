@@ -100,9 +100,13 @@ namespace g4
         /**
          * @short Set value.
          *
+         * @param observerToIgnore - if set, this observer is not
+         *    notified of the change. Useful when some object
+         *    updates several values and it would get confused.
+         *
          * The listeners get notified only if there really is a change.
          */
-        static void Set(const std::string& key, const ConfigurationValue& value);
+        static void Set(const std::string& key, const ConfigurationValue& value, ConfigurationObserver* observerToIgnore = 0);
 
         /**
          * @short Whether is a configuration value of a given name.
@@ -131,7 +135,7 @@ namespace g4
 
         static void RemoveObserver(ConfigurationObserver* observer);
 
-        static void NotifyObservers(const std::string& key);
+        static void NotifyObservers(const std::string& key, ConfigurationObserver *observerToIgnore);
 
     };
 
