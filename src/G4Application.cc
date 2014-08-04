@@ -74,20 +74,16 @@ namespace g4
     
     G4Application::~G4Application()
     {
+        delete _pluginLoader;
+
         // Visualization
         #ifdef G4VIS_USE
           delete _visManager;
         #endif
-        
-        if (_interactiveSession)
-        {
-            delete _interactiveSession;         
-        }  
-        
+                
         delete _messenger;
         delete _uiDirectory;
         delete _runManager;
-        delete _pluginLoader; // Unload DLLs => it should be the last thing to delete
     }
     
     void G4Application::InitializeGeometry()
@@ -180,12 +176,6 @@ namespace g4
             EnterInteractiveMode();
         }
         G4cout << "Closing application..." << endl;
-        Destroy();
-    }
-
-    void G4Application::Destroy()
-    {
-        delete _pluginLoader;
     }
 
     void G4Application::GenerateRandomSeed()
