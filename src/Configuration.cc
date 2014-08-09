@@ -54,7 +54,7 @@ namespace g4
         if (!(oldValue == value))
         {
             _entries[key] = value;
-            NotifyObservers(key);
+            NotifyObservers(key, observerToIgnore);
         }
     }
 
