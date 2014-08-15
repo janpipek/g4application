@@ -119,4 +119,9 @@ namespace g4
             return boost::get<int>(value);
         }
     }
+
+    template<> const bool getValue<bool>(const ConfigurationValue& value)
+    {
+        return !!getValue<int>(value);
+    }
 }

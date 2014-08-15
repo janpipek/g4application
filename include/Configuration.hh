@@ -143,6 +143,8 @@ namespace g4
 
     template<> const int getValue<int>(const ConfigurationValue& value);
 
+    template<> const bool getValue<bool>(const ConfigurationValue& value);
+
     /**
      * @short Abstract base class for the application configuration observer.
      *
