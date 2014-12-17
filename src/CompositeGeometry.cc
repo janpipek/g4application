@@ -9,6 +9,7 @@
 #include "GeometryBuilder.hh"
 
 using namespace std;
+using namespace CLHEP;
 
 namespace g4
 {
