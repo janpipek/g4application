@@ -1,9 +1,9 @@
 g4application
 =============
 
-A simple generic application for Geant 4. It works as a universal executable
-for geant4 tasks. It provides a plugin API which is used to implement
-specific behaviour (in one or more plugins in parallel).
+A simple generic application for Geant4. It works as a universal executable
+for geant4 tasks. It provides a plug-in API which is used to implement
+specific behaviour (in one or more plug-ins in parallel).
 
 Apart from this, g4application offers features that are not tightly connected
 to plugin system but can make your life with Geant4 easier.
@@ -13,6 +13,7 @@ Main features
 * typical macro-based / interactive workflow
 * plugins
 * configuration system - central configuration repository based on observer design pattern
+* composite geometry
 * composite user action - these allow adding of more user actions of the same type
 * a few built-in user actions (see below)
 
@@ -23,34 +24,38 @@ They are loaded using `/app/addAction <actionname>` command
 * NumberingEventAction - prints a short status after each N events
 * MemoryRunAction - prints info about memory consumption before/after run
 
-Plugin system
+Plug-in system
 -------------
-**TODO: describe**
+Plug-ins of g4application are separate dynamic libraries that are
+loaded at runtime. Each plug-in can provide physics, particle generator
+or geometry and define custom behaviour when various stages of application are
+entered.
+
+The plug-in project has to include a class inheriting from `g4::Plugin` and export it using `MAKE_G4_PLUGIN` macro. See examples for details.
 
 Loading a plugin:
 
     /app/plugin/load <somePlugin.so>
 
-Examples:
-
-There are a few example plugins that use most features of G4Application in the
-examples/ subdirectory.
+There are a few example plug-ins that use most features of G4Application in the
+`examples` subdirectory.
 
 - simplePlugin : basic example that defines physics, geometry & generator
 - httpPlugin : a simple integrated HTTP server informing about the application state
-- g4application-dicom : a separate project with DICOM support *(planned)* - see https://github.com/janpipek/g4application-dicom
+
 
 How to build
 ------------
 You will need:
 
-* cmake >= 2.6 (not tested for lower) 
+* cmake >= 2.6 (not tested for lower)
 * geant4 (9.6 used for development)
 * boost > 0.49
+* C++11-ready compiler
 
 Optional:
 
-* qt4
+* Qt4
 
 After building, you will obtain:
 * g4 executable - this you will run
@@ -58,30 +63,35 @@ After building, you will obtain:
 
 Environment variables (alternatively can be set as CMake variables):
 
-* G4APP_PATH - when you set this, the built libraries and executable will be copied there (optional). 
+* G4APP_PATH - when you set this, the built libraries and executable will be copied there (optional).
 * G4APP_SOURCE_PATH - if you use the provided FindG4Application.cmake (when building your modules),
     this path is used for searching libraries and include directories of g4application (required in plugins).
 
-Building tested on Linux (Fedora Core 18, Scientific Linux 6.4), tests on other platforms are welcome.
+Building tested on Linux (Fedora Core 18 & 20, Scientific Linux 6.4, Ubuntu 14.04), tests on other platforms are welcome.
 
-History & Motivation
+History & motivation
 --------------------
-2010-2012: I was developing two similar models of Leksell Gamma Knife at a same time and I wanted them to share
-a lot of code. In the end, I made the application call the plugin instead of two application
-using the same library.
+2010-2012: I was developing two similar models of Leksell Gamma Knife at a same time and I wanted them to share a lot of code.
+In the end, I made the application call the plug-ins
+instead of two application using the same library.
 
 2013: I hope that the application is universal enough to be used in other environments.
+
+2014: All my simulations for Ph.D. thesis were based on g4application.
+
+Known issues
+------------
+* The library is not thread-safe, so the new Geant4 v10 threading functionality
+cannot be used at the moment.
+
+Related projects
+----------------
+- **g4application-dicom**: voxel geometries built from DICOM data. Implemented as a plug-in. https://github.com/janpipek/g4application-dicom
+
+- **pyg4app**: Python scripts to dynamically generate macro files in a somewhat
+structured manner. https://github.com/janpipek/pyg4app
 
 Contact
 -------
 I'd be happy to accept feature requests, cooperation, questions, bug reports...
 Please write to jan.pipek AT gmail.com
-
-Links
------
-* https://github.com/janpipek/g4application
-* http://janpipek.github.io/g4application/
-
-Other Useful Tools
-------------------
-scoring_browser - tool for the visualization of scoring files ( http://janpipek.github.io/scoring_browser/ )
