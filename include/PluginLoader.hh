@@ -2,7 +2,7 @@
 #define PLUGINLOADER_HH
 
 #include <string>
-#include <vector>
+#include <map>
 
 #include "Plugin.hh"
 
@@ -10,12 +10,16 @@ namespace g4
 {
     class PluginMessenger;
     class Plugin;
-    class RunManager;
+    class ComponentManager;
+
+    std::string shortLibraryName(const std::string& name);
+
+    std::string longLibraryName(const std::string& name);
     
     class PluginLoader
     {
     public:
-        PluginLoader(RunManager* runManager);
+        PluginLoader(ComponentManager* componentManager);
         
         /**
           * @short Load a plugin dynamic library (.so) with full name +name+.
@@ -25,7 +29,11 @@ namespace g4
           *
           * The name, if not absolute path, should be in $LD_LIBRARY_PATH
           */
-        int Load(std::string name);
+        int Open(std::string name);
+
+        int Load(std::string pluginName, std::string componentName);
+
+        int LoadAll(std::string pluginName);
 
         /**
           * @short Add a plugin.
@@ -38,10 +46,10 @@ namespace g4
         /**
           * @short Vector of all loaded plugins.
           */
-        const std::vector<Plugin*>& GetPlugins() const
+        /*const std::vector<Plugin*>& GetPlugins() const
         {
             return _plugins;
-        }
+        }*/
         
         /**
           * @short Unload all plugins.
@@ -50,14 +58,20 @@ namespace g4
           *   use object from the plugins.
           */
         ~PluginLoader();
+
+    protected:
+        int Load(Plugin* plugin, const std::string& componentName);
         
     private:                  
         PluginMessenger* _messenger;
 
-        RunManager* _runManager;
+        ComponentManager* _componentManager;
                 
         std::vector<void*> _libraries;
-        std::vector<Plugin*> _plugins;
+
+        // std::vector<Plugin*> _plugins;
+
+        std::map<std::string, Plugin*> _plugins;
     };
 }
 

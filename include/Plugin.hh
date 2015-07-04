@@ -17,63 +17,34 @@ extern "C" g4::Plugin* PLUGIN_MAIN_FUNCTION()\
 // end of MAKE_G4_PLUGIN
 
 #include <string>
-#include <G4VUserPhysicsList.hh>
-#include <G4UIdirectory.hh>
+#include <vector>
 
-#include "PhysicsBuilder.hh"
-#include "GeometryBuilder.hh"
-#include "ParticleGeneratorBuilder.hh"
-#include "RunObserver.hh"
+#include "Component.hh"
 
 namespace g4
 {
     /**
-      * @short Base class for any plugin. The plugin loader gets it from the plugin
-      * and communicates with the plugin using this class.
-      *
-      * You can define following builders:
-      *  - PhysicsBuilder 
-      *  - GeometryBuilder
-      *  - ParticleGeneratorBuilder
-      * 
-      * It also inherits from @see RunListener that reacts to all state changes
-      * initiated by run manager.
-      *
-      * Apart from that, there is a customizable (empty by default) callback:         
+      * @short Base class for any plugin. The plugin is a container
+      *   of components stored in a DLL.
       */
-    class Plugin : public RunObserver
+    class Plugin // , RunObserver
     {
     public:
-        Plugin() : _uiDirectory(0) { }
+        Plugin() { }
+
+        virtual const std::vector<std::string>& GetAvailableComponents() const = 0;
+
+        virtual Component* GetComponent(std::string) = 0;
         
-        virtual ~Plugin() { if (_uiDirectory) delete _uiDirectory; }
+        virtual ~Plugin() { }
         
         /** User-friendly plugin name. */
-        virtual const std::string GetName() const = 0;
+        // virtual const std::string GetName() const = 0;
 
         /**
           * @short Procedure that is called after loading the plugin.
           */
         virtual void OnLoad() { }
-        
-        /** @see PhysicsBuilder */
-        virtual PhysicsBuilder* GetPhysicsBuilder() { return NULL; }
-        
-        /** @see GeometryBuilder */
-        virtual GeometryBuilder* GetGeometryBuilder() { return NULL; }
-        
-        /** @see ParticleGeneratorBuilder */
-        virtual ParticleGeneratorBuilder* GetParticleGeneratorBuilder() { return NULL; }
-
-    protected:
-        void CreateUiDirectory(std::string name)
-        {
-            _uiDirectory = new G4UIdirectory(name.c_str());
-            _uiDirectory->SetGuidance(("Commands for plugin " + GetName()).c_str());
-        }
-
-    private:
-        G4UIdirectory* _uiDirectory;
     };
 }
 #endif // PLUGIN_HH
