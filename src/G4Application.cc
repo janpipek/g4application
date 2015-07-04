@@ -8,6 +8,8 @@
 #include <G4UIsession.hh>
 #include <G4UIdirectory.hh>
 
+#include "ComponentManager.hh"
+
 #ifdef G4UI_USE_QT
     #include <G4UIQt.hh>
     // #include <QtGui/QMainWindow>
@@ -39,6 +41,7 @@ namespace g4
         _physicsBuilder = 0;
         _particleGeneratorBuilder = 0;
 
+        _componentManager = new ComponentManager();
         _geometry = new CompositeGeometry();
 
         // Initialize directory for UI commands
@@ -75,6 +78,7 @@ namespace g4
     G4Application::~G4Application()
     {
         delete _pluginLoader;
+        delete _componentManager;
 
         // Visualization
         #ifdef G4VIS_USE

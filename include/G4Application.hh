@@ -17,6 +17,7 @@ namespace g4
 {
     class ApplicationMessenger;
     class PluginLoader;
+    class ComponentManager;
     
     /**
       * @short Singleton application object.
@@ -36,6 +37,8 @@ namespace g4
         RunManager* GetRunManager() const { return _runManager; }
         
         PluginLoader* GetPluginLoader() const { return _pluginLoader; }
+
+        ComponentManager* GetComponentManager() const { return _componentManager; }
         
         void SetPhysicsBuilder(PhysicsBuilder*);
 
@@ -109,6 +112,8 @@ namespace g4
         ApplicationMessenger* _messenger;
         
         CompositeGeometry* _geometry;
+
+        ComponentManager* _componentManager;
     };
 }
 
