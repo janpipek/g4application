@@ -6,9 +6,6 @@
 #include <G4UIsession.hh>
 
 #include "RunManager.hh"
-#include "CompositeGeometry.hh"
-#include "ParticleGeneratorBuilder.hh"
-#include "PhysicsBuilder.hh"
 #include "PluginLoader.hh"
 #include "ApplicationMessenger.hh"
 #include "util/Singleton.hh"
@@ -22,27 +19,19 @@ namespace g4
     /**
       * @short Singleton application object.
       */
-    class G4Application :
-            public RunInitializer,
-            public util::Singleton<G4Application>
+    class G4Application : public util::Singleton<G4Application>
     {
     public:     
         // TODO: This class is a typical "god object". Refactor.
         static void CreateInstance(int argc, char** argv);
 
         ~G4Application();
-        
-        CompositeGeometry* GetGeometry() const { return _geometry; }
-        
+
         RunManager* GetRunManager() const { return _runManager; }
         
         PluginLoader* GetPluginLoader() const { return _pluginLoader; }
 
         ComponentManager* GetComponentManager() const { return _componentManager; }
-        
-        void SetPhysicsBuilder(PhysicsBuilder*);
-
-        void SetParticleGeneratorBuilder(ParticleGeneratorBuilder*);
 
         /**
           * @short Generate random random seed.
@@ -72,12 +61,6 @@ namespace g4
           * Otherwise interactive mode (Qt by default) is entered.
           */
         void RunUI();
-        
-        void InitializeGeometry();
-        
-        void InitializePhysics();
-        
-        void InitializeParticleGenerator();  
 
         friend class util::Singleton<G4Application>;   
 
@@ -103,15 +86,9 @@ namespace g4
         
         G4UIsession* _interactiveSession;
         
-        PhysicsBuilder* _physicsBuilder;
-        
-        ParticleGeneratorBuilder* _particleGeneratorBuilder;
-        
         PluginLoader* _pluginLoader;
         
         ApplicationMessenger* _messenger;
-        
-        CompositeGeometry* _geometry;
 
         ComponentManager* _componentManager;
     };

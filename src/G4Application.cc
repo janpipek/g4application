@@ -29,6 +29,7 @@ namespace g4
 
     G4Application::G4Application()
     {
+        // TODO: Change to exception of a lower severity.
         G4cerr << "Warning: G4Application created without argc/argv!" << G4endl;
         Initialize(0, 0);
     }
@@ -38,11 +39,10 @@ namespace g4
         _argc = argc;
         _argv = argv;
         _interactiveSession = 0;
-        _physicsBuilder = 0;
-        _particleGeneratorBuilder = 0;
+        // _physicsBuilder = 0;
+        // _particleGeneratorBuilder = 0;
 
         _componentManager = new ComponentManager();
-        _geometry = new CompositeGeometry();
 
         // Initialize directory for UI commands
         _uiDirectory = new G4UIdirectory("/app/");
@@ -50,10 +50,11 @@ namespace g4
 
         _messenger = new ApplicationMessenger();
 
-        _runManager = new RunManager(*this);
+        // Custom run manager
+        _runManager = new RunManager(*_componentManager);
 
         // Plugin-loading system
-        _pluginLoader = new PluginLoader(_runManager);
+        _pluginLoader = new PluginLoader(_componentManager);
 
         // Visualization
         #ifdef G4VIS_USE
@@ -88,51 +89,6 @@ namespace g4
         delete _messenger;
         delete _uiDirectory;
         delete _runManager;
-    }
-    
-    void G4Application::InitializeGeometry()
-    {
-        G4cout << "Initializing detector construction..." << std::endl;
-        _runManager->SetUserInitialization(_geometry->GetDetectorConstruction());
-        G4cout << "Detector initialized." << std::endl;
-    }
-    
-    void G4Application::InitializePhysics()
-    {
-        G4cout << "Initializing physics..." << std::endl;
-        if (_physicsBuilder)
-        {
-            _runManager->SetUserInitialization(_physicsBuilder->CreateUserPhysicsList());
-        }
-        else
-        {
-            G4Exception("G4Application", "NoPhysList", FatalException, "None of loaded plugins defined user physics list." );
-        }
-        G4cout << "Physics initialized." << std::endl;
-    }
-
-    void G4Application::InitializeParticleGenerator()
-    {
-        G4cout << "Initializing particle generator..." << std::endl;
-        if (_particleGeneratorBuilder)
-        {
-            _runManager->SetUserAction(_particleGeneratorBuilder->BuildParticleGenerator());
-        }
-        else
-        {
-            G4cerr << "Warning: None of the plugins provided a particle generator." << std::endl;
-        }
-        G4cout << "Particle generator initialized." << std::endl;
-    }
-
-    void G4Application::SetPhysicsBuilder(PhysicsBuilder* physicsBuilder)
-    {
-        _physicsBuilder = physicsBuilder;
-    }
-    
-    void G4Application::SetParticleGeneratorBuilder(ParticleGeneratorBuilder* generatorBuilder)
-    {
-        _particleGeneratorBuilder = generatorBuilder;
     }
     
     void G4Application::CreateInstance(int argc, char **argv)
