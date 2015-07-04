@@ -27,7 +27,7 @@ namespace g4
     {
         if (command == _loadCommand)
         {
-            _loader->Load(newValue);
+            _loader->Open(newValue);
         }
     }
 }

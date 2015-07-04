@@ -8,23 +8,48 @@
 
 #include "PluginMessenger.hh"
 #include "GeometryBuilder.hh"
-#include "PhysicsBuilder.hh"
-#include "ParticleGeneratorBuilder.hh"
 #include "G4Application.hh"
+#include "ComponentManager.hh"
 
 using namespace std;
 
 namespace g4
 {
+    string shortLibraryName(const string& name)
+    {
+        // TODO: Make platform-independent!
+        if ((name.find("lib") == 0) && (name.rfind(".so") == name.length() - 3))
+        {
+            return name.substr(3, name.length() - 6);
+        }
+        else
+        {
+            return name;
+        }
+    }
+
+    string longLibraryName(const string& name)
+    {
+        // TODO: Make platform-independent!
+        if ((name.find("lib") == 0) && (name.rfind(".so") == name.length() - 3))
+        {
+            return name;
+        }
+        else
+        {
+            return string("lib") + name + ".so";
+        }
+    }
+
     typedef Plugin*(*plugin_load_function)();
     
-    PluginLoader::PluginLoader(RunManager* runManager) :
-        _runManager(runManager)
+    PluginLoader::PluginLoader(ComponentManager *componentManager) :
+        _componentManager(componentManager)
     {
         _messenger = new PluginMessenger(this);
     }
     
-    int PluginLoader::Load(std::string name)
+    int PluginLoader::Open(std::string name)
     {
         // Check for application state
         G4ApplicationState state = G4StateManager::GetStateManager()->GetCurrentState();
@@ -33,14 +58,18 @@ namespace g4
             G4Exception("PluginLoader", "LoadInWrongState", FatalException , "All plugins have to be loaded in PreInit state.");
             return -1;
         }
-        
-        G4cout << "Loading plugin library `" << name << "`." << endl;
+
+
+        const string shortName = shortLibraryName(name);
+        const string longName = longLibraryName(name);
+
+        G4cout << "Loading plugin library `" << shortName << "`." << endl;
         
         // Check whether file exists.
         struct stat fileInfo;
-        if (stat(name.c_str(), &fileInfo)) // Returns 0 if file exists (confusing)
+        if (stat(longName.c_str(), &fileInfo)) // Returns 0 if file exists (confusing)
         {
-            G4Exception("PluginLoader", "FileNotFound", FatalException  , ("File doesn't exist: `" + name + "`.").c_str());
+            G4Exception("PluginLoader", "FileNotFound", FatalException  , ("File doesn't exist: `" + longName + "`.").c_str());
             return -1;
         }
         
@@ -54,9 +83,12 @@ namespace g4
             if (PLUGIN_MAIN_FUNCTION)
             {
                 Plugin* plugin = (*PLUGIN_MAIN_FUNCTION)();
-                AddPlugin(plugin);
+                plugin->OnLoad();
+                _plugins[shortName] = plugin;
+
+                // AddPlugin(plugin);
                 _libraries.push_back(library);
-                G4cout << "Loaded plugin `" << plugin->GetName() << "`." << endl;
+                G4cout << "Loaded plugin `" << shortName << "`." << endl;
             }
             else
             {
@@ -75,8 +107,40 @@ namespace g4
         return 0;
     }
 
-    void PluginLoader::AddPlugin(Plugin* plugin)
-    {       
+    int PluginLoader::Load(string pluginName, string componentName)
+    {
+        auto it = _plugins.find(pluginName);
+        if (it != _plugins.end())
+        {
+            Plugin* plugin = it->second;
+            Load(plugin, componentName);
+        }
+        else
+        {
+            // TODO: Throw or something
+        }
+    }
+
+    int PluginLoader::LoadAll(string pluginName)
+    {
+        map<string, Plugin*>::iterator it = _plugins.find(pluginName);
+        if (it != _plugins.end()) {
+            Plugin* plugin = it->second;
+            vector<string> componentNames = plugin->GetAvailableComponents();
+            for (auto compIt = componentNames.begin(); compIt != componentNames.end(); compIt++)
+            {
+                string componentName = *compIt;
+                Load(plugin, componentName);
+            }
+        }
+        else
+        {
+            // TODO: Throw or something
+        }
+    }
+
+    /*void PluginLoader::AddPlugin(Plugin* plugin)
+    {
         G4Application& application = G4Application::Instance();
         plugin->OnLoad();
 
@@ -106,23 +170,38 @@ namespace g4
         
         _plugins.push_back(plugin);
         _runManager->AddObserver(plugin);
-    }
+    }*/
             
     PluginLoader::~PluginLoader()
     {
         delete _messenger;
         // Destroy all plugin objects
-        for (vector<Plugin*>::iterator it = _plugins.begin(); it != _plugins.end(); it++)
+        /* for (vector<Plugin*>::iterator it = _plugins.begin(); it != _plugins.end(); it++)
         {
-            _runManager->RemoveObserver(*it);
+            // _runManager->RemoveObserver(*it);
             delete (*it);
         }
         cout << "Unloading " << _libraries.size() << " plugins." << endl;
+        */
+
         // Unload all plugins
         for (vector<void*>::iterator it = _libraries.begin(); it != _libraries.end(); it++)
         {
             if (*it) dlclose(*it);
         }
         _libraries.clear();
+    }
+
+    int PluginLoader::Load(Plugin *plugin, const string& componentName)
+    {
+        Component* component = plugin->GetComponent(componentName);
+        if (component)
+        {
+            _componentManager->AddComponent(component);
+        }
+        else
+        {
+            // TODO: Throw or something
+        }
     }
 }
