@@ -1,18 +1,20 @@
-#ifndef APPLICATIONACTIONINITIALIZATION_HH
-#define APPLICATIONACTIONINITIALIZATION_HH
+#ifndef COMPONENTACTIONINITIALIZATION_HH
+#define COMPONENTACTIONINITIALIZATION_HH
 
 #include <G4VUserActionInitialization.hh>
 
-#include "G4Application.hh"
 #include "ComponentManager.hh"
 #include "Component.hh"
 
 namespace g4
 {
-    class ApplicationActionInitialization : public G4VUserActionInitialization
+    /**
+     * @brief User action initialization class for ComponentManager
+     */
+    class ComponentActionInitialization : public G4VUserActionInitialization
     {
     public:
-        ApplicationActionInitialization(G4Application* application);
+        ComponentActionInitialization(ComponentManager* componentManager);
 
         virtual void Build() const override;
 
@@ -21,7 +23,7 @@ namespace g4
     protected:
         template<typename CompositeActionType, typename SubActionType> void BuildCompositeAction(SubActionType* (Component::*createFunc) () const) const
         {
-            auto components = _application->GetComponentManager()->GetComponents();
+            auto components = _componentManager->GetComponents();
             CompositeActionType* compositeAction = new CompositeActionType();
             for (auto it = components.begin(); it != components.end(); it++)
             {
@@ -33,9 +35,9 @@ namespace g4
         }
 
     private:
-        G4Application* _application;
+        ComponentManager* _componentManager;
     };
 }
 
-#endif // APPLICATIONACTIONINITIALIZATION_HH
+#endif // COMPONENTACTIONINITIALIZATION_HH
 

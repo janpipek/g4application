@@ -1,16 +1,13 @@
-#include "ApplicationActionInitialization.hh"
+#include "ComponentActionInitialization.hh"
 
 #include "CompositeEventAction.hh"
 #include "CompositeRunAction.hh"
 #include "CompositeSteppingAction.hh"
 #include "CompositeTrackingAction.hh"
 
-#include "G4Application.hh"
-#include "Component.hh"
-
 using namespace g4;
 
-void ApplicationActionInitialization::Build() const
+void ComponentActionInitialization::Build() const
 {
     BuildCompositeAction<CompositeEventAction, G4UserEventAction>(&Component::CreateEventAction);
     BuildCompositeAction<CompositeRunAction, G4UserRunAction>(&Component::CreateRunAction);
@@ -18,12 +15,12 @@ void ApplicationActionInitialization::Build() const
     BuildCompositeAction<CompositeTrackingAction, G4UserTrackingAction>(&Component::CreateTrackingAction);
 }
 
-void ApplicationActionInitialization::BuildForMaster() const
+void ComponentActionInitialization::BuildForMaster() const
 {
     BuildCompositeAction<CompositeRunAction>(&Component::CreateRunAction);
 }
 
-ApplicationActionInitialization::ApplicationActionInitialization(G4Application* application)
+ComponentActionInitialization::ComponentActionInitialization(ComponentManager* componentManager)
 {
-    _application = application;
+    _componentManager = componentManager;
 }
