@@ -13,26 +13,32 @@ namespace g4
 {
     class GeometryBuilder;
 
+    /**
+     * @brief A component for the G4Application architecture.
+     *
+     * Instances of this class are shared. Ideally, they have no state, otherwise
+     * careful thread-safety is necessary.
+     */
     class Component
     {
     public:
         virtual ~Component() { }
 
-        virtual GeometryBuilder* CreateGeometryBuilder() { return nullptr; }
+        virtual GeometryBuilder* CreateGeometryBuilder() const { return nullptr; }
 
-        virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction() { return nullptr; }
+        virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction() const { return nullptr; }
 
-        virtual G4UserEventAction* CreateEventAction() { return nullptr; }
+        virtual G4UserEventAction* CreateEventAction() const { return nullptr; }
 
-        virtual G4UserRunAction* CreateRunAction() { return nullptr; }
+        virtual G4UserRunAction* CreateRunAction() const { return nullptr; }
 
-        virtual G4UserStackingAction* CreateStackingAction() { return nullptr; }
+        virtual G4UserStackingAction* CreateStackingAction() const { return nullptr; }
 
-        virtual G4UserSteppingAction* CreateSteppingAction() { return nullptr; }
+        virtual G4UserSteppingAction* CreateSteppingAction() const { return nullptr; }
 
-        virtual G4UserTrackingAction* CreateTrackingAction() { return nullptr; }
+        virtual G4UserTrackingAction* CreateTrackingAction() const { return nullptr; }
 
-        virtual G4VUserPhysicsList* CreatePhysicsList() { return nullptr; }
+        virtual G4VUserPhysicsList* CreatePhysicsList() const { return nullptr; }
     };
 }
 
