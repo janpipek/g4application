@@ -10,6 +10,7 @@
 #include "CompositeTrackingAction.hh"
 
 #include "RunObserver.hh"
+#include "RunInitializer.hh"
 
 // Run a specific member function for all the listeners.
 // TODO: Change from macro to member function pointer type
@@ -39,8 +40,7 @@ namespace g4
     }
 
     RunManager::RunManager(RunInitializer& init)
-        : _eventAction(0), _runAction(0), _trackingAction(0),
-          _steppingAction(0), _initializer(init)
+        : _initializer(init)
     { }
 
     void RunManager::AddObserver(RunObserver* observer)
@@ -64,20 +64,17 @@ namespace g4
     {
         // 1) Physics
         OBSERVERS_DO( OnPhysicsInitializing );
-        _initializer.InitializePhysics();
-        InitializeUserActions(); // TODO: Move elsewhere?
-
+        this->SetUserInitialization(_initializer.GetPhysicsList());
         OBSERVERS_DO( OnPhysicsInitialized );
         
         // 2) Geometry
         OBSERVERS_DO( OnGeometryInitializing );
-        _initializer.InitializeGeometry();
+        this->SetUserInitialization(_initializer.GetDetectorConstruction());
         OBSERVERS_DO( OnGeometryInitialized );
-        
-        // 3) Particle Generator
-        OBSERVERS_DO( OnParticleGeneratorInitializing );
-        _initializer.InitializeParticleGenerator();
-        OBSERVERS_DO( OnParticleGeneratorInitialized );
+
+        // 3) Actions
+        this->SetUserInitialization(_initializer.GetActionInitialization());
+
         
         G4cout << "Initializing Geant4 run manager." << endl;
         // Initialize Geant4's own run manager
@@ -90,38 +87,5 @@ namespace g4
     {
         (void) signal(SIGINT, terminate_run);
         G4RunManager::DoEventLoop(n_event, macroFile, n_select);
-    }
-
-    void RunManager::InitializeUserActions()
-    {
-        _eventAction = new CompositeEventAction;
-        _runAction = new CompositeRunAction;
-        _steppingAction = new CompositeSteppingAction;
-        _trackingAction = new CompositeTrackingAction;
-
-        SetUserAction(_eventAction);
-        SetUserAction(_runAction);
-        SetUserAction(_steppingAction);
-        SetUserAction(_trackingAction);
-    }
-
-    void RunManager::AddAction(G4UserEventAction* action)
-    {
-        _eventAction->AddSubAction(action);
-    }
-
-    void RunManager::AddAction(G4UserRunAction* action)
-    {
-        _runAction->AddSubAction(action);
-    }
-
-    void RunManager::AddAction(G4UserSteppingAction* action)
-    {
-        _steppingAction->AddSubAction(action);
-    }
-
-    void RunManager::AddAction(G4UserTrackingAction* action)
-    {
-        _trackingAction->AddSubAction(action);
     }
 }
