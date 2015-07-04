@@ -2,6 +2,7 @@
 #define GEOMETRYBUILDER_HH
 
 class G4LogicalVolume;
+class G4VPhysicalVolume;
 
 namespace g4
 {
@@ -23,6 +24,8 @@ namespace g4
           * @param logVolume In most cases, this is the world volume (in most cases)
           */
         virtual void BuildGeometry(G4LogicalVolume* logVolume) = 0;
+
+        virtual G4VPhysicalVolume* CreateWorld() { return nullptr; }
 
         virtual ~GeometryBuilder() { }
         

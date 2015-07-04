@@ -3,16 +3,28 @@
 
 #include <vector>
 
+#include "RunInitializer.hh"
+
+class G4VUserDetectorConstruction;
+class G4VUserActionInitialization;
+class G4VUserPhysicsList;
+
 namespace g4
 {
     class Component;
 
-    class ComponentManager
+    class ComponentManager : public RunInitializer
     {
     public:
         std::vector<Component*> GetComponents() const { return _components; }
 
         void AddComponent(Component* component) { _components.push_back(component); }
+
+        G4VUserActionInitialization* GetActionInitialization() override;
+
+        G4VUserDetectorConstruction* GetDetectorConstruction() override;
+
+        G4VUserPhysicsList* GetPhysicsList() override;
 
     private:
         std::vector<Component*> _components;
