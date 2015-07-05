@@ -137,39 +137,6 @@ namespace g4
             // TODO: Throw or something
         }
     }
-
-    /*void PluginLoader::AddPlugin(Plugin* plugin)
-    {
-        G4Application& application = G4Application::Instance();
-        plugin->OnLoad();
-
-        // Geometry from plugin
-        GeometryBuilder* geomBuilder = plugin->GetGeometryBuilder();
-        if (geomBuilder)
-        {
-            application.GetGeometry()->AddGeometryBuilder(geomBuilder);
-            G4cout << "Using geometry definition from plugin `" << plugin->GetName() << "`." << endl;
-        }
-        
-        // Particle generator from plugin
-        ParticleGeneratorBuilder* genBuilder = plugin->GetParticleGeneratorBuilder();
-        if (genBuilder)
-        {
-            application.SetParticleGeneratorBuilder(genBuilder);
-            G4cout << "Using particle generator from plugin `" << plugin->GetName() << "`." << endl;
-        }
-        
-        // Physics from plugin
-        PhysicsBuilder* physBuilder = plugin->GetPhysicsBuilder();
-        if (physBuilder)
-        {
-            application.SetPhysicsBuilder(physBuilder);
-            G4cout << "Using physics from plugin `" << plugin->GetName() << "`." << endl;
-        }
-        
-        _plugins.push_back(plugin);
-        _runManager->AddObserver(plugin);
-    }*/
             
     PluginLoader::~PluginLoader()
     {
@@ -197,6 +164,7 @@ namespace g4
         if (component)
         {
             _componentManager->AddComponent(component);
+            G4cout << "Loaded component `" << componentName << "`." << endl;
         }
         else
         {
