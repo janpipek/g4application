@@ -6,6 +6,8 @@
 #include "ComponentManager.hh"
 #include "Component.hh"
 
+class G4VUserPrimaryGeneratorAction;
+
 namespace g4
 {
     /**
@@ -29,10 +31,15 @@ namespace g4
             {
                 Component* component = *it;
                 SubActionType* action = (component->*createFunc)();
-                compositeAction->AddSubAction(action);
+                if (action)
+                {
+                    compositeAction->AddSubAction(action);
+                }
             }
             this->SetUserAction(compositeAction);
         }
+
+        G4VUserPrimaryGeneratorAction* GetPrimaryGeneratorAction() const;
 
     private:
         ComponentManager* _componentManager;
