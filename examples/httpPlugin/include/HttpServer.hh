@@ -28,6 +28,8 @@ namespace http
 
         void Stop();
 
+        bool IsRunning();
+
         friend void startServer(void* arg);
 
     private:

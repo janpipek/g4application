@@ -22,7 +22,7 @@ namespace http
 
     void startServer(void* arg)
     {
-        G4cout << "Web thread started." << G4endl;
+        // G4cout << "Web thread started." << G4endl;
         HttpServer* caller = (HttpServer*)arg;
         caller->_wppServer->start(caller->_portNumber);
     }
@@ -145,6 +145,11 @@ namespace http
             delete _wppServer;
             _wppServer = 0;
         }
+    }
+
+    bool HttpServer::IsRunning()
+    {
+        return _wppServer;
     }
 
     void HttpServer::ConfigurationChanged(const string &key)

@@ -20,6 +20,7 @@ set(G4APP_SOURCE_PATH "../../")
 # Find the application library & Geant4
 find_package(G4Application REQUIRED)
 find_package(Geant4 REQUIRED)
+find_package(Geant4 COMPONENTS qt)
 
 include(${Geant4_USE_FILE})
 

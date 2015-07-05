@@ -2,8 +2,9 @@
 #define HTTPPLUGIN_HH
 
 #include <string>
+#include <G4Threading.hh>
 
-#include "Plugin.hh"
+#include "SingleComponentPlugin.hh"
 
 #include "HttpServer.hh"
 #include "ServerState.hh"
@@ -11,21 +12,23 @@
 
 namespace http 
 {
-    class HttpPlugin : public g4::Plugin 
+    class HttpPlugin : public g4::SingleComponentPlugin
     {
     public:
-        virtual const std::string GetName() const { return "HTTP Plugin";}
-
         HttpPlugin();
 
         ~HttpPlugin();
 
-        void OnRunInitialized();
+        virtual G4UserEventAction* CreateEventAction() override;
+
+        // void OnRunInitialized();
 
     private:
         HttpServer* _server;
 
         HttpEventAction* _action;
+
+        G4Mutex _mutex;
     };
 }
 
