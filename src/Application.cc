@@ -1,4 +1,4 @@
-#include "G4Application.hh"
+#include "Application.hh"
 
 #include <cstdlib>
 #include <ctime>
@@ -22,19 +22,19 @@ using namespace g4::util;
 
 namespace g4
 {
-    G4Application::G4Application(int argc, char** argv)
+    Application::Application(int argc, char** argv)
     {
         Initialize(argc, argv);
     }
 
-    G4Application::G4Application()
+    Application::Application()
     {
         // TODO: Change to exception of a lower severity.
         G4cerr << "Warning: G4Application created without argc/argv!" << G4endl;
         Initialize(0, 0);
     }
 
-    void G4Application::Initialize(int argc, char** argv)
+    void Application::Initialize(int argc, char** argv)
     {
         _argc = argc;
         _argv = argv;
@@ -63,7 +63,7 @@ namespace g4
         #endif
     }
 
-    void G4Application::PrepareInteractiveMode()
+    void Application::PrepareInteractiveMode()
     {
         #ifdef G4UI_USE_QT
             _interactiveSession = new G4UIQt(_argc, _argv); // There are no arguments but nevermind.
@@ -76,7 +76,7 @@ namespace g4
         #endif
     }
     
-    G4Application::~G4Application()
+    Application::~Application()
     {
         // Visualization
         #ifdef G4VIS_USE
@@ -91,16 +91,16 @@ namespace g4
         delete _pluginLoader;
     }
     
-    void G4Application::CreateInstance(int argc, char **argv)
+    void Application::CreateInstance(int argc, char **argv)
     {
-        if (instanceExists<G4Application>())
+        if (instanceExists<Application>())
         {
             G4Exception("G4Application", "DuplicateInstance", FatalException, "Cannot create second instance of G4Application." );
         }
-        new G4Application(argc, argv);
+        new Application(argc, argv);
     }
     
-    void G4Application::EnterInteractiveMode()
+    void Application::EnterInteractiveMode()
     {
         if (!_interactiveSession)
         {
@@ -109,13 +109,13 @@ namespace g4
         _interactiveSession->SessionStart();
     }
 
-    void G4Application::PauseExecution()
+    void Application::PauseExecution()
     {
         G4cout << "Press ENTER to continue..." << endl;
         G4cin.get();
     }
     
-    void G4Application::RunUI()
+    void Application::RunUI()
     {
         G4UImanager * UI = G4UImanager::GetUIpointer();
         if (_argc != 1)   // batch mode
@@ -139,7 +139,7 @@ namespace g4
         G4cout << "Closing application..." << endl;
     }
 
-    void G4Application::GenerateRandomSeed()
+    void Application::GenerateRandomSeed()
     {
         /* initialize random seed: */
         srand ( time(NULL) );

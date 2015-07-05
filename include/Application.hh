@@ -1,5 +1,5 @@
-#ifndef G4APPLICATION_HH
-#define G4APPLICATION_HH
+#ifndef APPLICATION_HH
+#define APPLICATION_HH
 
 #include <G4UIdirectory.hh>
 #include <G4VisExecutive.hh>
@@ -19,13 +19,13 @@ namespace g4
     /**
       * @short Singleton application object.
       */
-    class G4Application : public util::Singleton<G4Application>
+    class Application : public util::Singleton<Application>
     {
     public:     
         // TODO: This class is a typical "god object". Refactor.
         static void CreateInstance(int argc, char** argv);
 
-        ~G4Application();
+        ~Application();
 
         RunManager* GetRunManager() const { return _runManager; }
         
@@ -62,12 +62,12 @@ namespace g4
           */
         void RunUI();
 
-        friend class util::Singleton<G4Application>;   
+        friend class util::Singleton<Application>;
 
     private:
-        G4Application();
+        Application();
 
-        G4Application(int argc, char** argv);
+        Application(int argc, char** argv);
 
         void Initialize(int argc, char **argv);
 
@@ -94,4 +94,4 @@ namespace g4
     };
 }
 
-#endif // G4APPLICATION_HH
+#endif // APPLICATION_HH

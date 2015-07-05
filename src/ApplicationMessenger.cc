@@ -9,7 +9,7 @@
 #include <G4UIcmdWithAnInteger.hh>
 #include <G4UIcmdWithoutParameter.hh>
 
-#include "G4Application.hh"
+#include "Application.hh"
 #include "Configuration.hh"
 
 // Actions to add
@@ -128,7 +128,7 @@ namespace g4
     
     void ApplicationMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
     {
-        G4Application& application = G4Application::Instance();
+        Application& application = Application::Instance();
         if (command == _waitCommand)
         {
             int seconds = _waitCommand->GetNewIntValue(newValue);
