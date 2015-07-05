@@ -13,12 +13,17 @@ namespace g4
 {
     class Component;
 
+    /**
+     * @brief The ComponentManager class
+     *
+     * Threading: shared
+     */
     class ComponentManager : public RunInitializer
     {
     public:
         std::vector<Component*> GetComponents() const { return _components; }
 
-        void AddComponent(Component* component) { _components.push_back(component); }
+        void AddComponent(Component* component);
 
         G4VUserActionInitialization* GetActionInitialization() override;
 

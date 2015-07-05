@@ -5,6 +5,13 @@
 
 using namespace g4;
 
+void ComponentManager::AddComponent(Component *component)
+{
+    // TODO: Check master thread
+    // TODO: Check status
+    _components.push_back(component);
+}
+
 G4VUserActionInitialization* ComponentManager::GetActionInitialization()
 {
     return new ComponentActionInitialization(this);
@@ -26,7 +33,7 @@ G4VUserPhysicsList* ComponentManager::GetPhysicsList()
         {
             if (list)
             {
-                // TODO: Exception
+                G4Exception("ComponentManager", "MultiplePhysicsLists", FatalException, "Multiple components define the physics list.");
             }
             else
             {
@@ -36,7 +43,7 @@ G4VUserPhysicsList* ComponentManager::GetPhysicsList()
     }
     if (!list)
     {
-        // TODO: Exception
+        G4Exception("ComponentManager", "NoPhysicsLists", FatalException, "No component defines the physics list.");
     }
     return list;
 }
