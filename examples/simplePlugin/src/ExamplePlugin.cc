@@ -1,11 +1,10 @@
 #include "ExamplePlugin.hh"
 
 #include <G4PVPlacement.hh>
+#include <G4LogicalVolume.hh>
 #include <G4NistManager.hh>
 #include <G4Box.hh>
-// #include <G4SIunits.hh>
-
-#include "G4Application.hh"
+#include <G4VisAttributes.hh>
 
 #include "ExampleEventAction.hh"
 #include "ExamplePhysicsList.hh"
@@ -43,26 +42,6 @@ void ExamplePlugin::BuildGeometry(G4LogicalVolume *logVolume)
 
     new G4PVPlacement( 0, G4ThreeVector(0., 0., 0.), boxLog, "boxPhys", logVolume, false, 0);
 }
-
-
-const std::vector<string> ExamplePlugin::GetAvailableComponents() const
-{
-    return vector<string> { "default" };
-}
-
-
-Component *ExamplePlugin::GetComponent(const string& name)
-{
-    if (name == "default")
-    {
-        return this;
-    }
-    else
-    {
-        return nullptr;
-    }
-}
-
 
 G4VPhysicalVolume *ExamplePlugin::CreateWorld()
 {

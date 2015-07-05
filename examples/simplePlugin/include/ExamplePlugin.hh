@@ -2,15 +2,14 @@
 #define EXAMPLEPLUGIN_HH
 
 // G4Application includes
-#include "Plugin.hh"
-#include "Component.hh"
+#include "SingleComponentPlugin.hh"
 
 // Plugin includes
 #include "ExampleParticleGenerator.hh"
 
 class ExamplePhysics;
 
-class ExamplePlugin : public g4::Plugin, g4::Component
+class ExamplePlugin : public g4::SingleComponentPlugin
 {
 public:
     ExamplePlugin();
@@ -18,20 +17,15 @@ public:
     ~ExamplePlugin();
 
 public:
-    virtual const std::vector<std::string> GetAvailableComponents() const;
-
-    virtual g4::Component* GetComponent(const std::string& name);
-
-public:
     virtual void BuildGeometry(G4LogicalVolume *logVolume);
 
     virtual G4VPhysicalVolume *CreateWorld();
 
-    virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction() const;
+    virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction();
 
-    virtual G4UserEventAction* CreateEventAction() const;
+    virtual G4UserEventAction* CreateEventAction();
 
-    virtual G4VUserPhysicsList* CreatePhysicsList() const;
+    virtual G4VUserPhysicsList* CreatePhysicsList();
 };
 
 #endif // EXAMPLEPLUGIN_HH
