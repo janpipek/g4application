@@ -25,13 +25,17 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
         {
             if (_worldVolume)
             {
-                // TODO: Error
+                G4Exception("CompositeDetectorConstruction", "MultipleWorldVolumes", FatalException, "Multiple components define the world volume.");
             }
             else
             {
                 _worldVolume = componentWorld;
             }
         }
+    }
+    if (!_worldVolume)
+    {
+        G4Exception("CompositeDetectorConstruction", "NoWorldVolume", FatalException, "No world volume defined in any of the components.");
     }
 
     // Construct the geometry of components
@@ -40,4 +44,5 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
         Component* component = *it;
         component->BuildGeometry(_worldVolume->GetLogicalVolume());
     }
+    return _worldVolume;
 }
