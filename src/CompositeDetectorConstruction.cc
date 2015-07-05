@@ -1,8 +1,9 @@
 #include "CompositeDetectorConstruction.hh"
 
+#include <G4VPhysicalVolume.hh>
+
 #include "ComponentManager.hh"
 #include "Component.hh"
-#include "G4VPhysicalVolume.hh"
 
 using namespace g4;
 

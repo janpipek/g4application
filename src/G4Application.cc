@@ -78,17 +78,17 @@ namespace g4
     
     G4Application::~G4Application()
     {
-        delete _pluginLoader;
-        delete _componentManager;
-
         // Visualization
         #ifdef G4VIS_USE
           delete _visManager;
         #endif
+
+        delete _componentManager;
                 
         delete _messenger;
         delete _uiDirectory;
         delete _runManager;
+        delete _pluginLoader;
     }
     
     void G4Application::CreateInstance(int argc, char **argv)
@@ -129,6 +129,7 @@ namespace g4
                 G4cout << "Executing macro file: " << fileName << endl;
                 UI->ApplyCommand(command+fileName);
             }
+            // G4RunManager::GetRunManager()->RunInitialization();
         }
         else
         {

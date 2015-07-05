@@ -178,7 +178,7 @@ namespace g4
         else if (command = _addActionCommand)
         {
             G4cout << "Trying to add action " << newValue << "..." << G4endl;
-            if (newValue == "NumberingEventAction")
+            /*if (newValue == "NumberingEventAction")
             {
                 application.GetRunManager()->AddAction(new NumberingEventAction);
             }
@@ -189,7 +189,7 @@ namespace g4
             else
             {
                 throw "Unknown action to add: " + newValue;
-            }
+            }*/
         }
     }
     
