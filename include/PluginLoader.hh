@@ -44,14 +44,6 @@ namespace g4
         void AddPlugin(Plugin*);
         
         /**
-          * @short Vector of all loaded plugins.
-          */
-        /*const std::vector<Plugin*>& GetPlugins() const
-        {
-            return _plugins;
-        }*/
-        
-        /**
           * @short Unload all plugins.
           *
           * Note: This has to be done as the last step as other classes
@@ -68,8 +60,6 @@ namespace g4
         ComponentManager* _componentManager;
                 
         std::vector<void*> _libraries;
-
-        // std::vector<Plugin*> _plugins;
 
         std::map<std::string, Plugin*> _plugins;
     };

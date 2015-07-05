@@ -62,7 +62,7 @@ namespace g4
         const string shortName = shortLibraryName(name);
         const string longName = longLibraryName(name);
 
-        G4cout << "Loading plugin library `" << shortName << "`." << endl;
+        G4cout << "Loading plugin library `" << shortName << "` from " << longName << "." << endl;
         
         // Check whether file exists.
         struct stat fileInfo;
@@ -74,7 +74,7 @@ namespace g4
         
         // Try to load the file as dynamic library
         void* library = 0;
-        library = dlopen(name.c_str(), RTLD_LAZY );
+        library = dlopen(longName.c_str(), RTLD_LAZY );
 
         if (library)
         {

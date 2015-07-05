@@ -37,7 +37,6 @@ namespace g4
         _loadCommand->SetParameter(componentNameParam);
     }
 
-    
     PluginMessenger::~PluginMessenger()
     {
         delete _openCommand;
