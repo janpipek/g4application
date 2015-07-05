@@ -26,6 +26,8 @@ namespace g4
     public:
         CompositeAction() : _actions() { }
 
+        // TODO: Destructor???
+
         /**
          * @short Add action.
          * 
@@ -33,6 +35,10 @@ namespace g4
          */
         void AddSubAction(ActionType* action)
         {
+            if (!action)
+            {
+                G4Exception("CompositeAction", "AddNullSubAction", FatalException, "Cannot add null subaction.");
+            }
             if (find(_actions.begin(), _actions.end(), action) == _actions.end())
             {
                 _actions.push_back(action);
