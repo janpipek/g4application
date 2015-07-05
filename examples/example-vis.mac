@@ -1,5 +1,6 @@
 # Load the plugin
-/app/plugin/load libsimplePlugin.so
+/plugin/open libsimplePlugin.so
+/plugin/loadAll simplePlugin
 
 # Set a configuration value
 /app/setDouble generator.energy 0.5

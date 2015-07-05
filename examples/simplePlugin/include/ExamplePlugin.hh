@@ -3,40 +3,35 @@
 
 // G4Application includes
 #include "Plugin.hh"
-#include "GeometryBuilder.hh"
-#include "PhysicsBuilder.hh"
+#include "Component.hh"
 
 // Plugin includes
-#include "ExamplePhysicsBuilder.hh"
-#include "ExampleGeometryBuilder.hh"
-#include "ExampleParticleGeneratorBuilder.hh"
-#include "ExampleEventAction.hh"
+#include "ExampleParticleGenerator.hh"
 
-class ExamplePlugin : public g4::Plugin
+class ExamplePhysics;
+
+class ExamplePlugin : public g4::Plugin, g4::Component
 {
 public:
     ExamplePlugin();
 
     ~ExamplePlugin();
-    
-    virtual const std::string GetName() const { return "Example Plugin"; }
-    
-    virtual g4::GeometryBuilder* GetGeometryBuilder() { return _geometryBuilder; }
 
-    virtual g4::PhysicsBuilder* GetPhysicsBuilder() { return _physicsBuilder; }
+public:
+    virtual const std::vector<std::string> GetAvailableComponents() const;
 
-    virtual g4::ParticleGeneratorBuilder* GetParticleGeneratorBuilder() { return _particleGeneratorBuilder; }
+    virtual g4::Component* GetComponent(const std::string& name);
 
-    void OnRunInitialized();
-    
-private:
-    ExampleGeometryBuilder* _geometryBuilder;
+public:
+    virtual void BuildGeometry(G4LogicalVolume *logVolume);
 
-    ExamplePhysicsBuilder* _physicsBuilder;
+    virtual G4VPhysicalVolume *CreateWorld();
 
-    ExampleParticleGeneratorBuilder* _particleGeneratorBuilder;
+    virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction() const;
 
-    ExampleEventAction* _eventAction;
+    virtual G4UserEventAction* CreateEventAction() const;
+
+    virtual G4VUserPhysicsList* CreatePhysicsList() const;
 };
 
 #endif // EXAMPLEPLUGIN_HH
