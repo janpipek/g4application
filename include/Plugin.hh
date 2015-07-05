@@ -32,14 +32,11 @@ namespace g4
     public:
         Plugin() { }
 
-        virtual const std::vector<std::string>& GetAvailableComponents() const = 0;
+        virtual const std::vector<std::string> GetAvailableComponents() const = 0;
 
-        virtual Component* GetComponent(std::string) = 0;
+        virtual Component* GetComponent(const std::string&) = 0;
         
         virtual ~Plugin() { }
-        
-        /** User-friendly plugin name. */
-        // virtual const std::string GetName() const = 0;
 
         /**
           * @short Procedure that is called after loading the plugin.
