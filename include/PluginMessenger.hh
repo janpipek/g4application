@@ -29,17 +29,21 @@ namespace g4
         PluginLoader* _loader;
         
         /**
-          * Directory /app/plugin/
+          * Directory /plugin/
           */
         G4UIdirectory* _directory;
         
         /**
-          * Command /app/plugin/load
+          * Command /plugin/open
           *
           * When given an exact name of the DLL (including extension),
-          * it loads it.
+          * it opens it.
           */
-        G4UIcmdWithAString* _loadCommand;
+        G4UIcmdWithAString* _openCommand;
+
+        G4UIcommand* _loadCommand;
+
+        G4UIcmdWithAString* _loadAllCommand;
     };
 }
 
