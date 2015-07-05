@@ -60,19 +60,19 @@ G4VPhysicalVolume *ExamplePlugin::CreateWorld()
     return worldPhys;
 }
 
-G4VUserPrimaryGeneratorAction *ExamplePlugin::CreatePrimaryGeneratorAction() const
+G4VUserPrimaryGeneratorAction *ExamplePlugin::CreatePrimaryGeneratorAction()
 {
     G4cout << "Creating particle generator action from the examplePlugin." << G4endl;
     return new ExampleParticleGenerator();
 }
 
-G4UserEventAction *ExamplePlugin::CreateEventAction() const
+G4UserEventAction *ExamplePlugin::CreateEventAction()
 {
     G4cout << "Creating event action from the examplePlugin." << G4endl;
     return new ExampleEventAction();
 }
 
-G4VUserPhysicsList *ExamplePlugin::CreatePhysicsList() const
+G4VUserPhysicsList *ExamplePlugin::CreatePhysicsList()
 {
     G4cout << "Creating physics list from the examplePlugin." << G4endl;
     return new ExamplePhysicsList();

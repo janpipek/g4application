@@ -23,7 +23,7 @@ namespace g4
         virtual void BuildForMaster() const override;
 
     protected:
-        template<typename CompositeActionType, typename SubActionType> void BuildCompositeAction(SubActionType* (Component::*createFunc) () const) const
+        template<typename CompositeActionType, typename SubActionType> void BuildCompositeAction(SubActionType* (Component::*createFunc) ()) const
         {
             auto components = _componentManager->GetComponents();
             CompositeActionType* compositeAction = new CompositeActionType();

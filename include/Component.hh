@@ -38,19 +38,19 @@ namespace g4
 
         virtual G4VPhysicalVolume* CreateWorld() { return nullptr; }
 
-        virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction() const { return nullptr; }
+        virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction() { return nullptr; }
 
-        virtual G4UserEventAction* CreateEventAction() const { return nullptr; }
+        virtual G4UserEventAction* CreateEventAction() { return nullptr; }
 
-        virtual G4UserRunAction* CreateRunAction() const { return nullptr; }
+        virtual G4UserRunAction* CreateRunAction() { return nullptr; }
 
-        virtual G4UserStackingAction* CreateStackingAction() const { return nullptr; }
+        virtual G4UserStackingAction* CreateStackingAction() { return nullptr; }
 
-        virtual G4UserSteppingAction* CreateSteppingAction() const { return nullptr; }
+        virtual G4UserSteppingAction* CreateSteppingAction() { return nullptr; }
 
-        virtual G4UserTrackingAction* CreateTrackingAction() const { return nullptr; }
+        virtual G4UserTrackingAction* CreateTrackingAction() { return nullptr; }
 
-        virtual G4VUserPhysicsList* CreatePhysicsList() const { return nullptr; }
+        virtual G4VUserPhysicsList* CreatePhysicsList() { return nullptr; }
 
     /* protected:
         void GeometryHasBeenModified() { G4RunManager::GetRunManager()->GeometryHasBeenModified(); }*/
