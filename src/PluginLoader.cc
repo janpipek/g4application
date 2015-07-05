@@ -7,7 +7,6 @@
 #include <G4StateManager.hh>
 
 #include "PluginMessenger.hh"
-#include "GeometryBuilder.hh"
 #include "G4Application.hh"
 #include "ComponentManager.hh"
 

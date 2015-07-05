@@ -2,7 +2,6 @@
 
 #include "ComponentManager.hh"
 #include "Component.hh"
-#include "GeometryBuilder.hh"
 #include "G4VPhysicalVolume.hh"
 
 using namespace g4;
@@ -21,7 +20,7 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
     for (auto it = components.begin(); it != components.end(); it++)
     {
         Component* component = *it;
-        G4VPhysicalVolume* componentWorld = component->CreateGeometryBuilder()->CreateWorld();
+        G4VPhysicalVolume* componentWorld = component->CreateWorld();
         if (componentWorld)
         {
             if (_worldVolume)
@@ -39,6 +38,6 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
     for (auto it = components.begin(); it != components.end(); it++)
     {
         Component* component = *it;
-        component->CreateGeometryBuilder()->BuildGeometry(_worldVolume->GetLogicalVolume());
+        component->BuildGeometry(_worldVolume->GetLogicalVolume());
     }
 }
