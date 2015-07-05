@@ -26,19 +26,6 @@ using namespace g4;
 
 namespace g4
 {   
-    void terminate_run(int sig)
-    {
-        G4RunManager::GetRunManager()->AbortRun();
-        (void) signal(SIGINT, SIG_DFL);
-        sleep(1);
-    }
-
-    void RunManager::RunTermination()
-    {
-        (void) signal(SIGINT, SIG_DFL);
-        G4RunManager::RunTermination();
-    }
-
     RunManager::RunManager(RunInitializer& init)
         : _initializer(init)
     { }
@@ -81,11 +68,5 @@ namespace g4
         G4RunManager::Initialize();
         OBSERVERS_DO( OnRunInitialized );
         G4cout << "Run initialized." << endl;
-    }
-
-    void RunManager::DoEventLoop(G4int n_event, const char *macroFile, G4int n_select)
-    {
-        (void) signal(SIGINT, terminate_run);
-        G4RunManager::DoEventLoop(n_event, macroFile, n_select);
     }
 }
