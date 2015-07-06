@@ -15,12 +15,18 @@ class G4VPhysicalVolume;
 namespace g4
 {
     class GeometryBuilder;
+    class ComponentManager;
 
     /**
      * @brief A component for the G4Application architecture.
      *
      * Instances of this class are shared. Ideally, they have no state, otherwise
      * careful thread-safety is necessary.
+     *
+     * The components may be created at different stages of application
+     * run. Therefore, useful initialization code can be put
+     * into `OnLoad` method that is called by ComponentManager
+     * at the time the component is registered;
      */
     class Component
     {
@@ -50,6 +56,11 @@ namespace g4
         virtual G4UserTrackingAction* CreateTrackingAction() { return nullptr; }
 
         virtual G4VUserPhysicsList* CreatePhysicsList() { return nullptr; }
+
+    protected:
+        friend class ComponentManager;
+
+        virtual void OnLoad() { }
     };
 }
 

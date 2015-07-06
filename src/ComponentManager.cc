@@ -9,6 +9,7 @@ void ComponentManager::AddComponent(Component *component)
 {
     // TODO: Check master thread
     // TODO: Check status
+    component->OnLoad();
     _components.push_back(component);
 }
 
