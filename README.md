@@ -1,8 +1,8 @@
 g4application
 =============
 
-A simple generic application for Geant4. It works as a universal executable
-for geant4 tasks. It provides a plug-in API which is used to implement
+A library and a simple generic application for Geant4. It works as a universal executable
+for geant4 tasks. It provides a component and plug-in API to plug in
 specific behaviour (in one or more plug-ins in parallel).
 
 Apart from this, g4application offers features that are not tightly connected
@@ -11,18 +11,17 @@ to plugin system but can make your life with Geant4 easier.
 Main features
 -------------
 * typical macro-based / interactive workflow
+* components
 * plugins
 * configuration system - central configuration repository based on observer design pattern
 * composite geometry
 * composite user action - these allow adding of more user actions of the same type
 * a few built-in user actions (see below)
 
-Built-in user actions
----------------------
-You can use a few user actions included in the application.
-They are loaded using `/app/addAction <actionname>` command
-* NumberingEventAction - prints a short status after each N events
-* MemoryRunAction - prints info about memory consumption before/after run
+Component system
+----------------
+
+...
 
 Plug-in system
 -------------
@@ -35,7 +34,8 @@ The plug-in project has to include a class inheriting from `g4::Plugin` and expo
 
 Loading a plugin:
 
-    /app/plugin/load <somePlugin.so>
+    /plugin/open <somePlugin.so>     # Opens the DLL
+    /plugin/loadAll somePlugin       # Use all components from the plug in
 
 There are a few example plug-ins that use most features of G4Application in the
 `examples` subdirectory.
@@ -43,19 +43,26 @@ There are a few example plug-ins that use most features of G4Application in the
 - simplePlugin : basic example that defines physics, geometry & generator
 - httpPlugin : a simple integrated HTTP server informing about the application state
 
+Built-in user actions
+---------------------
+You can use a few user actions included in the application.
+They are loaded using `/app/addAction <actionname>` command
+* NumberingEventAction - prints a short status after each N events
+* MemoryRunAction - prints info about memory consumption before/after run
+
 
 How to build
 ------------
 You will need:
 
 * cmake >= 2.6 (not tested for lower)
-* geant4 (9.6 used for development)
+* geant4 10.0+ ( 10.1 currently used for development)
 * boost > 0.49
 * C++11-ready compiler
 
 Optional:
 
-* Qt4
+* Qt4 (should work with )
 
 After building, you will obtain:
 * g4 executable - this you will run
@@ -79,10 +86,11 @@ instead of two application using the same library.
 
 2014: All my simulations for Ph.D. thesis were based on g4application.
 
+2015: Complete API redesign, only Geant4 10 is supported (see branch **geant9** for older version).
+
 Known issues
 ------------
-* The library is not thread-safe, so the new Geant4 v10 threading functionality
-cannot be used at the moment.
+* See GitHub Issues page.
 
 Related projects
 ----------------
