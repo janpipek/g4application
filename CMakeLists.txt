@@ -30,8 +30,9 @@ include(${Geant4_USE_FILE})
 file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/src/*.cc ${PROJECT_SOURCE_DIR}/lib/json/jsoncpp.cpp)
 file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/include/*.hh ${PROJECT_SOURCE_DIR}/lib/json/json/*.h)
 
-add_executable(g4 g4.cc ${headers})
 add_library(g4Application SHARED ${sources} ${headers})
+
+add_executable(g4 g4.cc ${headers})
 
 include_directories(include ${PROJECT_SOURCE_DIR}/lib/json)
 set(CMAKE_CXX_FLAGS "-std=c++0x")
@@ -43,5 +44,12 @@ target_link_libraries(g4 g4Application ${Geant4_LIBRARIES}
 
 install(TARGETS g4 DESTINATION .)
 install(TARGETS g4Application DESTINATION .)
+
+# Tests
+add_executable(testRun "test/run.cc" ${headers})
+add_dependencies(testRun g4Application)
+target_link_libraries(testRun g4Application ${Geant4_LIBRARIES} 
+    dl ${Boost_LIBRARIES})    
+
 
 
