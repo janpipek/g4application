@@ -8,6 +8,9 @@ namespace g4
 {
     namespace util
     {
+        /**
+         * @brief G4Exception turned into a class.
+         */
         class Geant4Exception : public std::exception
         {
         public:
@@ -22,12 +25,17 @@ namespace g4
             std::string description;
         };
 
+        /**
+         * @brief Exception handler that throws C++ exceptions.
+         */
         class ThrowingExceptionHandler : public G4VExceptionHandler
         {
         public:
             ThrowingExceptionHandler(bool alsoWarnings = false) : _alsoWarning(alsoWarnings) { }
 
-            virtual G4bool Notify(const char *originOfException, const char *exceptionCode, G4ExceptionSeverity severity, const char *description)
+            virtual ~ThrowingExceptionHandler();
+
+            virtual G4bool Notify(const char *originOfException, const char *exceptionCode, G4ExceptionSeverity severity, const char *description) override
             {
                 if ((severity != JustWarning) || _alsoWarning)
                 {
