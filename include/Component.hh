@@ -1,7 +1,7 @@
 #ifndef COMPONENT_HH
 #define COMPONENT_HH
 
-// #include "G4RunManager.hh"
+#include <G4LogicalVolume.hh>
 
 class G4VUserPrimaryGeneratorAction;
 class G4UserEventAction;
@@ -11,7 +11,6 @@ class G4UserSteppingAction;
 class G4UserTrackingAction;
 class G4VUserPhysicsList;
 class G4VPhysicalVolume;
-class G4LogicalVolume;
 
 namespace g4
 {
@@ -51,9 +50,6 @@ namespace g4
         virtual G4UserTrackingAction* CreateTrackingAction() { return nullptr; }
 
         virtual G4VUserPhysicsList* CreatePhysicsList() { return nullptr; }
-
-    /* protected:
-        void GeometryHasBeenModified() { G4RunManager::GetRunManager()->GeometryHasBeenModified(); }*/
     };
 }
 

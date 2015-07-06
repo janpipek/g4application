@@ -16,8 +16,8 @@ namespace g4
     /**
      * @short Adaptable type used in our configuration system
      *
-     * Covers three basic reasonable types for paramaters:
-     * - int, double & string
+     * Covers three basic reasonable types for parameters:
+     * - int, double & string (bool treated as integer)
      */
     typedef boost::variant<int, double, std::string> ConfigurationValue;
 
@@ -140,9 +140,7 @@ namespace g4
     };
 
     template<> const double getValue<double>(const ConfigurationValue& value);
-
     template<> const int getValue<int>(const ConfigurationValue& value);
-
     template<> const bool getValue<bool>(const ConfigurationValue& value);
 
     /**
