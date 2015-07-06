@@ -79,6 +79,10 @@ namespace g4
 
     ApplicationMessenger::ApplicationMessenger()
     {
+        // Initialize directory for UI commands
+        _uiDirectory = new G4UIdirectory("/app/");
+        _uiDirectory->SetGuidance("G4Application commands");
+
         _waitCommand = new G4UIcmdWithAnInteger("/app/wait", this);
         _waitCommand->SetGuidance("Wait");
         _waitCommand->SetGuidance("0 - wait for a key press");
@@ -205,5 +209,7 @@ namespace g4
         delete _printConfigurationCommand;
         delete _pauseCommand;
         delete _addActionCommand;
+
+        delete _uiDirectory;
     }
 }

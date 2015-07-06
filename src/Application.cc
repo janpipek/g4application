@@ -6,7 +6,6 @@
 #include <G4UImanager.hh>
 #include <G4UIterminal.hh>
 #include <G4UIsession.hh>
-#include <G4UIdirectory.hh>
 
 #include "ComponentManager.hh"
 
@@ -39,14 +38,8 @@ namespace g4
         _argc = argc;
         _argv = argv;
         _interactiveSession = 0;
-        // _physicsBuilder = 0;
-        // _particleGeneratorBuilder = 0;
 
         _componentManager = new ComponentManager();
-
-        // Initialize directory for UI commands
-        _uiDirectory = new G4UIdirectory("/app/");
-        _uiDirectory->SetGuidance("G4Application commands");
 
         _messenger = new ApplicationMessenger();
 
@@ -83,12 +76,12 @@ namespace g4
           delete _visManager;
         #endif
 
-        delete _componentManager;
+        // delete _componentManager;
                 
-        delete _messenger;
-        delete _uiDirectory;
+        // delete _messenger;
+        // delete _uiDirectory;
         delete _runManager;
-        delete _pluginLoader;
+        // delete _pluginLoader;
     }
     
     void Application::CreateInstance(int argc, char **argv)

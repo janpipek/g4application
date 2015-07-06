@@ -83,8 +83,6 @@ namespace g4
         
         RunManager* _runManager;
         
-        G4UIdirectory* _uiDirectory;
-        
         G4UIsession* _interactiveSession;
         
         PluginLoader* _pluginLoader;

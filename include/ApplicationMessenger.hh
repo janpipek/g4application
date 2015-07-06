@@ -57,6 +57,8 @@ namespace g4
 	private:
         template <typename ValueType> void applyConfigurationCommand(const UIcmdConfiguration<ValueType>* command, const std::string& newValue);
 
+        G4UIdirectory* _uiDirectory;
+
 		G4UIcmdWithAnInteger* _waitCommand;
 		
         G4UIcmdWithoutParameter* _prepareInteractiveCommand;
