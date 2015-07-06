@@ -1,6 +1,14 @@
 g4application
 =============
 
+Version notice
+--------------
+*Warning: This branch (**geant9**) is targeted at Geant4 9.6.
+Although it probably works in Geant4 10+, it is not developed 
+anymore. The main branch of development underwent a massive
+redesign of API (to work with new multithreading system) and
+is mostly incompatible.* 
+
 A simple generic application for Geant4. It works as a universal executable
 for geant4 tasks. It provides a plug-in API which is used to implement
 specific behaviour (in one or more plug-ins in parallel).
