@@ -41,6 +41,7 @@ namespace g4
           */
         void GenerateRandomSeed();
 
+        void ApplyCommand(const std::string& command);
 
         void PrepareInteractiveMode();
             

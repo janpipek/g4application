@@ -148,4 +148,10 @@ namespace g4
         CLHEP::HepRandom::setTheSeed( seed );
         G4cout << "New random seed has been set: " << seed << G4endl;
     }
+
+    void Application::ApplyCommand(const string& command)
+    {
+        G4UImanager * UI = G4UImanager::GetUIpointer();
+        UI->ApplyCommand(command);
+    }
 }
