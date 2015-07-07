@@ -1,29 +1,45 @@
-#include "actions/MemoryRunAction.hh"
+#include "components/MemoryLogging.hh"
 
+#include <G4UserRunAction.hh>
 #include <globals.hh>
+
+using namespace g4::components;
 
 // Included Memory functions (see below)
 // http://nadeausoftware.com/articles/2012/07/c_c_tip_how_get_process_resident_set_size_physical_memory_use
 size_t getPeakRSS();
 size_t getCurrentRSS();
+void printMemoryConsumptionInfo();
+
+/**
+ * @short Action that prints memory consumption info before and after run.
+ *
+ * Based on code by David Robert Nadeau
+ * (see http://nadeausoftware.com/articles/2012/07/c_c_tip_how_get_process_resident_set_size_physical_memory_use)
+ */
+class MemoryRunAction : public G4UserRunAction
+{
+public:
+    void BeginOfRunAction(const G4Run *aRun) 
+    {
+    	printMemoryConsumptionInfo();
+    }
+
+    void EndOfRunAction(const G4Run *aRun)
+    {
+    	printMemoryConsumptionInfo();
+    }
+};
+
+G4UserRunAction* MemoryLogging::CreateRunAction()
+{
+	return new MemoryRunAction();
+}
 
 void printMemoryConsumptionInfo()
 {
     G4cout << "Memory (current) " << getCurrentRSS() / (1024 * 1024) << " MB" << G4endl;
     G4cout << "Memory (peak) " << getPeakRSS() / (1024 * 1024) << " MB" << G4endl;
-}
-
-namespace g4
-{
-    void MemoryRunAction::BeginOfRunAction(const G4Run *aRun)
-    {
-        printMemoryConsumptionInfo();
-    }
-
-    void MemoryRunAction::EndOfRunAction(const G4Run *aRun)
-    {
-        printMemoryConsumptionInfo();
-    }
 }
 
 /*

@@ -154,5 +154,6 @@ namespace g4
     {
         Component* component = _componentRegistry->GetComponent(name);
         _componentManager->AddComponent(component);
+        G4cout << "Loaded built-in component " << name << "." << G4endl;
     }
 }

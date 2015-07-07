@@ -1,6 +1,8 @@
 #include "ComponentRegistry.hh"
 
 #include "components/DefaultWorld.hh"
+#include "components/MemoryLogging.hh"
+#include "components/EventNumberLogging.hh"
 
 using namespace std;
 using namespace g4;
@@ -14,6 +16,8 @@ template<typename ComponentType> Component* Creator()
 ComponentRegistry::ComponentRegistry()
 {
     _creators["DefaultWorld"] = Creator<DefaultWorld>;
+    _creators["MemoryLogging"] = Creator<MemoryLogging>;
+    _creators["EventNumberLogging"] = Creator<EventNumberLogging>;
 }
 
 const std::vector<std::string> ComponentRegistry::GetAvailableComponents() const

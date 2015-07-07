@@ -12,10 +12,6 @@
 #include "Application.hh"
 #include "Configuration.hh"
 
-// Actions to add
-#include "actions/NumberingEventAction.hh"
-#include "actions/MemoryRunAction.hh"
-
 using namespace boost::xpressive;
 using namespace std;
 
