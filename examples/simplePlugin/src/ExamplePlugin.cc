@@ -43,23 +43,6 @@ void ExamplePlugin::BuildGeometry(G4LogicalVolume *logVolume)
     new G4PVPlacement( 0, G4ThreeVector(0., 0., 0.), boxLog, "boxPhys", logVolume, false, 0);
 }
 
-G4VPhysicalVolume *ExamplePlugin::CreateWorld()
-{
-    G4cout << "Creating world from the examplePlugin." << G4endl;
-    // 1 - solid
-    G4double length = 2.5 * m;
-    G4Box* worldBox = new G4Box("worldBox", length, length, length);
-
-    // 2 - logical volume
-    G4Material* air = G4NistManager::Instance()->FindOrBuildMaterial("G4_AIR");
-    G4LogicalVolume* worldLog = new G4LogicalVolume(worldBox, air, "worldLog");
-
-    // 3 - physical volume
-    G4PVPlacement* worldPhys = new G4PVPlacement(0, G4ThreeVector(), worldLog, "worldPhys", 0, false, 0);
-    worldLog->SetVisAttributes (G4VisAttributes::Invisible);
-    return worldPhys;
-}
-
 G4VUserPrimaryGeneratorAction *ExamplePlugin::CreatePrimaryGeneratorAction()
 {
     G4cout << "Creating particle generator action from the examplePlugin." << G4endl;

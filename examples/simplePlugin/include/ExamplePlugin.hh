@@ -19,8 +19,6 @@ public:
 public:
     virtual void BuildGeometry(G4LogicalVolume *logVolume);
 
-    virtual G4VPhysicalVolume *CreateWorld();
-
     virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction();
 
     virtual G4UserEventAction* CreateEventAction();

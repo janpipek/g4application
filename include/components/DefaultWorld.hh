@@ -23,9 +23,10 @@ namespace g4
         class DefaultWorld : public Component
         {
         public:
-            virtual G4VPhysicalVolume *CreateWorld();
+            virtual G4VPhysicalVolume *CreateWorld() override;
 
-            virtual void OnLoad();
+        protected:
+            virtual void OnLoad() override;
 
         private:
             G4ThreeVector _size;
