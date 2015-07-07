@@ -1,4 +1,4 @@
-#include "components/ComponentRegistry.hh"
+#include "ComponentRegistry.hh"
 
 #include "components/DefaultWorld.hh"
 
