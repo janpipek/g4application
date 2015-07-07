@@ -1,9 +1,20 @@
 #include "ComponentManager.hh"
 
+// #include "ComponentMessenger.hh"
 #include "ComponentActionInitialization.hh"
 #include "CompositeDetectorConstruction.hh"
 
 using namespace g4;
+
+ComponentManager::ComponentManager()
+{
+    // _messenger = new ComponentMessenger(this);
+}
+
+ComponentManager::~ComponentManager()
+{
+    // delete _messenger;
+}
 
 void ComponentManager::AddComponent(Component *component)
 {

@@ -12,6 +12,7 @@ class G4VUserPhysicsList;
 namespace g4
 {
     class Component;
+    // class ComponentMessenger;
 
     /**
      * @brief The ComponentManager class
@@ -21,6 +22,10 @@ namespace g4
     class ComponentManager : public RunInitializer
     {
     public:
+        ComponentManager();
+
+        virtual ~ComponentManager();
+
         std::vector<Component*> GetComponents() const { return _components; }
 
         void AddComponent(Component* component);
@@ -33,6 +38,8 @@ namespace g4
 
     private:
         std::vector<Component*> _components;
+
+        // ComponentMessenger* _messenger;
     };
 }
 
