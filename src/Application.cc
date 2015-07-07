@@ -8,6 +8,7 @@
 #include <G4UIsession.hh>
 
 #include "ComponentManager.hh"
+#include "ComponentRegistry.hh"
 
 #ifdef G4UI_USE_QT
     #include <G4UIQt.hh>
@@ -40,6 +41,7 @@ namespace g4
         _interactiveSession = 0;
 
         _componentManager = new ComponentManager();
+        _componentRegistry = &ComponentRegistry::Instance();
 
         _messenger = new ApplicationMessenger();
 
@@ -146,5 +148,11 @@ namespace g4
     {
         G4UImanager * UI = G4UImanager::GetUIpointer();
         UI->ApplyCommand(command);
+    }
+
+    void Application::AddBuiltinComponent(const G4String& name)
+    {
+        Component* component = _componentRegistry->GetComponent(name);
+        _componentManager->AddComponent(component);
     }
 }

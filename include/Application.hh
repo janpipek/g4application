@@ -15,6 +15,7 @@ namespace g4
     class ApplicationMessenger;
     class PluginLoader;
     class ComponentManager;
+    class ComponentRegistry;
     
     /**
       * @short Singleton application object.
@@ -63,6 +64,8 @@ namespace g4
           */
         void RunUI();
 
+        void AddBuiltinComponent(const G4String& name);
+
         friend class util::Singleton<Application>;
 
     private:
@@ -90,6 +93,8 @@ namespace g4
         ApplicationMessenger* _messenger;
 
         ComponentManager* _componentManager;
+
+        ComponentRegistry* _componentRegistry;
     };
 }
 

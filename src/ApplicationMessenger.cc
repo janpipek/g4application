@@ -112,8 +112,8 @@ namespace g4
         _pauseCommand = new G4UIcmdWithoutParameter("/app/pause", this);
         _pauseCommand->SetGuidance("Pause and wait for user input.");
 
-        _addActionCommand = new G4UIcmdWithAString("/app/addAction", this);
-        _addActionCommand->SetGuidance("Add one of the integrated actions.");
+        _addComponentCommand = new G4UIcmdWithAString("/app/addComponent", this);
+        _addComponentCommand->SetGuidance("Add one of the integrated components.");
     }
 
     template <typename ValueType> void ApplicationMessenger::applyConfigurationCommand(const UIcmdConfiguration<ValueType>* command, const string& newValue)
@@ -179,21 +179,9 @@ namespace g4
         {
             application.PauseExecution();
         }
-        else if (command = _addActionCommand)
+        else if (command == _addComponentCommand)
         {
-            G4cout << "Trying to add action " << newValue << "..." << G4endl;
-            /*if (newValue == "NumberingEventAction")
-            {
-                application.GetRunManager()->AddAction(new NumberingEventAction);
-            }
-            else if (newValue == "MemoryRunAction")
-            {
-                application.GetRunManager()->AddAction(new MemoryRunAction);
-            }
-            else
-            {
-                throw "Unknown action to add: " + newValue;
-            }*/
+            application.AddBuiltinComponent(newValue);
         }
     }
     
@@ -208,7 +196,7 @@ namespace g4
         delete _setStringCommand;
         delete _printConfigurationCommand;
         delete _pauseCommand;
-        delete _addActionCommand;
+        delete _addComponentCommand;
 
         delete _uiDirectory;
     }

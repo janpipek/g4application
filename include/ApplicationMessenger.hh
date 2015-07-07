@@ -42,10 +42,11 @@ namespace g4
      *  - /app/setString
      *  - /app/printConfiguration
      *  - /app/pause
-     *  - /app/addAction
+     *  - /app/addComponent
      */
 	class ApplicationMessenger : public G4UImessenger
 	{
+        // TODO: Move a few commands into ConfigurationMessenger
 	public:
 		ApplicationMessenger();
 		
@@ -73,7 +74,7 @@ namespace g4
 
         UIcmdConfiguration<double>* _setDoubleCommand;
 
-        G4UIcmdWithAString* _addActionCommand;
+        G4UIcmdWithAString* _addComponentCommand;
 
         G4UIcmdWithoutParameter* _printConfigurationCommand;
 
