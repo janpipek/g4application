@@ -50,7 +50,7 @@ namespace g4
         _componentManager = new ComponentManager();
         _componentRegistry = &ComponentRegistry::Instance();
 
-        _messenger = new ApplicationMessenger();
+        _messenger = new ApplicationMessenger(this);
 
         // Custom run manager
         _runManager = new RunManager(*_componentManager);

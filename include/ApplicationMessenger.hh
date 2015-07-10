@@ -10,6 +10,8 @@ class G4UIcmdWithoutParameter;
 
 namespace g4
 {
+    class Application;
+
     /**
      * @brief UI command for configuration (string + value type).
      *
@@ -28,7 +30,6 @@ namespace g4
 
         const ValueType GetValue(const std::string& paramString) const;
     };
-	
 
     /**
      * @brief Main UI messenger for the application.
@@ -48,7 +49,7 @@ namespace g4
 	{
         // TODO: Move a few commands into ConfigurationMessenger
 	public:
-		ApplicationMessenger();
+        ApplicationMessenger(Application* application);
 		
 		virtual ~ApplicationMessenger();
 		
@@ -79,6 +80,8 @@ namespace g4
         G4UIcmdWithoutParameter* _printConfigurationCommand;
 
         G4UIcmdWithoutParameter* _pauseCommand;
+
+        Application* _application;
     };
 
 }

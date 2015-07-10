@@ -1,14 +1,16 @@
 #ifndef APPLICATION_HH
 #define APPLICATION_HH
 
-#include <G4UIdirectory.hh>
-#include <G4UIsession.hh>
-
 #include "util/Singleton.hh"
+
+#include <globals.hh>
 
 #ifdef G4VIS_USE
     class G4VisExecutive;
 #endif
+
+class G4UIdirectory;
+class G4UIsession;
 
 namespace g4
 {

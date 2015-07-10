@@ -73,7 +73,8 @@ namespace g4
         return valueString;
     }
 
-    ApplicationMessenger::ApplicationMessenger()
+    ApplicationMessenger::ApplicationMessenger(Application *application)
+        : _application(application)
     {
         // Initialize directory for UI commands
         _uiDirectory = new G4UIdirectory("/app/");
@@ -128,7 +129,6 @@ namespace g4
     
     void ApplicationMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
     {
-        Application& application = Application::Instance();
         if (command == _waitCommand)
         {
             int seconds = _waitCommand->GetNewIntValue(newValue);
@@ -145,15 +145,15 @@ namespace g4
         }
         else if (command == _interactiveCommand)
         {
-            application.EnterInteractiveMode();
+            _application->EnterInteractiveMode();
         }
         else if (command == _prepareInteractiveCommand)
         {
-            application.PrepareInteractiveMode();
+            _application->PrepareInteractiveMode();
         }
         else if (command == _generateRandomSeedCommand)
         {
-            application.GenerateRandomSeed();
+            _application->GenerateRandomSeed();
         }
         else if (command == _setDoubleCommand)
         {
@@ -173,11 +173,11 @@ namespace g4
         }
         else if (command == _pauseCommand)
         {
-            application.PauseExecution();
+            _application->PauseExecution();
         }
         else if (command == _addComponentCommand)
         {
-            application.AddBuiltinComponent(newValue);
+            _application->AddBuiltinComponent(newValue);
         }
     }
     
