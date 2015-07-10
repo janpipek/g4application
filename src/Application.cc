@@ -7,8 +7,9 @@
 #include <G4UIterminal.hh>
 #include <G4UIsession.hh>
 
-#include "ComponentManager.hh"
-#include "ComponentRegistry.hh"
+#ifdef G4VIS_USE
+    #include <G4VisExecutive.hh>
+#endif
 
 #ifdef G4UI_USE_QT
     #include <G4UIQt.hh>
@@ -16,6 +17,12 @@
 #else
     #include <G4UItcsh.hh>
 #endif
+
+#include "ComponentManager.hh"
+#include "ComponentRegistry.hh"
+#include "PluginLoader.hh"
+#include "ApplicationMessenger.hh"
+#include "RunManager.hh"
 
 using namespace std;
 using namespace g4::util;

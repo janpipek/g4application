@@ -2,13 +2,13 @@
 #define APPLICATION_HH
 
 #include <G4UIdirectory.hh>
-#include <G4VisExecutive.hh>
 #include <G4UIsession.hh>
 
-#include "RunManager.hh"
-#include "PluginLoader.hh"
-#include "ApplicationMessenger.hh"
 #include "util/Singleton.hh"
+
+#ifdef G4VIS_USE
+    class G4VisExecutive;
+#endif
 
 namespace g4
 {
@@ -16,6 +16,7 @@ namespace g4
     class PluginLoader;
     class ComponentManager;
     class ComponentRegistry;
+    class RunManager;
     
     /**
       * @short Singleton application object.
