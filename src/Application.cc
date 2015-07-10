@@ -160,6 +160,12 @@ namespace g4
     void Application::AddBuiltinComponent(const G4String& name)
     {
         Component* component = _componentRegistry->GetComponent(name);
+        if (!component)
+        {
+            G4ExceptionDescription message;
+            message << "Component " << name << " does not exist.";
+            G4Exception("Application", "UnknownComponent", FatalException, message);
+        }
         _componentManager->AddComponent(component);
         G4cout << "Loaded built-in component " << name << "." << G4endl;
     }
