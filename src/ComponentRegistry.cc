@@ -3,6 +3,7 @@
 #include "components/DefaultWorld.hh"
 #include "components/MemoryLogging.hh"
 #include "components/EventNumberLogging.hh"
+#include "components/ReferencePhysicsList.hh"
 
 using namespace std;
 using namespace g4;
@@ -18,6 +19,7 @@ ComponentRegistry::ComponentRegistry()
     _creators["DefaultWorld"] = Creator<DefaultWorld>;
     _creators["MemoryLogging"] = Creator<MemoryLogging>;
     _creators["EventNumberLogging"] = Creator<EventNumberLogging>;
+    _creators["ReferencePhysicsList"] = Creator<ReferencePhysicsList>;
 }
 
 const std::vector<std::string> ComponentRegistry::GetAvailableComponents() const
