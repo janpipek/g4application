@@ -77,7 +77,6 @@ namespace g4
             }
         }
 
-    private:
         std::list<ActionType*> _actions;
     };
 }
