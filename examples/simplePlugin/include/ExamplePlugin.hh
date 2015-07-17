@@ -23,7 +23,7 @@ public:
 
     virtual G4UserEventAction* CreateEventAction();
 
-    virtual G4VUserPhysicsList* CreatePhysicsList();
+    // virtual G4VUserPhysicsList* CreatePhysicsList();
 };
 
 #endif // EXAMPLEPLUGIN_HH

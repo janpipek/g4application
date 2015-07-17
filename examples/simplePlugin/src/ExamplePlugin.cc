@@ -55,8 +55,8 @@ G4UserEventAction *ExamplePlugin::CreateEventAction()
     return new ExampleEventAction();
 }
 
-G4VUserPhysicsList *ExamplePlugin::CreatePhysicsList()
+/* G4VUserPhysicsList *ExamplePlugin::CreatePhysicsList()
 {
     G4cout << "Creating physics list from the examplePlugin." << G4endl;
     return new ExamplePhysicsList();
-}
+}*/

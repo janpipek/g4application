@@ -3,9 +3,11 @@
 /plugin/loadAll simplePlugin
 
 /app/addComponent DefaultWorld
+/app/addComponent ReferencePhysicsList
 
 # Set a configuration value
 /app/setDouble generator.energy 0.5
+/app/setString component.ReferencePhysicsList.listName FTFP_BERT
 
 # Run
 /run/initialize
