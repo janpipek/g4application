@@ -4,6 +4,7 @@
 #include <G4Threading.hh>
 
 #include <map>
+#include <mutex>
 
 namespace g4
 {
@@ -15,6 +16,13 @@ namespace g4
          * Note: std::map is thread-safe as long as you don't
          *   manipulate the same element in different threads.
          *   This will not happen, as id is thread-unique.
+         *
+         * Note2: Geant4 assigns the same thread number
+         *   to multiple different runs. You have to deal
+         *   with it somehow.
+         *
+         * Note3: If destructor is called from outside,
+         *   you also may have a problem.
          */
         template<typename T> class ThreadLocal
         {
@@ -22,13 +30,18 @@ namespace g4
             void Set(T* item)
             {
                 int id = G4Threading::G4GetThreadId();
+                _mutex.lock();
                 _storage[id] = item;
+                _mutex.unlock();
             }
 
             T* Get()
             {
                 int id = G4Threading::G4GetThreadId();
-                return _storage[id];  // nullptr if not present
+                _mutex.lock();
+                T* res = _storage[id];
+                _mutex.unlock();
+                return res;  // nullptr if not present
             }
 
             void Unset()
@@ -40,6 +53,8 @@ namespace g4
 
         private:
             std::map<int, T*> _storage;
+
+            std::mutex _mutex;
         };
     }
 }
