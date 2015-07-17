@@ -1,5 +1,5 @@
-#ifndef THREADSTORAGE_HH
-#define THREADSTORAGE_HH
+#ifndef THREADLOCAL_HH
+#define THREADLOCAL_HH
 
 #include <G4Threading.hh>
 
@@ -19,16 +19,21 @@ namespace g4
         template<typename T> class ThreadLocal
         {
         public:
-            Set(T* item)
+            void Set(T* item)
             {
                 int id = G4Threading::G4GetThreadId();
                 _storage[id] = item;
             }
 
-            T* Get() const
+            T* Get()
             {
                 int id = G4Threading::G4GetThreadId();
-                return _storage[id];
+                return _storage[id];  // nullptr if not present
+            }
+
+            void Unset()
+            {
+                Set(nullptr);
             }
 
             // TODO: Some sort of clearing the _storage?
@@ -39,4 +44,4 @@ namespace g4
     }
 }
 
-#endif // THREADSTORAGE_HH
+#endif // THREADLOCAL_HH
