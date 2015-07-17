@@ -4,6 +4,7 @@
 #include "components/MemoryLogging.hh"
 #include "components/EventNumberLogging.hh"
 #include "components/ReferencePhysicsList.hh"
+#include "components/GPS.hh"
 
 using namespace std;
 using namespace g4;
@@ -20,6 +21,7 @@ ComponentRegistry::ComponentRegistry()
     _creators["MemoryLogging"] = Creator<MemoryLogging>;
     _creators["EventNumberLogging"] = Creator<EventNumberLogging>;
     _creators["ReferencePhysicsList"] = Creator<ReferencePhysicsList>;
+    _creators["GPS"] = Creator<GPS>;
 }
 
 const std::vector<std::string> ComponentRegistry::GetAvailableComponents() const

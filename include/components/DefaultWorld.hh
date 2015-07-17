@@ -23,7 +23,7 @@ namespace g4
         class DefaultWorld : public Component
         {
         public:
-            virtual G4VPhysicalVolume *CreateWorld() override;
+            virtual G4VPhysicalVolume* CreateWorld() override;
 
         protected:
             virtual void OnLoad() override;
