@@ -1,7 +1,7 @@
 #include "RunManager.hh"
 
 #include <signal.h>
-#include <unistd.h> 
+#include <unistd.h>
 #include <algorithm>
 
 #include "CompositeEventAction.hh"
@@ -25,7 +25,7 @@ using namespace std;
 using namespace g4;
 
 namespace g4
-{   
+{
     RunManager::RunManager(RunInitializer& init)
         : _initializer(init)
     { }
@@ -44,8 +44,8 @@ namespace g4
         if (needle != _observers.end())
         {
             _observers.erase(needle);
-        }        
-    }   
+        }
+    }
 
     void RunManager::Initialize()
     {
@@ -53,7 +53,7 @@ namespace g4
         OBSERVERS_DO( OnPhysicsInitializing );
         this->SetUserInitialization(_initializer.GetPhysicsList());
         OBSERVERS_DO( OnPhysicsInitialized );
-        
+
         // 2) Geometry
         OBSERVERS_DO( OnGeometryInitializing );
         this->SetUserInitialization(_initializer.GetDetectorConstruction());
@@ -62,10 +62,10 @@ namespace g4
         // 3) Actions
         this->SetUserInitialization(_initializer.GetActionInitialization());
 
-        
+
         G4cout << "Initializing Geant4 run manager." << endl;
         // Initialize Geant4's own run manager
-        G4RunManager::Initialize();
+        RunManagerBaseClass::Initialize();
         OBSERVERS_DO( OnRunInitialized );
         G4cout << "Run initialized." << endl;
     }
