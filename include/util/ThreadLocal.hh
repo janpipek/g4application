@@ -13,6 +13,12 @@ namespace g4
        /**
          * A proxy for thread-local variables.
          *
+         * When compiled without multithreading support,
+         * this class just stores the pointer.
+         *
+         * In any case, if value is not defined, Get()
+         * returns nullptr;
+         *
          * Note: std::map is thread-safe as long as you don't
          *   manipulate the same element in different threads.
          *   This will not happen, as id is thread-unique.
@@ -27,21 +33,33 @@ namespace g4
         template<typename T> class ThreadLocal
         {
         public:
+            #ifndef G4MULTITHREADED
+                ThreadLocal() : _value(nullptr) { }
+            #endif
+
             void Set(T* item)
             {
-                int id = G4Threading::G4GetThreadId();
-                _mutex.lock();
-                _storage[id] = item;
-                _mutex.unlock();
+                #ifdef G4MULTITHREADED
+                    int id = G4Threading::G4GetThreadId();
+                    _mutex.lock();
+                    _storage[id] = item;
+                    _mutex.unlock();
+                #else
+                    _value = item;
+                #endif
             }
 
             T* Get()
             {
-                int id = G4Threading::G4GetThreadId();
-                _mutex.lock();
-                T* res = _storage[id];
-                _mutex.unlock();
-                return res;  // nullptr if not present
+                #ifdef G4MULTITHREADED
+                    int id = G4Threading::G4GetThreadId();
+                    _mutex.lock();
+                    T* res = _storage[id];
+                    _mutex.unlock();
+                    return res;  // nullptr if not present
+                #else
+                    return _value;
+                #endif
             }
 
             void Unset()
@@ -52,9 +70,15 @@ namespace g4
             // TODO: Some sort of clearing the _storage?
 
         private:
-            std::map<int, T*> _storage;
+            #ifdef G4MULTITHREADED
+                std::map<int, T*> _storage;
 
-            std::mutex _mutex;
+                std::mutex _mutex;
+            #else
+                T* _value;
+            #endif
+
+
         };
     }
 }
