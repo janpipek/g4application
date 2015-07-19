@@ -47,3 +47,14 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
     }
     return _worldVolume;
 }
+
+void CompositeDetectorConstruction::ConstructSDandField()
+{
+    auto components = _componentManager->GetComponents();
+    // Construct the geometry of components
+    for (auto it = components.begin(); it != components.end(); it++)
+    {
+        Component* component = *it;
+        component->ConstructSDandField();
+    }
+}

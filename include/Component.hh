@@ -25,8 +25,7 @@ namespace g4
      *
      * The components may be created at different stages of application
      * run. Therefore, useful initialization code can be put
-     * into `OnLoad` method that is called by ComponentManager
-     * at the time the component is registered;
+     * into `OnLoad` method.
      */
     class Component
     {
@@ -42,6 +41,8 @@ namespace g4
         virtual void BuildGeometry(G4LogicalVolume* logVolume) { }
 
         virtual G4VPhysicalVolume* CreateWorld() { return nullptr; }
+
+        virtual void ConstructSDandField() { }
 
         virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction() { return nullptr; }
 

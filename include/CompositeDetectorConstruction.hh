@@ -16,6 +16,8 @@ namespace g4
 
         virtual G4VPhysicalVolume* Construct();
 
+        virtual void ConstructSDandField();
+
     private:
         ComponentManager* _componentManager;
 
