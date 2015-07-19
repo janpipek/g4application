@@ -38,7 +38,10 @@ namespace g4
           *
           * @param logVolume In most cases, this is the world volume (in most cases)
           */
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wunused-parameter"
         virtual void BuildGeometry(G4LogicalVolume* logVolume) { }
+        #pragma GCC diagnostic pop
 
         virtual G4VPhysicalVolume* CreateWorld() { return nullptr; }
 
@@ -66,4 +69,3 @@ namespace g4
 }
 
 #endif // COMPONENT_HH
-
