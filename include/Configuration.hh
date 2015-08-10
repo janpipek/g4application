@@ -85,6 +85,16 @@ namespace g4
         }
 
         /**
+          * @short Get a stored string with casting and fallback value.
+          *
+          * Included to enable C string literals. 
+          */
+        static const std::string Get(const std::string& key, const char* fallback)
+        {
+            return Get<std::string>(key, fallback);
+        }
+
+        /**
          * @short Get a stored value without casting.
          */
         static ConfigurationValue& Get(const std::string& key)
@@ -109,7 +119,7 @@ namespace g4
         static void Set(const std::string& key, const ConfigurationValue& value, ConfigurationObserver* observerToIgnore = 0);
 
         /**
-         * @short Whether is a configuration value of a given name.
+         * @short Whether there is a configuration value of a given name.
          */
         static bool HasKey(const std::string& key);
 
