@@ -19,40 +19,45 @@ namespace g4
         friend class RunManager;
 
     protected:
-        /** 
+        /**
           * @short Method called before geometry is initialized.
           */
         virtual void OnGeometryInitializing() { }
-        
+
         /**
           * @short Method called after geometry is initialized.
           */
         virtual void OnGeometryInitialized() { }
-        
-        /** 
+
+        /**
           * @short Method called before physics is initialized.
           */
         virtual void OnPhysicsInitializing() { }
-        
+
         /**
           * @short Method called after physics is initialized.
           */
         virtual void OnPhysicsInitialized() { }
 
-        /** 
+        /**
           * @short Method that is called before particle generator builder is initialized.
           */
         virtual void OnParticleGeneratorInitializing() { }
-        
+
         /**
           * @short Method called immediatelly after particle generator builder is initialized.
           */
-        virtual void OnParticleGeneratorInitialized() { }           
+        virtual void OnParticleGeneratorInitialized() { }
 
         /**
           * @short Method called at the end of /run/initialize call.
           */
         virtual void OnRunInitialized() { }
+
+        /**
+          * @short Method called when destructor is called for RunManager.
+          */
+        virtual void OnDestructorCalled() { }
     };
 }
 #endif

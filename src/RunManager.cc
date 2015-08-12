@@ -30,6 +30,12 @@ namespace g4
         : _initializer(init)
     { }
 
+    RunManager::~RunManager()
+    {
+        if (verboseLevel > 0) { G4cout << "RunManager: destructor called." << endl; }
+        OBSERVERS_DO( OnDestructorCalled );
+    }
+
     void RunManager::AddObserver(RunObserver* observer)
     {
         if (std::find(_observers.begin(), _observers.end(), observer) == _observers.end())
@@ -50,20 +56,26 @@ namespace g4
     void RunManager::Initialize()
     {
         // 1) Physics
+        if (verboseLevel > 1) { G4cout << "RunManager: Physics initializing..." << G4endl; }
         OBSERVERS_DO( OnPhysicsInitializing );
         this->SetUserInitialization(_initializer.GetPhysicsList());
         OBSERVERS_DO( OnPhysicsInitialized );
+        if (verboseLevel > 1) { G4cout << "RunManager: Physics initialized." << G4endl; }
 
         // 2) Geometry
+        if (verboseLevel > 1) { G4cout << "RunManager: Geometry initializing..." << G4endl; }
         OBSERVERS_DO( OnGeometryInitializing );
         this->SetUserInitialization(_initializer.GetDetectorConstruction());
         OBSERVERS_DO( OnGeometryInitialized );
+        if (verboseLevel > 1) { G4cout << "RunManager: Geometry initialized." << G4endl; }
 
         // 3) Actions
+        if (verboseLevel > 1) { G4cout << "RunManager: Actions initializing..." << G4endl; }
         this->SetUserInitialization(_initializer.GetActionInitialization());
+        if (verboseLevel > 1) { G4cout << "RunManager: Actions initialized." << G4endl; }
 
+        if (verboseLevel > 0) { G4cout << "RunManager: Initializing Geant4 run manager..." << endl; }
 
-        G4cout << "Initializing Geant4 run manager." << endl;
         // Initialize Geant4's own run manager
         RunManagerBaseClass::Initialize();
         OBSERVERS_DO( OnRunInitialized );

@@ -31,6 +31,7 @@ namespace g4
 {
     Application::Application(int argc, char** argv)
     {
+        G4cout << "Application: Instance created." << G4endl;
         Initialize(argc, argv);
     }
 
@@ -77,22 +78,24 @@ namespace g4
             #endif
         #endif
     }
-    
+
     Application::~Application()
     {
+        G4cout << "Closing application..." << endl;
+
         // Visualization
         #ifdef G4VIS_USE
           delete _visManager;
         #endif
 
         // delete _componentManager;
-                
+
         // delete _messenger;
         // delete _uiDirectory;
         delete _runManager;
         // delete _pluginLoader;
     }
-    
+
     void Application::CreateInstance(int argc, char **argv)
     {
         if (instanceExists<Application>())
@@ -101,7 +104,7 @@ namespace g4
         }
         new Application(argc, argv);
     }
-    
+
     void Application::EnterInteractiveMode()
     {
         if (!_interactiveSession)
@@ -116,7 +119,7 @@ namespace g4
         G4cout << "Press ENTER to continue..." << endl;
         G4cin.get();
     }
-    
+
     void Application::RunUI()
     {
         G4UImanager * UI = G4UImanager::GetUIpointer();
@@ -131,14 +134,12 @@ namespace g4
                 G4cout << "Executing macro file: " << fileName << endl;
                 UI->ApplyCommand(command+fileName);
             }
-            // G4RunManager::GetRunManager()->RunInitialization();
         }
         else
         {
             G4cout << "No macro specified, entering interactive mode." << endl;
             EnterInteractiveMode();
         }
-        G4cout << "Closing application..." << endl;
     }
 
     void Application::GenerateRandomSeed()

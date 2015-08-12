@@ -23,7 +23,7 @@ namespace g4
       *   via special callback classes (see manual).
       *
       * Run manager catches SIGINT signal and stops the run
-      * instead of the whole application. Another interrupt 
+      * instead of the whole application. Another interrupt
       * makes the application really stop.
       */
     class RunManager : public RunManagerBaseClass
@@ -31,11 +31,13 @@ namespace g4
     public:
         RunManager(RunInitializer& init);
 
+        virtual ~RunManager();
+
         /**
           * @short Do what is necessary for the application and do standard initialize.
           *
           * This invokes all the builders from plugins.
-          * It is called with /run/initialize         
+          * It is called with /run/initialize
           */
         virtual void Initialize() override;
 
