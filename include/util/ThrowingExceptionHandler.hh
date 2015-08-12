@@ -27,6 +27,9 @@ namespace g4
 
         /**
          * @brief Exception handler that throws C++ exceptions.
+         *
+         * By default, Geant4 writes G4Exceptions to console. This
+         * handler enables to throw proper exceptions.
          */
         class ThrowingExceptionHandler : public G4VExceptionHandler
         {
@@ -49,4 +52,3 @@ namespace g4
 }
 
 #endif // THROWINGEXCEPTIONHANDLER_HH
-

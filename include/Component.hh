@@ -32,17 +32,27 @@ namespace g4
     public:
         virtual ~Component() { }
 
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wunused-parameter"
         /**
           * @short Create part of the geometry and insert it into
           * provided G4LogicalVolume
           *
-          * @param logVolume In most cases, this is the world volume (in most cases)
+          * @param logVolume In most cases, this is the world volume.
           */
-        #pragma GCC diagnostic push
-        #pragma GCC diagnostic ignored "-Wunused-parameter"
         virtual void BuildGeometry(G4LogicalVolume* logVolume) { }
         #pragma GCC diagnostic pop
 
+        /**
+          * @short Build the world geometry.
+          *
+          * Note: Only one of the components can create the world volume;
+          *   otherwise, an exception is thrown.
+          *
+          * Note2: There is a built-in component called "DefaultWorld",
+          *   that creates the default world (with a few defaults and
+          *   configuration values.)
+          */
         virtual G4VPhysicalVolume* CreateWorld() { return nullptr; }
 
         virtual void ConstructSDandField() { }
@@ -64,6 +74,11 @@ namespace g4
     protected:
         friend class ComponentManager;
 
+        /**
+         * @short Method called by ComponentManager when adding the component.
+         *
+         * This enables to separate calling constructor and initialization.
+         */
         virtual void OnLoad() { }
     };
 }
