@@ -34,8 +34,10 @@ The plug-in project has to include a class inheriting from `g4::Plugin` and expo
 
 Loading a plugin:
 
-    /plugin/open <somePlugin.so>     # Opens the DLL
-    /plugin/loadAll somePlugin       # Use all components from the plug in
+    /plugin/open <somePlugin.so>           # Opens the DLL
+    /plugin/loadAll somePlugin             # Use all components from the plug in
+    /plugin/load somePlugin someComponent  # Use a single component
+    /plugin/listComponents somePlugin      # Print all component names from the plugin
 
 There are a few example plug-ins that use most features of G4Application in the
 `examples` subdirectory.
@@ -43,12 +45,9 @@ There are a few example plug-ins that use most features of G4Application in the
 - simplePlugin : basic example that defines physics, geometry & generator
 - httpPlugin : a simple integrated HTTP server informing about the application state
 
-Built-in user actions
----------------------
-You can use a few user actions included in the application.
-They are loaded using `/app/addAction <actionname>` command
-* NumberingEventAction - prints a short status after each N events
-* MemoryRunAction - prints info about memory consumption before/after run
+Built-in components
+-------------------
+** TODO: Write this section **
 
 
 How to build
@@ -59,10 +58,7 @@ You will need:
 * geant4 10.0+ ( 10.1 currently used for development)
 * boost > 0.49
 * C++11-ready compiler
-
-Optional:
-
-* Qt4 (should work with )
+* Qt4 (should work without in the future)
 
 After building, you will obtain:
 * g4 executable - this you will run
@@ -84,7 +80,7 @@ instead of two application using the same library.
 
 2013: I hope that the application is universal enough to be used in other environments.
 
-2014: All my simulations for Ph.D. thesis were based on g4application.
+2014: All my simulations for Ph.D. thesis (successfully defended ;-)) were based on g4application.
 
 2015: Complete API redesign, only Geant4 10 is supported (see branch **geant9** for older version).
 
@@ -98,6 +94,8 @@ Related projects
 
 - **pyg4app**: Python scripts to dynamically generate macro files in a somewhat
 structured manner. https://github.com/janpipek/pyg4app
+
+- **g4application-gammaknife**: not yet published model of Leksell Gamma Knife Perfexion.
 
 Contact
 -------
