@@ -31,9 +31,24 @@ namespace g4
           */
         int Open(std::string name);
 
+        /**
+         * @brief Load a single component from the plugin.
+         *
+         * @param pluginName Name of the plugin
+         * @param componentName Name of the component
+         * @return
+         */
         int Load(std::string pluginName, std::string componentName);
 
+        /**
+         * @brief Load all components from the plugin.
+         */
         int LoadAll(std::string pluginName);
+
+        /**
+         * @brief Write a list of components in the plugin.
+         */
+        void ListComponents(std::string pluginName);
 
         /**
           * @short Add a plugin.
@@ -52,6 +67,8 @@ namespace g4
         ~PluginLoader();
 
     protected:
+        Plugin* FindPlugin(const std::string& name);
+
         int Load(Plugin* plugin, const std::string& componentName);
         
     private:                  

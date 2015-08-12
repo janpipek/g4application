@@ -44,6 +44,8 @@ namespace g4
         G4UIcommand* _loadCommand;
 
         G4UIcmdWithAString* _loadAllCommand;
+
+        G4UIcmdWithAString* _listComponentsCommand;
     };
 }
 

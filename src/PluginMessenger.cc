@@ -18,10 +18,12 @@ namespace g4
         
         _openCommand = new G4UIcmdWithAString("/plugin/open", this);
         _openCommand->SetGuidance("Open a plugin from current directory.");
+        _openCommand->SetParameterName("pluginName", false);
         _openCommand->AvailableForStates(G4State_PreInit);
 
         _loadAllCommand = new G4UIcmdWithAString("/plugin/loadAll", this);
         _loadAllCommand->SetGuidance("Load all components from a plugin.");
+        _loadAllCommand->SetParameterName("pluginName", false);
         _loadAllCommand->AvailableForStates(G4State_PreInit);
 
         _loadCommand = new G4UIcommand("/plugin/load", this);
@@ -35,6 +37,8 @@ namespace g4
         G4UIparameter* componentNameParam = new G4UIparameter("componentName", 's', false);
         componentNameParam->SetGuidance("Name of the component.");
         _loadCommand->SetParameter(componentNameParam);
+
+        _listComponentsCommand = new G4UIcmdWithAString("/plugin/listComponents", this);
     }
 
     PluginMessenger::~PluginMessenger()
@@ -42,6 +46,7 @@ namespace g4
         delete _openCommand;
         delete _loadCommand;
         delete _loadAllCommand;
+        delete _listComponentsCommand;
 
         delete _directory;
     }
@@ -62,6 +67,10 @@ namespace g4
             G4String pluginName = next();
             G4String componentName = next();
             _loader->Load(pluginName, componentName);
+        }
+        else if (command == _listComponentsCommand)
+        {
+            _loader->ListComponents(newValue);
         }
     }
 }

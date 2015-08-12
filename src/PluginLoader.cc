@@ -99,7 +99,7 @@ namespace g4
         else
         {
             G4cerr << "dlopen() error: " << dlerror() << endl;
-            G4Exception("PluginLoader", "CantLoad", FatalException, "Library exists but could not be loaded!");
+            G4Exception("PluginLoader", "CantOpen", FatalException, "Library exists but could not be loaded!");
             return -1;
         }
         return 0;
@@ -107,34 +107,56 @@ namespace g4
 
     int PluginLoader::Load(string pluginName, string componentName)
     {
-        auto it = _plugins.find(pluginName);
-        if (it != _plugins.end())
+        Plugin* plugin = FindPlugin(pluginName);
+        if (!plugin)
         {
-            Plugin* plugin = it->second;
-            Load(plugin, componentName);
+            G4Exception("PluginLoader", "CantLoad", FatalException, "No such plugin opened.");
         }
-        else
-        {
-            // TODO: Throw or something
-        }
+        Load(plugin, componentName);
     }
 
     int PluginLoader::LoadAll(string pluginName)
     {
-        map<string, Plugin*>::iterator it = _plugins.find(pluginName);
-        if (it != _plugins.end()) {
-            Plugin* plugin = it->second;
-            vector<string> componentNames = plugin->GetAvailableComponents();
-            for (auto compIt = componentNames.begin(); compIt != componentNames.end(); compIt++)
-            {
-                string componentName = *compIt;
-                Load(plugin, componentName);
-            }
-        }
-        else
+        Plugin* plugin = FindPlugin(pluginName);
+        if (!plugin)
         {
-            // TODO: Throw or something
+            G4Exception("PluginLoader", "CantLoad", FatalException, "No such plugin opened.");
         }
+        vector<string> componentNames = plugin->GetAvailableComponents();
+        for (auto compIt = componentNames.begin(); compIt != componentNames.end(); compIt++)
+        {
+            string componentName = *compIt;
+            Load(plugin, componentName);
+        }
+    }
+
+    void PluginLoader::ListComponents(string pluginName)
+    {
+        Plugin* plugin = FindPlugin(pluginName);
+        if (!plugin)
+        {
+            G4Exception("PluginLoader", "CantListComponents", FatalException, "No such plugin opened.");
+        }
+        G4cout << "------------------------------------------" << G4endl;
+        G4cout << "Components of " << pluginName << " plugin:" << G4endl;
+        vector<string> componentNames = plugin->GetAvailableComponents();
+        for (auto compIt = componentNames.begin(); compIt != componentNames.end(); compIt++)
+        {
+            string componentName = *compIt;
+            G4cout << " * " << componentName << G4endl;
+        }
+        G4cout << "------------------------------------------" << G4endl;
+    }
+
+    Plugin *PluginLoader::FindPlugin(const string &name)
+    {
+        auto it = _plugins.find(name);
+        if (it != _plugins.end())
+        {
+            Plugin* plugin = it->second;
+            return plugin;
+        }
+        return nullptr;
     }
             
     PluginLoader::~PluginLoader()
@@ -167,7 +189,7 @@ namespace g4
         }
         else
         {
-            // TODO: Throw or something
+            G4Exception("PluginLoader", "NoSuchComponent", FatalException, "No such component in the plugin.");
         }
     }
 }
