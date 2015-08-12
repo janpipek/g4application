@@ -62,7 +62,7 @@ namespace g4
                     throw std::runtime_error("Attempt to create multiple instances of the singleton class.");
                 }
                 _instance = static_cast<T*>(this);
-                atexit(Singleton<T>::Destroy);
+                // atexit(Singleton<T>::Destroy);
             }
 
             virtual ~Singleton()
