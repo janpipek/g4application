@@ -14,19 +14,30 @@ namespace g4
             ifstream file(path);
             if (!file)
             {
+                string message = string("JSON file does not exist: ") + path;
+                G4Exception("parseJsonFile", "FileNotExisting", FatalException, message.c_str());
                 // TODO: G4Exception?
-                throw runtime_error(string("File does not exist: ") + path);
+                // throw runtime_error(string("File does not exist: ") + path);
             }
-            string content(
-                (std::istreambuf_iterator<char>(file) ),
-                (std::istreambuf_iterator<char>()    )
-            );
+            try
+            {
 
-            shared_ptr<Json::Value> root(new Json::Value);
-            Json::Reader reader;
-            
-            reader.parse(content, *root);
-            return root;
+                string content(
+                    (std::istreambuf_iterator<char>(file) ),
+                    (std::istreambuf_iterator<char>()    )
+                );
+
+                shared_ptr<Json::Value> root(new Json::Value);
+                Json::Reader reader;
+
+                reader.parse(content, *root);
+                return root;
+            }
+            catch (std::runtime_error& err)
+            {
+                string message = string("Cannot parse JSON file: ") + path;
+                G4Exception("parseJsonFile", "CannotParse", FatalException, message.c_str());
+            }
         }
     }
 }

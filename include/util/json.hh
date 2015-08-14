@@ -10,6 +10,8 @@
 #include <stdexcept>
 #include <vector>
 
+#include <globals.hh>
+
 #include <json/json.h>
 
 namespace g4
@@ -17,7 +19,7 @@ namespace g4
     namespace util
     {
         /**
-          * @short Create a JSON value from a file-
+          * @short Create a JSON value from a file.
           */
         std::shared_ptr<Json::Value> parseJsonFile(const std::string& path);
 
@@ -28,32 +30,60 @@ namespace g4
 
         template<> inline double readJsonValue<double>(const Json::Value& value)
         {
-            return value.asDouble();
+            try
+            {
+                return value.asDouble();
+            }
+            catch (std::runtime_error& err)
+            {
+                G4Exception("JSON::readJsonValue<double>", "CannotConvert", FatalException, "Cannot convert JSON value to double");
+            }
         }
 
         template<> inline std::string readJsonValue<std::string>(const Json::Value& value)
         {
-            return value.asString();
+            try
+            {
+                return value.asString();
+            }
+            catch (std::runtime_error& err)
+            {
+                G4Exception("JSON::readJsonValue<string>", "CannotConvert", FatalException, "Cannot convert JSON value to string");
+            }
         }
 
         template<> inline int readJsonValue<int>(const Json::Value& value)
         {
-            return value.asInt();
+            try
+            {
+                return value.asInt();
+            }
+            catch (std::runtime_error& err)
+            {
+                G4Exception("JSON::readJsonValue<int>", "CannotConvert", FatalException, "Cannot convert JSON value to int");
+            }
         }
 
         template<typename T> std::vector<T> readJsonArray(const Json::Value& value)
         {
-            if (!value.isArray())
+            try
             {
-                throw std::runtime_error("Cannot make vector from JSON non-array.");
+                if (!value.isArray())
+                {
+                    throw std::runtime_error("Cannot make vector from JSON non-array.");
+                }
+                std::vector<T> result;
+                for (int i = 0; i < value.size(); i++)
+                {
+                    T val = readJsonValue<T>(value[i]);
+                    result.push_back(val);
+                }
+                return result;
             }
-            std::vector<T> result;
-            for (int i = 0; i < value.size(); i++)
+            catch (std::runtime_error& err)
             {
-                T val = readJsonValue<T>(value[i]);
-                result.push_back(val);
+                G4Exception("JSON::readJsonArray<vector>", "CannotConvert", FatalException, "Cannot convert JSON value to vector");
             }
-            return result;
         }
     }
 }
