@@ -14,7 +14,8 @@ namespace g4
             ifstream file(path);
             if (!file)
             {
-                throw runtime_error("File does not exist.");
+                // TODO: G4Exception?
+                throw runtime_error(string("File does not exist: ") + path);
             }
             string content(
                 (std::istreambuf_iterator<char>(file) ),
