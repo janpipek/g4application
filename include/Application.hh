@@ -95,6 +95,9 @@ namespace g4
         
         ApplicationMessenger* _messenger;
 
+        // TODO: Temporary, not wise to have it here.
+        ConfigurationMessenger* _configurationMessenger;
+
         ComponentManager* _componentManager;
 
         ComponentRegistry* _componentRegistry;

@@ -13,35 +13,12 @@ namespace g4
     class Application;
 
     /**
-     * @brief UI command for configuration (string + value type).
-     *
-     * First argument is a string key.
-     * Second is a value of a specified type.
-     *
-     * Used to update the Configuration object.
-     */
-    template <typename ValueType> class UIcmdConfiguration : public G4UIcommand
-    {
-    public:
-        // Forward declarations (see end of file)
-        UIcmdConfiguration(const char* theCommandPath, G4UImessenger *theMessenger);
-
-        const std::string GetKey(const std::string& paramString) const;
-
-        const ValueType GetValue(const std::string& paramString) const;
-    };
-
-    /**
      * @brief Main UI messenger for the application.
      *
      * It provides following commands:
      *  - /app/generateRandomSeed
      *  - /app/interactive
      *  - /app/prepareInteractive
-     *  - /app/setInt
-     *  - /app/setDouble
-     *  - /app/setString
-     *  - /app/printConfiguration
      *  - /app/pause
      *  - /app/addComponent
      */
@@ -57,8 +34,6 @@ namespace g4
 		virtual void SetNewValue(G4UIcommand* command, G4String newValue);
 		
 	private:
-        template <typename ValueType> void applyConfigurationCommand(const UIcmdConfiguration<ValueType>* command, const std::string& newValue);
-
         G4UIdirectory* _uiDirectory;
 
 		G4UIcmdWithAnInteger* _waitCommand;
@@ -69,15 +44,7 @@ namespace g4
 
         G4UIcmdWithoutParameter* _generateRandomSeedCommand;
 
-        UIcmdConfiguration<std::string>* _setStringCommand;
-
-        UIcmdConfiguration<int>* _setIntCommand;
-
-        UIcmdConfiguration<double>* _setDoubleCommand;
-
         G4UIcmdWithAString* _addComponentCommand;
-
-        G4UIcmdWithoutParameter* _printConfigurationCommand;
 
         G4UIcmdWithoutParameter* _pauseCommand;
 
