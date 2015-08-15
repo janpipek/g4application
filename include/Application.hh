@@ -2,6 +2,7 @@
 #define APPLICATION_HH
 
 #include "util/Singleton.hh"
+#include "ConfigurationMessenger.hh"
 
 #include <globals.hh>
 
@@ -72,9 +73,7 @@ namespace g4
         friend class util::Singleton<Application>;
 
     private:
-        Application();
-
-        Application(int argc, char** argv);
+        Application(int argc = 0, char** argv = nullptr);
 
         void Initialize(int argc, char **argv);
 

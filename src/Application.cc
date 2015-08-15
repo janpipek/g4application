@@ -31,15 +31,16 @@ namespace g4
 {
     Application::Application(int argc, char** argv)
     {
+        if (!argc)
+        {
+            G4cerr << "Warning: G4Application created without argc/argv!" << G4endl;
+        }
+        else if (!argv)
+        {
+            G4Exception("G4Application", "WrongArgv", FatalException, "argv not set although argc >= 1" );
+        }
         G4cout << "Application: Instance created." << G4endl;
         Initialize(argc, argv);
-    }
-
-    Application::Application()
-    {
-        // TODO: Change to exception of a lower severity.
-        G4cerr << "Warning: G4Application created without argc/argv!" << G4endl;
-        Initialize(0, 0);
     }
 
     void Application::Initialize(int argc, char** argv)
