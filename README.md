@@ -55,7 +55,7 @@ How to build
 You will need:
 
 * cmake >= 2.6 (not tested for lower)
-* geant4 10.0+ ( 10.1 currently used for development)
+* geant4 10.0+ ( 10.1 currently used for development, compiled with C++11 turned on)
 * boost > 0.49
 * C++11-ready compiler
 * Qt4 (should work without in the future)
