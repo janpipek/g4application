@@ -4,6 +4,8 @@
 #include <list>
 #include <algorithm>
 
+#include <globals.hh>
+
 namespace g4
 {
     /**
