@@ -25,7 +25,7 @@ namespace g4
       * Below, two specializations allow automatic treatment
       * of ints as doubles and doubles as ints.
       */
-    template<typename ValueType> const ValueType getValue(const ConfigurationValue& value)
+    template<typename ValueType> ValueType getValue(const ConfigurationValue& value)
     {
         return boost::get<ValueType>(value);
     }
@@ -52,7 +52,7 @@ namespace g4
          *
          * Guarded by boost exception.
          */
-        template<typename ValueType> static const ValueType Get(const std::string& key)// const
+        template<typename ValueType> static ValueType Get(const std::string& key)// const
         {
             try
             {
@@ -70,7 +70,7 @@ namespace g4
           *
           * @param fallback This value is returned if the key is not found.
           */
-        template<typename ValueType> static const ValueType Get(const std::string& key, const ValueType& fallback)
+        template<typename ValueType> static ValueType Get(const std::string& key, const ValueType& fallback)
         {
             if (HasKey(key)) 
             {
@@ -87,7 +87,7 @@ namespace g4
           *
           * Included to enable C string literals. 
           */
-        static const std::string Get(const std::string& key, const char* fallback)
+        static std::string Get(const std::string& key, const char* fallback)
         {
             return Get<std::string>(key, fallback);
         }
@@ -147,9 +147,9 @@ namespace g4
 
     };
 
-    template<> const double getValue<double>(const ConfigurationValue& value);
-    template<> const int getValue<int>(const ConfigurationValue& value);
-    template<> const bool getValue<bool>(const ConfigurationValue& value);
+    template<> double getValue<double>(const ConfigurationValue& value);
+    template<> int getValue<int>(const ConfigurationValue& value);
+    template<> bool getValue<bool>(const ConfigurationValue& value);
 
     /**
      * @short Abstract base class for the application configuration observer.

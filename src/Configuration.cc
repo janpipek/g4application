@@ -99,7 +99,7 @@ namespace g4
         return _entries;
     }
 
-    template<> const double getValue<double>(const ConfigurationValue& value)
+    template<> double getValue<double>(const ConfigurationValue& value)
     {
         if (value.which() == 0)
         {
@@ -111,7 +111,7 @@ namespace g4
         }
     }
 
-    template<> const int getValue<int>(const ConfigurationValue& value)
+    template<> int getValue<int>(const ConfigurationValue& value)
     {
         if (value.which() == 1)
         {
@@ -128,7 +128,7 @@ namespace g4
         }
     }
 
-    template<> const bool getValue<bool>(const ConfigurationValue& value)
+    template<> bool getValue<bool>(const ConfigurationValue& value)
     {
         return !!getValue<int>(value);
     }
