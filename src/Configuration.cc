@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include <limits>
+#include <mutex>
 
 using namespace std;
 
@@ -11,6 +12,8 @@ namespace g4
     std::map<std::string, ConfigurationValue> Configuration::_entries;
 
     std::vector<ConfigurationObserver*> Configuration::_observers;
+
+    std::mutex observerMutex;
 
     ConfigurationObserver::ConfigurationObserver()
     {
@@ -24,19 +27,23 @@ namespace g4
 
     void Configuration::AddObserver(ConfigurationObserver *observer)
     {
+        observerMutex.lock();
         if (std::find(_observers.begin(), _observers.end(), observer) == _observers.end())
         {
             _observers.push_back(observer);
         }
+        observerMutex.unlock();
     }
 
     void Configuration::RemoveObserver(ConfigurationObserver *observer)
     {
+        observerMutex.lock();
         std::vector<ConfigurationObserver*>::iterator needle = std::find(_observers.begin(), _observers.end(), observer);
         if (needle != _observers.end())
         {
             _observers.erase(needle);
         }
+        observerMutex.unlock();
     }
 
     void Configuration::NotifyObservers(const std::string &key, ConfigurationObserver* observerToIgnore = 0)
@@ -50,6 +57,7 @@ namespace g4
 
     void Configuration::Set(const std::string &key, const ConfigurationValue &value, ConfigurationObserver* observerToIgnore)
     {
+        // TODO: enable only in main thread? Or add mutex?
         ConfigurationValue oldValue = _entries[key];
         if (!(oldValue == value))
         {

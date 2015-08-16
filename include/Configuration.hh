@@ -9,8 +9,6 @@
 #include <iostream>
 #include <cstdio>
 
-using namespace std;
-
 namespace g4
 {
     /**
