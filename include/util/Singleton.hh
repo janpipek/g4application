@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <cstdlib>
+#include <mutex>
 
 namespace g4
 {
@@ -26,6 +27,8 @@ namespace g4
           * According to Alexandrescu's terminology (see Modern C++ Design), this is a create-new,
           * phoenix, non-thread-safe singleton.
           *
+          * TODO: Check this thread-safety after the change.
+          *
           * @code
           *   class AClass : public Singleton<AClass> { };
           *   AClass::Instance().DoSomething();
@@ -47,7 +50,16 @@ namespace g4
             {
                 if (!_instance)
                 {
-                    _instance = new T();
+                    #ifdef G4MULTITHREADED
+                    _mutex.lock();
+                    #endif
+                    if (!_instance)
+                    {
+                        _instance = new T();
+                    }
+                    #ifdef G4MULTITHREADED
+                    _mutex.unlock();
+                    #endif
                 }
                 return *_instance;
             }
@@ -76,13 +88,21 @@ namespace g4
 
             static T* _instance;
 
-            static void Destroy()
+            static void Destroy()   // TODO: Reconsider using it
             {
                 delete _instance;
             }
+
+            #ifdef G4MULTITHREADED
+            static std::mutex _mutex;
+            #endif
         };
 
         template<typename T> T* Singleton<T>::_instance = 0;
+
+        #ifdef G4MULTITHREADED
+        template<typename T> std::mutex Singleton<T>::_mutex;
+        #endif
 
         /**
           * @short Is an instance of singleton class T already created?
