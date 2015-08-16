@@ -29,21 +29,20 @@ namespace g4
           *
           * The name, if not absolute path, should be in $LD_LIBRARY_PATH
           */
-        int Open(std::string name);
+        void Open(std::string name);
 
         /**
          * @brief Load a single component from the plugin.
          *
          * @param pluginName Name of the plugin
          * @param componentName Name of the component
-         * @return
          */
-        int Load(std::string pluginName, std::string componentName);
+        void Load(std::string pluginName, std::string componentName);
 
         /**
          * @brief Load all components from the plugin.
          */
-        int LoadAll(std::string pluginName);
+        void LoadAll(std::string pluginName);
 
         /**
          * @brief Write a list of components in the plugin.
@@ -69,7 +68,7 @@ namespace g4
     protected:
         Plugin* FindPlugin(const std::string& name);
 
-        int Load(Plugin* plugin, const std::string& componentName);
+        void Load(Plugin* plugin, const std::string& componentName);
         
     private:                  
         PluginMessenger* _messenger;

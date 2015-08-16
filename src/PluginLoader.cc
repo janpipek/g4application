@@ -47,14 +47,13 @@ namespace g4
         _messenger = new PluginMessenger(this);
     }
     
-    int PluginLoader::Open(std::string name)
+    void PluginLoader::Open(std::string name)
     {
         // Check for application state
         G4ApplicationState state = G4StateManager::GetStateManager()->GetCurrentState();
         if (state != G4State_PreInit)
         {
             G4Exception("PluginLoader", "LoadInWrongState", FatalException , "All plugins have to be loaded in PreInit state.");
-            return -1;
         }
 
 
@@ -68,7 +67,6 @@ namespace g4
         if (stat(longName.c_str(), &fileInfo)) // Returns 0 if file exists (confusing)
         {
             G4Exception("PluginLoader", "FileNotFound", FatalException  , ("File doesn't exist: `" + longName + "`.").c_str());
-            return -1;
         }
         
         // Try to load the file as dynamic library
@@ -93,19 +91,18 @@ namespace g4
                 G4cerr << "dlopen() error: " << dlerror() << endl;
                 G4Exception("PluginLoader", "WrongFile" , FatalException, "Plugin method could not be loaded from the library!");
                 dlclose(library);
-                return -1;
+                
             }
         }
         else
         {
             G4cerr << "dlopen() error: " << dlerror() << endl;
             G4Exception("PluginLoader", "CantOpen", FatalException, "Library exists but could not be loaded!");
-            return -1;
+            
         }
-        return 0;
     }
 
-    int PluginLoader::Load(string pluginName, string componentName)
+    void PluginLoader::Load(string pluginName, string componentName)
     {
         Plugin* plugin = FindPlugin(pluginName);
         if (!plugin)
@@ -115,7 +112,7 @@ namespace g4
         Load(plugin, componentName);
     }
 
-    int PluginLoader::LoadAll(string pluginName)
+    void PluginLoader::LoadAll(string pluginName)
     {
         Plugin* plugin = FindPlugin(pluginName);
         if (!plugin)
@@ -179,7 +176,7 @@ namespace g4
         _libraries.clear();
     }
 
-    int PluginLoader::Load(Plugin *plugin, const string& componentName)
+    void PluginLoader::Load(Plugin *plugin, const string& componentName)
     {
         Component* component = plugin->GetComponent(componentName);
         if (component)
