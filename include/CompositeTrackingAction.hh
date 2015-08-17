@@ -10,12 +10,12 @@ namespace g4
     class CompositeTrackingAction : public CompositeAction<G4UserTrackingAction>
     {
     public:
-        virtual void PreUserTrackingAction(const G4Track* track)
+        void PreUserTrackingAction(const G4Track* track) override
         {
             Invoke(&G4UserTrackingAction::PreUserTrackingAction, track);
         }
 
-        virtual void PostUserTrackingAction(const G4Track* track)
+        void PostUserTrackingAction(const G4Track* track) override
         {
             Invoke(&G4UserTrackingAction::PostUserTrackingAction, track);
         }

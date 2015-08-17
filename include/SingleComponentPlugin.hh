@@ -15,9 +15,9 @@ namespace g4
     class SingleComponentPlugin : public Plugin, public Component
     {
     public:
-        virtual const std::vector<std::string> GetAvailableComponents() const override;
+        const std::vector<std::string> GetAvailableComponents() const override;
 
-        virtual Component* GetComponent(const std::string& name) override;
+        Component* GetComponent(const std::string& name) override;
     };
 }
 

@@ -18,9 +18,9 @@ namespace g4
     public:
         ComponentActionInitialization(ComponentManager* componentManager);
 
-        virtual void Build() const override;
+        void Build() const override;
 
-        virtual void BuildForMaster() const override;
+        void BuildForMaster() const override;
 
     protected:
         template<typename CompositeActionType, typename SubActionType> void BuildCompositeAction(SubActionType* (Component::*createFunc) ()) const

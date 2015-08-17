@@ -10,7 +10,7 @@ namespace g4
     class CompositeSteppingAction : public CompositeAction<G4UserSteppingAction>
     {
     public:
-        virtual void UserSteppingAction(const G4Step* step)
+        void UserSteppingAction(const G4Step* step) override
         {
             Invoke(&G4UserSteppingAction::UserSteppingAction, step);
         }

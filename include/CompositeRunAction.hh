@@ -21,7 +21,7 @@ namespace g4
          * This class also distributes the information about master/non-master
          * thread.
          */
-        virtual G4Run* GenerateRun() override
+        G4Run* GenerateRun() override
         {
             G4Run* run = nullptr;
             for (auto it = _actions.begin(); it != _actions.end(); it++)
@@ -44,12 +44,12 @@ namespace g4
             return run;
         }
 
-        virtual void BeginOfRunAction(const G4Run* aRun) override
+        void BeginOfRunAction(const G4Run* aRun) override
         {
             Invoke(&G4UserRunAction::BeginOfRunAction, aRun);
         }
 
-        virtual void EndOfRunAction(const G4Run* aRun) override
+        void EndOfRunAction(const G4Run* aRun) override
         {
             Invoke(&G4UserRunAction::EndOfRunAction, aRun);
         }

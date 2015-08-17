@@ -9,12 +9,12 @@ namespace g4
     class CompositeEventAction : public CompositeAction<G4UserEventAction>
     {
     public:
-        virtual void BeginOfEventAction(const G4Event* anEvent)
+        void BeginOfEventAction(const G4Event* anEvent) override
         {
             Invoke(&G4UserEventAction::BeginOfEventAction, anEvent);
         }
 
-        virtual void EndOfEventAction(const G4Event* anEvent)
+        void EndOfEventAction(const G4Event* anEvent) override
         {
             Invoke(&G4UserEventAction::EndOfEventAction, anEvent);
         }

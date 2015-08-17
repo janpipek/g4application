@@ -45,7 +45,7 @@ namespace g4
 
         ~ConfigurationMessenger();
 
-        virtual void SetNewValue(G4UIcommand* command, G4String newValue) override;
+        void SetNewValue(G4UIcommand* command, G4String newValue) override;
 
     private:
         G4UIdirectory* _uiDirectory;

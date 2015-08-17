@@ -14,9 +14,9 @@ namespace g4
     public:
         CompositeDetectorConstruction(ComponentManager* manager, G4VPhysicalVolume *worldVolume = nullptr);
 
-        virtual G4VPhysicalVolume* Construct();
+        G4VPhysicalVolume* Construct() override;
 
-        virtual void ConstructSDandField();
+        void ConstructSDandField() override;
 
     private:
         ComponentManager* _componentManager;
