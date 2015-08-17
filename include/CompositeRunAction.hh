@@ -17,6 +17,9 @@ namespace g4
          *
          * It is important that only one run action creates a run,
          * otherwise G4Exception is thrown.
+         *
+         * This class also distributes the information about master/non-master
+         * thread.
          */
         virtual G4Run* GenerateRun() override
         {
@@ -24,6 +27,7 @@ namespace g4
             for (auto it = _actions.begin(); it != _actions.end(); it++)
             {
                 G4UserRunAction& action = **it;
+                action.SetMaster(IsMaster());
                 G4Run* candidate = action.GenerateRun();
                 if (candidate)
                 {
