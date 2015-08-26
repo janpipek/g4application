@@ -55,7 +55,18 @@ Built-in components
 
 Configuration
 -------------
-...
+The application holds one map of string key / (string/int/float) pairs in a static class `Configuration`.
+The classes that want to listen to configuration updates, have to inherit from `ConfigurationObserver`.
+
+User commands:
+
+```
+  /conf/setInt
+  /conf/setDouble
+  /conf/setString 
+  /conf/print           # Print all configurations
+```
+
 
 How to build
 ------------
@@ -63,7 +74,7 @@ You will need:
 
 * cmake >= 2.6 (not tested for lower)
 * geant4 10.0+ ( 10.1 currently used for development, compiled with C++11 turned on)
-* boost > 0.49
+* boost > 0.49 (Goal: replace with c++11/14 features)
 * C++11-ready compiler
 * Qt4 (should work without in the future)
 
