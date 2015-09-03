@@ -13,6 +13,9 @@ namespace g4
        /**
          * A proxy for thread-local variables.
          *
+         * In comparison to G4ThreadLocal, it can store data
+         * of any type, but there are downsides as well (Note2).
+         * 
          * When compiled without multithreading support,
          * this class just stores the pointer.
          *
