@@ -24,7 +24,9 @@ namespace g4
 
         virtual G4VUserPhysicsList* GetPhysicsList() = 0;
 
-        virtual ~RunInitializer() { }
+        // virtual std::vector<RunObserver*> GetRunObservers() { return {}; }
+
+        virtual ~RunInitializer() = default;
     };
 }
 

@@ -18,6 +18,8 @@ namespace g4
     {
         friend class RunManager;
 
+        virtual ~RunObserver() = default;
+
     protected:
         /**
           * @short Method called before geometry is initialized.

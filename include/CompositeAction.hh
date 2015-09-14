@@ -26,10 +26,6 @@ namespace g4
     template<typename ActionType> class CompositeAction : public ActionType
     {
     public:
-        CompositeAction() : _actions() { }
-
-        // TODO: Destructor???
-
         /**
          * @short Add action.
          * 

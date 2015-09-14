@@ -27,16 +27,14 @@ namespace g4
       * @short Base class for any plugin. The plugin is a container
       *   of components stored in a DLL.
       */
-    class Plugin // , RunObserver
+    class Plugin
     {
     public:
-        Plugin() { }
-
         virtual const std::vector<std::string> GetAvailableComponents() const = 0;
 
         virtual Component* GetComponent(const std::string&) = 0;
-        
-        virtual ~Plugin() { }
+
+        virtual ~Plugin() = default;
 
         /**
           * @short Procedure that is called after loading the plugin.

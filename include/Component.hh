@@ -30,7 +30,7 @@ namespace g4
     class Component
     {
     public:
-        virtual ~Component() { }
+        virtual ~Component() = default;
 
         #pragma GCC diagnostic push
         #pragma GCC diagnostic ignored "-Wunused-parameter"
