@@ -77,8 +77,6 @@ namespace g4
             #else
                 T* _value;
             #endif
-
-
         };
     }
 }

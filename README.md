@@ -56,7 +56,7 @@ You will need:
 
 * cmake >= 2.6 (not tested for lower)
 * geant4 10.0+ ( 10.1 currently used for development, compiled with C++11 turned on)
-* boost > 0.49
+* boost > 0.49 (for the variant type)
 * C++11-ready compiler
 * Qt4 (should work without in the future)
 
@@ -82,7 +82,7 @@ instead of two application using the same library.
 
 2014: All my simulations for Ph.D. thesis (successfully defended ;-)) were based on g4application.
 
-2015: Complete API redesign, only Geant4 10 is supported (see branch **geant9** for older version).
+2015: Complete API redesign, only Geant4 10.1+ is supported (see branch **geant9** for older version).
 
 Known issues
 ------------
