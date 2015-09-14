@@ -20,13 +20,13 @@ Main features
 
 Component system
 ----------------
-
 ...
 
 Plug-in system
 -------------
 Plug-ins of g4application are separate dynamic libraries that are
-loaded at runtime. Each plug-in can provide physics, particle generator
+loaded at runtime. Each plug-in can contain one or more components
+that provide physics, particle generator
 or geometry and define custom behaviour when various stages of application are
 entered.
 
@@ -47,7 +47,25 @@ There are a few example plug-ins that use most features of G4Application in the
 
 Built-in components
 -------------------
-** TODO: Write this section **
+* DefaultWorld - provides a world physical volume
+* EventNumberLogging - prints event numbers (with configurable frequency)
+* MemoryLogging - prints memory usage before and after the run
+* ReferencePhysicsList - provides one of the lists known to `G4PhysListFactory` specified by its name
+* GPS - provides GPS (i.e. `G4GeneralParticleSource`) to be configured using its commands
+
+Configuration
+-------------
+The application holds one map of string key / (string/int/float) pairs in a static class `Configuration`.
+The classes that want to listen to configuration updates, have to inherit from `ConfigurationObserver`.
+
+User commands:
+
+```
+  /conf/setInt
+  /conf/setDouble
+  /conf/setString 
+  /conf/print           # Print all configurations
+```
 
 
 How to build
