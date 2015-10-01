@@ -48,6 +48,12 @@ namespace g4
 
         void ApplyCommand(const std::string& command);
 
+        /**
+          * @short Prepare UI Session.
+          *
+          * It is possible to call this method multiple times.
+          * The session will capture output.
+          */
         void PrepareInteractiveMode();
             
         /**

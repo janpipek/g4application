@@ -6,6 +6,7 @@
 #include <G4UImanager.hh>
 #include <G4UIterminal.hh>
 #include <G4UIsession.hh>
+#include <Randomize.hh>
 
 #ifdef G4VIS_USE
     #include <G4VisExecutive.hh>
@@ -66,19 +67,23 @@ namespace g4
           _visManager = new G4VisExecutive;
           _visManager->Initialize();
         #endif
+
+        G4Random::setTheEngine(new CLHEP::RanecuEngine);
     }
 
     void Application::PrepareInteractiveMode()
     {
-        #ifdef G4UI_USE_QT
-            _interactiveSession = new G4UIQt(_argc, _argv); // There are no arguments but nevermind.
-        #else
-            #ifdef G4UI_USE_TCSH
-                _interactiveSession = new G4UIterminal(new G4UItcsh);
+        if (!_interactiveSession) {
+            #ifdef G4UI_USE_QT
+                _interactiveSession = new G4UIQt(_argc, _argv); // There are no arguments but nevermind.
             #else
-                _interactiveSession = new G4UIterminal();
+                #ifdef G4UI_USE_TCSH
+                    _interactiveSession = new G4UIterminal(new G4UItcsh);
+                #else
+                    _interactiveSession = new G4UIterminal();
+                #endif
             #endif
-        #endif
+        }
     }
 
     Application::~Application()
