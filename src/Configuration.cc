@@ -27,23 +27,25 @@ namespace g4
 
     void Configuration::AddObserver(ConfigurationObserver *observer)
     {
-        observerMutex.lock();
+        lock_guard<mutex> lock(observerMutex);
+        // observerMutex.lock();
         if (std::find(_observers.begin(), _observers.end(), observer) == _observers.end())
         {
             _observers.push_back(observer);
         }
-        observerMutex.unlock();
+        // observerMutex.unlock();
     }
 
     void Configuration::RemoveObserver(ConfigurationObserver *observer)
     {
-        observerMutex.lock();
+        lock_guard<mutex> lock(observerMutex);
+        // observerMutex.lock();
         std::vector<ConfigurationObserver*>::iterator needle = std::find(_observers.begin(), _observers.end(), observer);
         if (needle != _observers.end())
         {
             _observers.erase(needle);
         }
-        observerMutex.unlock();
+        // observerMutex.unlock();
     }
 
     void Configuration::NotifyObservers(const std::string &key, ConfigurationObserver* observerToIgnore = 0)
