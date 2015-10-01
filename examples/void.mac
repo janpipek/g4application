@@ -1,0 +1,15 @@
+/app/addComponent DefaultWorld
+/app/addComponent ReferencePhysicsList
+/app/addComponent GPS
+
+# Set a configuration value
+/app/setString component.ReferencePhysicsList.listName FTFP_BERT
+
+# Run
+/run/initialize
+
+# Show configuration
+/app/printConfiguration
+/app/interactive
+
+# /run/beamOn 100
