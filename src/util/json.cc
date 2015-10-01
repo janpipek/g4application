@@ -16,8 +16,6 @@ namespace g4
             {
                 string message = string("JSON file does not exist: ") + path;
                 G4Exception("parseJsonFile", "FileNotExisting", FatalException, message.c_str());
-                // TODO: G4Exception?
-                // throw runtime_error(string("File does not exist: ") + path);
             }
             try
             {

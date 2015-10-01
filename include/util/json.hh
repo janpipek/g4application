@@ -18,6 +18,8 @@ namespace g4
 {
     namespace util
     {
+        typedef Json::Value jsonValue;
+
         /**
           * @short Create a JSON value from a file.
           */
