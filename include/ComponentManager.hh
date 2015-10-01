@@ -36,6 +36,8 @@ namespace g4
 
         G4VUserPhysicsList* GetPhysicsList() override;
 
+        // std::vector<RunObserver*> GetRunObservers() override;
+
     private:
         std::vector<Component*> _components;
 

@@ -1,6 +1,8 @@
 #ifndef COMPONENT_HH
 #define COMPONENT_HH
 
+#include <vector>
+
 #include <G4LogicalVolume.hh>
 
 class G4VUserPrimaryGeneratorAction;
@@ -11,10 +13,10 @@ class G4UserSteppingAction;
 class G4UserTrackingAction;
 class G4VUserPhysicsList;
 class G4VPhysicalVolume;
+class G4VUserParallelWorld;
 
 namespace g4
 {
-    class GeometryBuilder;
     class ComponentManager;
 
     /**
@@ -54,6 +56,8 @@ namespace g4
           *   configuration values.)
           */
         virtual G4VPhysicalVolume* CreateWorld() { return nullptr; }
+
+        virtual std::vector<G4VUserParallelWorld*> CreateParallelWorlds() { return {}; }
 
         virtual void ConstructSDandField() { }
 
