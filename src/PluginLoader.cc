@@ -79,6 +79,7 @@ namespace g4
             if (PLUGIN_MAIN_FUNCTION)
             {
                 Plugin* plugin = (*PLUGIN_MAIN_FUNCTION)();
+                plugin->_name = shortName;
                 plugin->OnLoad();
                 _plugins[shortName] = plugin;
 
@@ -179,10 +180,11 @@ namespace g4
     void PluginLoader::Load(Plugin *plugin, const string& componentName)
     {
         Component* component = plugin->GetComponent(componentName);
+        G4String name = plugin->GetName() + componentName;
         if (component)
         {
-            _componentManager->AddComponent(component);
-            G4cout << "Loaded component `" << componentName << "`." << endl;
+            _componentManager->AddComponent(name, component);
+            G4cout << "Loaded component `" << name << "`." << endl;
         }
         else
         {

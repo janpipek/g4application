@@ -12,6 +12,7 @@ using namespace g4;
 
 void ComponentActionInitialization::Build() const
 {
+    G4cout << "Constructing composite action for worker thread..." << G4endl;
     BuildCompositeAction<CompositeEventAction, G4UserEventAction>(&Component::CreateEventAction);
     BuildCompositeAction<CompositeRunAction, G4UserRunAction>(&Component::CreateRunAction);
     BuildCompositeAction<CompositeSteppingAction, G4UserSteppingAction>(&Component::CreateSteppingAction);
@@ -22,6 +23,7 @@ void ComponentActionInitialization::Build() const
 
 void ComponentActionInitialization::BuildForMaster() const
 {
+    G4cout << "Constructing composite action for master thread..." << G4endl;
     BuildCompositeAction<CompositeRunAction>(&Component::CreateRunAction);
 }
 
@@ -31,7 +33,7 @@ G4VUserPrimaryGeneratorAction* ComponentActionInitialization::GetPrimaryGenerato
     auto components = _componentManager->GetComponents();
     for (auto it = components.begin(); it != components.end(); it++)
     {
-        Component* component = *it;
+        Component* component = it->second;
         G4VUserPrimaryGeneratorAction* componentAction = component->CreatePrimaryGeneratorAction();
         if (componentAction)
         {

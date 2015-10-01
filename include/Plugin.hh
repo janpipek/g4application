@@ -20,15 +20,20 @@ extern "C" g4::Plugin* PLUGIN_MAIN_FUNCTION()\
 #include <vector>
 
 #include "Component.hh"
+// #include "RunObserver.hh"
 
 namespace g4
 {
+    class PluginLoader;
+
     /**
       * @short Base class for any plugin. The plugin is a container
       *   of components stored in a DLL.
       */
     class Plugin
     {
+        friend class PluginLoader;
+
     public:
         virtual const std::vector<std::string> GetAvailableComponents() const = 0;
 
@@ -40,6 +45,12 @@ namespace g4
           * @short Procedure that is called after loading the plugin.
           */
         virtual void OnLoad() { }
+
+        const std::string& GetName() { return _name; }
+
+    private:
+        std::string _name;
+
     };
 }
 #endif // PLUGIN_HH

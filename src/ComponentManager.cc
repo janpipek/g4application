@@ -16,12 +16,29 @@ ComponentManager::~ComponentManager()
     // delete _messenger;
 }
 
-void ComponentManager::AddComponent(Component *component)
+void ComponentManager::AddComponent(const G4String& name, Component *component)
 {
-    // TODO: Check master thread
-    // TODO: Check status
-    component->OnLoad();
-    _components.push_back(component);
+    component->OnLoad(); // TODO: ???
+    if (GetComponent(name))
+    {
+        G4Exception("ComponentManager", "DuplicitComponentName", FatalException, G4String("A component with the name `" + name + "` already registered."));
+    }
+    else
+    {
+        _components[name] = component;
+    }
+}
+
+Component* ComponentManager::GetComponent(const G4String& name) const
+{
+    if (_components.find(name) != _components.end())
+    {
+        return _components.at(name);
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
 G4VUserActionInitialization* ComponentManager::GetActionInitialization()
@@ -37,9 +54,10 @@ G4VUserDetectorConstruction* ComponentManager::GetDetectorConstruction()
 G4VUserPhysicsList* ComponentManager::GetPhysicsList()
 {
     G4VUserPhysicsList* list = nullptr;
+    // for (auto it : _components)
     for (auto it = _components.begin(); it != _components.end(); it++)
     {
-        Component* component = *it;
+        Component* component = it->second;
         G4VUserPhysicsList* componentList = component->CreatePhysicsList();
         if (componentList)
         {

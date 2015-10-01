@@ -1,7 +1,9 @@
 #ifndef COMPONENTMANAGER_HH
 #define COMPONENTMANAGER_HH
 
-#include <vector>
+#include <map>
+
+#include <G4String.hh>
 
 #include "RunInitializer.hh"
 
@@ -26,9 +28,11 @@ namespace g4
 
         virtual ~ComponentManager();
 
-        std::vector<Component*> GetComponents() const { return _components; }
+        const std::map<G4String, Component*>& GetComponents() const { return _components; }
 
-        void AddComponent(Component* component);
+        void AddComponent(const G4String& name, Component* component);
+
+        Component* GetComponent(const G4String& name) const;
 
         G4VUserActionInitialization* GetActionInitialization() override;
 
@@ -39,7 +43,7 @@ namespace g4
         // std::vector<RunObserver*> GetRunObservers() override;
 
     private:
-        std::vector<Component*> _components;
+        std::map<G4String, Component*> _components;
 
         // ComponentMessenger* _messenger;
     };

@@ -20,7 +20,7 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
     // Construct world (just one of the components should have it)
     for (auto it = components.begin(); it != components.end(); it++)
     {
-        Component* component = *it;
+        Component* component = it->second;
         G4VPhysicalVolume* componentWorld = component->CreateWorld();
         if (componentWorld)
         {
@@ -42,7 +42,7 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
     // Construct the geometry of components
     for (auto it = components.begin(); it != components.end(); it++)
     {
-        Component* component = *it;
+        Component* component = it->second;
         component->BuildGeometry(_worldVolume->GetLogicalVolume());
     }
     return _worldVolume;
@@ -54,7 +54,7 @@ void CompositeDetectorConstruction::ConstructSDandField()
     // Construct the geometry of components
     for (auto it = components.begin(); it != components.end(); it++)
     {
-        Component* component = *it;
+        Component* component = it->second;
         component->ConstructSDandField();
     }
 }

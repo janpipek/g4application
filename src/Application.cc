@@ -174,7 +174,7 @@ namespace g4
             message << "Component " << name << " does not exist.";
             G4Exception("Application", "UnknownComponent", FatalException, message);
         }
-        _componentManager->AddComponent(component);
+        _componentManager->AddComponent(name, component);
         G4cout << "Loaded built-in component " << name << "." << G4endl;
     }
 }

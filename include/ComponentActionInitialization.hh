@@ -16,6 +16,8 @@ namespace g4
     class ComponentActionInitialization : public G4VUserActionInitialization
     {
     public:
+        // TODO: Integrate into the main class?
+
         ComponentActionInitialization(ComponentManager* componentManager);
 
         void Build() const override;
@@ -29,7 +31,7 @@ namespace g4
             CompositeActionType* compositeAction = new CompositeActionType();
             for (auto it = components.begin(); it != components.end(); it++)
             {
-                Component* component = *it;
+                Component* component = it->second;
                 SubActionType* action = (component->*createFunc)();
                 if (action)
                 {
