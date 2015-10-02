@@ -62,15 +62,8 @@ namespace g4
 
         G4cout << "Loading plugin library `" << shortName << "` from " << longName << "." << endl;
         
-        // Check whether file exists.
-        struct stat fileInfo;
-        if (stat(longName.c_str(), &fileInfo)) // Returns 0 if file exists (confusing)
-        {
-            G4Exception("PluginLoader", "FileNotFound", FatalException  , ("File doesn't exist: `" + longName + "`.").c_str());
-        }
-        
         // Try to load the file as dynamic library
-        void* library = 0;
+        void* library = nullptr;
         library = dlopen(longName.c_str(), RTLD_LAZY );
 
         if (library)
