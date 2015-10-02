@@ -44,7 +44,8 @@ G4VUserPhysicsList* ReferencePhysicsList::CreatePhysicsList()
     }
     else
     {
-        G4cout << "ReferencePhysicsList: not loading physics list." << G4endl;
+        // TODO: if some verbosity...
+        G4cout << "ReferencePhysicsList: no list specified." << G4endl;
         G4cout << "  Set component.ReferencePhysicsList.listName configuration value to change it." << G4endl;
         return nullptr;
     }
