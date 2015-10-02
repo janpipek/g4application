@@ -16,6 +16,7 @@ namespace g4
 
     std::vector<int> UIcmdWithNIntegers::GetNewIntVectorValue(const char *paramString) const
     {
+        // TODO: Change to G4Tokenizer
         std::istringstream stream(paramString);
         std::vector<int> result;
         for (int i = 0; i < _nOfIntegers; i++)

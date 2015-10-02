@@ -1,15 +1,19 @@
 #ifndef RUNINITIALIZER_HH
 #define RUNINITIALIZER_HH
 
+#include <vector>
+
 class G4VUserActionInitialization;
 class G4VUserDetectorConstruction;
 class G4VUserPhysicsList;
 
 namespace g4
 {
+    class RunObserver;
+
     /**
       * Class providing geometry, physics and particle generator
-      * for the RunManger.
+      * for the RunManager.
       *
       * In this library, G4Application is the only subclass
       * but it is possible to create other subclasses in applications
