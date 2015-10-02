@@ -37,7 +37,6 @@ add_library(g4Application SHARED ${sources} ${headers})
 add_executable(g4 g4.cc ${headers})
 
 include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/lib/json)
-# set(CMAKE_CXX_FLAGS "-std=c++0x")
 
 add_dependencies(g4 g4Application)
 
