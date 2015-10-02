@@ -1,6 +1,6 @@
 #include "ComponentManager.hh"
 
-// #include "ComponentMessenger.hh"
+#include "ComponentMessenger.hh"
 #include "ComponentActionInitialization.hh"
 #include "CompositeDetectorConstruction.hh"
 
@@ -8,12 +8,12 @@ using namespace g4;
 
 ComponentManager::ComponentManager()
 {
-    // _messenger = new ComponentMessenger(this);
+    _messenger = new ComponentMessenger(this);
 }
 
 ComponentManager::~ComponentManager()
 {
-    // delete _messenger;
+    delete _messenger;
 }
 
 void ComponentManager::AddComponent(const G4String& name, Component *component)
