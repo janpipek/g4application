@@ -73,6 +73,7 @@ G4VUserPhysicsList* ComponentManager::GetPhysicsList()
     }
     if (!list)
     {
+        // TODO: If you use component manager in an app, this may be a valid condition
         G4Exception("ComponentManager", "NoPhysicsLists", FatalException, "No component defines the physics list.");
     }
     return list;

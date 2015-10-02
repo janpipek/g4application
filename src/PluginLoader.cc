@@ -180,7 +180,7 @@ namespace g4
     void PluginLoader::Load(Plugin *plugin, const string& componentName)
     {
         Component* component = plugin->GetComponent(componentName);
-        G4String name = plugin->GetName() + componentName;
+        G4String name = plugin->GetName() + "/" + componentName;
         if (component)
         {
             _componentManager->AddComponent(name, component);

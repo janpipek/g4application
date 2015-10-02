@@ -12,6 +12,8 @@
 # Run
 /run/initialize
 
+/component/list
+
 # Show configuration
 /conf/print
 
