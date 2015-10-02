@@ -77,3 +77,16 @@ G4VUserPhysicsList* ComponentManager::GetPhysicsList()
     }
     return list;
 }
+
+void ComponentManager::ListComponents() const
+{
+    G4cout << G4endl;
+    G4cout << "-----------------" << G4endl;
+    G4cout << "Loaded components" << G4endl;
+    G4cout << "-----------------" << G4endl;
+    for (auto it = _components.begin(); it != _components.end(); it++)
+    {
+        G4cout << "* " << it->first << G4endl;
+    }
+    G4cout << "-----------------" << G4endl;
+}

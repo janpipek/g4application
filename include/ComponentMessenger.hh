@@ -3,6 +3,8 @@
 
 #include <G4UImessenger.hh>
 
+class G4UIcmdWithoutParameter;
+
 namespace g4
 {
     class ComponentManager;
@@ -21,7 +23,7 @@ namespace g4
 
         G4UIdirectory* _directory;
 
-        G4UIcommand* _listCommand;
+        G4UIcmdWithoutParameter* _listCommand;
 
         G4UIcommand* _translateCommand;
 

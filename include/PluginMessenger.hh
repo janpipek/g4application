@@ -20,8 +20,7 @@ namespace g4
     public:
         PluginMessenger(PluginLoader* loader);
         
-        // override         
-        virtual void SetNewValue(G4UIcommand* command, G4String newValue);
+        void SetNewValue(G4UIcommand* command, G4String newValue) override;
                     
         virtual ~PluginMessenger();
         
