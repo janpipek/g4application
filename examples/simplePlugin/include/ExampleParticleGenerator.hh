@@ -17,7 +17,7 @@ public:
     void GeneratePrimaries(G4Event* event);
 
 protected:
-    void ConfigurationChanged(const string &key);
+    void ConfigurationChanged(const std::string &key);
 
 private:
     G4ParticleGun* _gun;

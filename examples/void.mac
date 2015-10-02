@@ -1,15 +1,20 @@
+# Simple macro that shows how it is possible to run a simulation
+# without any added code :-)
+
 /app/addComponent DefaultWorld
 /app/addComponent ReferencePhysicsList
 /app/addComponent GPS
+/app/addComponent EventNumberLogging
+/app/addComponent MemoryLogging
 
 # Set a configuration value
-/app/setString component.ReferencePhysicsList.listName FTFP_BERT
+/conf/setString component.ReferencePhysicsList.listName FTFP_BERT
+/conf/setInt component.EventNumberLogging.frequency 100
 
 # Run
 /run/initialize
 
-# Show configuration
-/app/printConfiguration
-/app/interactive
-
-# /run/beamOn 100
+# Show configuration & loaded components
+/conf/print
+/component/list
+/run/beamOn 1000

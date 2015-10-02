@@ -30,7 +30,9 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 include_directories(${G4Application_INCLUDE_DIR} include)
 add_library(simplePlugin SHARED ${sources} ${headers})
 
-target_link_libraries(simplePlugin ${Geant4_LIBRARIES} ${G4Application_LIBRARY})
+target_link_libraries(simplePlugin
+	${Geant4_LIBRARIES}
+	${G4Application_LIBRARY})
 
 install(TARGETS simplePlugin DESTINATION .)
 

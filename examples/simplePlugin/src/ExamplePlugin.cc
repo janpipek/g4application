@@ -24,13 +24,6 @@ ExamplePlugin::~ExamplePlugin()
 {
 }
 
-/* void ExamplePlugin::OnRunInitialized()
-{
-    G4cout << "ExamplePlugin::OnRunInitialized: adding event action..." << endl;
-    _eventAction = new ExampleEventAction();
-    // G4Application::Instance()->GetRunManager()->AddAction(_eventAction);
-}*/
-
 void ExamplePlugin::BuildGeometry(G4LogicalVolume *logVolume)
 {
     G4cout << "Building geometry (one box) from the examplePlugin." << G4endl;
@@ -54,9 +47,3 @@ G4UserEventAction *ExamplePlugin::CreateEventAction()
     G4cout << "Creating event action from the examplePlugin." << G4endl;
     return new ExampleEventAction();
 }
-
-/* G4VUserPhysicsList *ExamplePlugin::CreatePhysicsList()
-{
-    G4cout << "Creating physics list from the examplePlugin." << G4endl;
-    return new ExamplePhysicsList();
-}*/

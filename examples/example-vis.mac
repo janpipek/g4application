@@ -3,7 +3,7 @@
 /plugin/loadAll simplePlugin
 
 # Set a configuration value
-/app/setDouble generator.energy 0.5
+/conf/setDouble generator.energy 0.5
 
 # Run
 /run/initialize

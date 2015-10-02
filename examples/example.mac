@@ -6,18 +6,13 @@
 /app/addComponent ReferencePhysicsList
 
 # Set a configuration value
-/app/setDouble generator.energy 0.5
-/app/setString component.ReferencePhysicsList.listName FTFP_BERT
+/conf/setDouble generator.energy 0.5
+/conf/setString component.ReferencePhysicsList.listName FTFP_BERT
 
 # Run
 /run/initialize
 
-# Add some of the integrated actions and set a parameter for them
-#/app/addAction NumberingEventAction
-#/app/addAction MemoryRunAction
-#/app/setInt app.logEvents 10
-
 # Show configuration
-/app/printConfiguration
+/conf/print
 
 /run/beamOn 100

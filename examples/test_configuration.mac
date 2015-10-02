@@ -1,5 +1,5 @@
 # Just show how configuration using commands works.
-/app/setInt intValue 42
-/app/setDouble doubleValue 3.14
-/app/setString exampleString string something or what
-/app/printConfiguration
+/conf/setInt intValue 42
+/conf/setDouble doubleValue 3.14
+/conf/setString exampleString string something or what
+/conf/print

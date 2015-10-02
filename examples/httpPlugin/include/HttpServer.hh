@@ -2,6 +2,7 @@
 #define HTTPSERVER_HH
 
 #include <pthread.h>
+#include <string>
 
 #include "ServerState.hh"
 #include "Configuration.hh"
@@ -46,7 +47,7 @@ namespace http
         ServerState* _state;
 
     protected:
-        void ConfigurationChanged(const string &key);
+        void ConfigurationChanged(const std::string &key);
     };
 }
 

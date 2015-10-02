@@ -1,8 +1,9 @@
 #ifndef SERVERSTATE_HH
 #define SERVERSTATE_HH
 
-#include <pthread.h>
+#include <pthread.h>    // TODO: Change to thread API?
 #include <map>
+#include <string>
 
 #include "Configuration.hh"
 
@@ -39,7 +40,7 @@ namespace http
 
     protected:
         // Automatically store all configuration changes.
-        void ConfigurationChanged(const string &key);
+        void ConfigurationChanged(const std::string &key);
     };
 }
 

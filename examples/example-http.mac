@@ -4,10 +4,15 @@
 /plugin/loadAll httpPlugin
 /plugin/loadAll simplePlugin
 
-# Set a configuration value
-/app/setDouble generator.energy 0.5
+/app/addComponent ReferencePhysicsList
+/app/addComponent DefaultWorld
 
-/app/setInt http.port 7777
+/conf/setString component.ReferencePhysicsList.listName FTFP_BERT
+
+# Set a configuration value
+/conf/setDouble generator.energy 0.5
+
+/conf/setInt http.port 7777
 
 # Run
 /run/initialize
