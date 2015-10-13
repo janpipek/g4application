@@ -7,7 +7,6 @@
 #include <G4VisAttributes.hh>
 
 #include "ExampleEventAction.hh"
-#include "ExamplePhysicsList.hh"
 #include "ExampleParticleGenerator.hh"
 
 MAKE_G4_PLUGIN( ExamplePlugin )

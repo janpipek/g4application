@@ -22,8 +22,6 @@ public:
     virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction();
 
     virtual G4UserEventAction* CreateEventAction();
-
-    // virtual G4VUserPhysicsList* CreatePhysicsList();
 };
 
 #endif // EXAMPLEPLUGIN_HH
