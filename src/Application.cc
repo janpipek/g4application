@@ -129,7 +129,7 @@ namespace g4
 
     void Application::RunUI()
     {
-        G4UImanager * UI = G4UImanager::GetUIpointer();
+        G4UImanager* ui = G4UImanager::GetUIpointer();
         if (_argc != 1)   // batch mode
         {
             // *** BATCH RUN (even more files)
@@ -139,7 +139,7 @@ namespace g4
             {
                 G4String fileName = _argv[macro];
                 G4cout << "Executing macro file: " << fileName << endl;
-                UI->ApplyCommand(command+fileName);
+                ui->ApplyCommand(command+fileName);
             }
         }
         else
