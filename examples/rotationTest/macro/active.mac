@@ -1,0 +1,21 @@
+/app/addComponent DefaultWorld
+/app/addComponent ReferencePhysicsList
+/app/addComponent GPS
+/app/addComponent EventNumberLogging
+/app/addComponent MemoryLogging
+
+/conf/setDouble generator.energy 0.5
+/conf/setString component.ReferencePhysicsList.listName FTFP_BERT
+
+/plugin/open rotationTest
+/plugin/load rotationTest active
+
+/component/list
+
+/run/initialize
+
+# /vis/scene/create
+# /vis/open OGLSQt
+# /vis/drawVolume
+
+/app/interactive
