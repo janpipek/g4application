@@ -22,7 +22,7 @@ private:
     G4GeneralParticleSource* _gps;
 };
 
-GPS::GPS() : _gps(0)
+GPS::GPS() : _gps(nullptr)
 {
 }
 

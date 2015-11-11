@@ -21,7 +21,7 @@ namespace g4
 
             virtual ~GPS();
 
-            virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction();
+            virtual G4VUserPrimaryGeneratorAction* CreatePrimaryGeneratorAction() override;
 
         private:
             G4GeneralParticleSource* _gps;

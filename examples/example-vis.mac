@@ -2,6 +2,11 @@
 /plugin/open libsimplePlugin.so
 /plugin/loadAll simplePlugin
 
+/app/addComponent ReferencePhysicsList
+/app/addComponent DefaultWorld
+
+/conf/setString component.ReferencePhysicsList.listName FTFP_BERT
+
 # Set a configuration value
 /conf/setDouble generator.energy 0.5
 
@@ -13,4 +18,3 @@
 /vis/drawVolume
 /vis/scene/add/trajectories
 /run/beamOn 1
-/app/pause

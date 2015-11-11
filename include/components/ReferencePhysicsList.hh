@@ -21,7 +21,7 @@ namespace g4
         public:
             ReferencePhysicsList();
 
-            virtual G4VUserPhysicsList* CreatePhysicsList();
+            virtual G4VUserPhysicsList* CreatePhysicsList() override;
         };
     }
 }

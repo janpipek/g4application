@@ -23,14 +23,14 @@ G4VPhysicalVolume *DefaultWorld::CreateWorld()
     G4Material* material = G4NistManager::Instance()->FindOrBuildMaterial(_materialName);
 
     // 1 - solid
-    G4Box* worldBox = new G4Box("worldBox", x / 2, y / 2, z / 2);
+    G4Box* worldBox = new G4Box("world", x / 2, y / 2, z / 2);
 
     // 2 - logical volume
-    G4LogicalVolume* worldLog = new G4LogicalVolume(worldBox, material, "worldLog");
+    G4LogicalVolume* worldLog = new G4LogicalVolume(worldBox, material, "world");
 
     // 3 - physical volume
-    G4PVPlacement* worldPhys = new G4PVPlacement(0, G4ThreeVector(), worldLog, "worldPhys", 0, false, 0);
-    worldLog->SetVisAttributes (G4VisAttributes::Invisible);
+    G4PVPlacement* worldPhys = new G4PVPlacement(nullptr, G4ThreeVector(), worldLog, "world", nullptr, false, 0);
+    // worldLog->SetVisAttributes (G4VisAttributes::Invisible);
     return worldPhys;
 }
 
