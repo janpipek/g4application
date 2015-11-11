@@ -35,8 +35,17 @@ namespace g4
         friend class PluginLoader;
 
     public:
+        /**
+          * @short The list of component names the plugin provides.
+          */
         virtual const std::vector<std::string> GetAvailableComponents() const = 0;
 
+        /**
+          * @short Create or return and existing component by name.
+          * 
+          * Note: if there is no such component, the method should return nullptr,
+          *   no G4Exceptions, no C++ exceptions.
+          */
         virtual Component* GetComponent(const std::string&) = 0;
 
         virtual ~Plugin() = default;
