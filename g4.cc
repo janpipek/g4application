@@ -1,39 +1,17 @@
 #include <exception>
 #include <iostream>
 
-#include <G4Version.hh>
 #include <globals.hh>
-#include <boost/version.hpp>
 
 #include "Application.hh"
 #include "optionparser.h"
-
-#ifdef G4UI_USE_QT
-    #include <QtGlobal>
-#endif
+#include "version.hh"
 
 using namespace g4;
 using namespace std;
 
 enum optionIndex { UNKNOWN, INTERACTIVE, HELP, VERSION };
 
-void printVersionInfo()
-{
-    cout << "g4 app, version 0.0.0" << endl;
-    cout << "Compiled with: " << endl;
-    cout << "- Geant4: " << G4Version << " " << G4Date << endl;
-    #ifdef __GNUC__
-        cout << "- gcc: " << __GNUC__ << "." << __GNUC_MINOR__ << "." << __GNUC_PATCHLEVEL__ << endl;
-    #endif
-    #ifdef G4UI_USE_QT
-        cout << "- Qt: " << qVersion() << endl;
-    #endif
-    cout << "- Boost: "     
-      << BOOST_VERSION / 100000     << "."  // major version
-      << BOOST_VERSION / 100 % 1000 << "."  // minor version
-      << BOOST_VERSION % 100                // patch level
-      << endl;
-}
 
 const option::Descriptor usage[] =
 {

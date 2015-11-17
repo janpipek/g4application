@@ -33,12 +33,15 @@ include(${Geant4_USE_FILE})
 file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/src/*.cc ${PROJECT_SOURCE_DIR}/lib/json/jsoncpp.cpp)
 file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/include/*.hh ${PROJECT_SOURCE_DIR}/lib/json/json/*.h, ${PROJECT_SOURCE_DIR}/lib/optionparser/*.h)
 
+add_custom_target(version_touch COMMAND touch ${PROJECT_SOURCE_DIR}/include/version.hh SOURCES ${sources} ${headers})
+
 add_library(g4Application SHARED ${sources} ${headers})
 add_executable(g4 g4.cc ${headers})
 
 include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/lib/json ${PROJECT_SOURCE_DIR}/lib/optionparser)
 
 add_dependencies(g4 g4Application)
+add_dependencies(g4 version_touch)
 
 target_link_libraries(g4Application ${Geant4_LIBRARIES} dl ${Boost_LIBRARIES})
 target_link_libraries(g4 g4Application)
