@@ -6,7 +6,6 @@
 
 #include <globals.hh>
 #include <vector>
-#include <string>
 
 #ifdef G4VIS_USE
     class G4VisExecutive;
@@ -76,7 +75,10 @@ namespace g4
           */
         void RunUI();
 
-        void AddMacro();
+        /**
+          * @short Add a macro file name to be executed.
+          */
+        void AddMacro(const G4String& name);
 
         void AddBuiltinComponent(const G4String& name); // TODO: Strange here
 
@@ -87,7 +89,7 @@ namespace g4
 
         void Initialize(int argc, char **argv);
 
-        std::vector<std::string> _macros;
+        std::vector<G4String> _macros;
 
         int _argc;
         

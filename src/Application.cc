@@ -131,22 +131,21 @@ namespace g4
     void Application::RunUI()
     {
         G4UImanager* ui = G4UImanager::GetUIpointer();
-        if (_argc != 1)   // batch mode
+        if (_macros.size())   // batch mode
         {
             // *** BATCH RUN (even more files)
             // Whatever commands - they are applied HERE
             G4String command = "/control/execute ";
-            for (int macro = 1; macro < _argc; macro++)
+            for (auto fileName : _macros)
             {
-                G4String fileName = _argv[macro];
                 G4cout << "Executing macro file: " << fileName << endl;
-                ui->ApplyCommand(command+fileName);
+                ui->ApplyCommand(command + fileName);               
             }
         }
         else
         {
-            G4cout << "No macro specified, entering interactive mode." << endl;
-            EnterInteractiveMode();
+            G4cout << "No macro files specified." << endl;
+            // EnterInteractiveMode();
         }
     }
 
@@ -177,5 +176,10 @@ namespace g4
         }
         _componentManager->AddComponent(name, component);
         G4cout << "Loaded built-in component " << name << "." << G4endl;
+    }
+
+    void Application::AddMacro(const G4String& name)
+    {
+        _macros.push_back(name);
     }
 }
