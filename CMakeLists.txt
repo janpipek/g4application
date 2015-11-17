@@ -31,12 +31,12 @@ endif()
 include(${Geant4_USE_FILE})
 
 file(GLOB_RECURSE sources ${PROJECT_SOURCE_DIR}/src/*.cc ${PROJECT_SOURCE_DIR}/lib/json/jsoncpp.cpp)
-file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/include/*.hh ${PROJECT_SOURCE_DIR}/lib/json/json/*.h)
+file(GLOB_RECURSE headers ${PROJECT_SOURCE_DIR}/include/*.hh ${PROJECT_SOURCE_DIR}/lib/json/json/*.h, ${PROJECT_SOURCE_DIR}/lib/optionparser/*.h)
 
 add_library(g4Application SHARED ${sources} ${headers})
 add_executable(g4 g4.cc ${headers})
 
-include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/lib/json)
+include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/lib/json ${PROJECT_SOURCE_DIR}/lib/optionparser)
 
 add_dependencies(g4 g4Application)
 
