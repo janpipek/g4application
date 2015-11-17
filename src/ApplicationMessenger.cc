@@ -26,12 +26,6 @@ namespace g4
         _waitCommand->SetGuidance("Wait");
         _waitCommand->SetGuidance("0 - wait for a key press");
         _waitCommand->SetGuidance(">0 - wait for a specified interval in seconds");
-        
-        _prepareInteractiveCommand = new G4UIcmdWithoutParameter("/app/prepareInteractive", this);
-        _prepareInteractiveCommand->SetGuidance("Prepares interactive mode.");
-
-        _interactiveCommand = new G4UIcmdWithoutParameter("/app/interactive", this);
-        _interactiveCommand->SetGuidance("Enter interactive mode");
 
         _generateRandomSeedCommand = new G4UIcmdWithoutParameter("/app/generateRandomSeed", this);
         _generateRandomSeedCommand->SetGuidance("Generate a really random random seed.");
@@ -59,14 +53,6 @@ namespace g4
                 std::cin.ignore( std::numeric_limits <std::streamsize> ::max(), '\n' );
             }
         }
-        else if (command == _interactiveCommand)
-        {
-            _application->EnterInteractiveMode();
-        }
-        else if (command == _prepareInteractiveCommand)
-        {
-            _application->PrepareInteractiveMode();
-        }
         else if (command == _generateRandomSeedCommand)
         {
             _application->GenerateRandomSeed();
@@ -84,7 +70,6 @@ namespace g4
     ApplicationMessenger::~ApplicationMessenger()
     {
         delete _waitCommand;
-        delete _interactiveCommand;
         delete _generateRandomSeedCommand;
 
         delete _pauseCommand;

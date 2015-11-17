@@ -52,7 +52,12 @@ int main(int argc, char** argv)
         app.AddMacro(parse.nonOption(i));
     }
 
-    app.RunUI();
+    if (options[INTERACTIVE])
+    {
+        app.PrepareInteractiveMode();
+    }
+
+    app.ExecuteMacros();
 
     if (options[INTERACTIVE])
     {

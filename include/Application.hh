@@ -5,7 +5,7 @@
 #include "ConfigurationMessenger.hh"
 
 #include <globals.hh>
-#include <vector>
+#include <deque>
 
 #ifdef G4VIS_USE
     class G4VisExecutive;
@@ -73,7 +73,7 @@ namespace g4
           * If there are command-line parameters, they are treated as macros.
           * Otherwise interactive mode (Qt by default) is entered.
           */
-        void RunUI();
+        void ExecuteMacros();
 
         /**
           * @short Add a macro file name to be executed.
@@ -89,7 +89,7 @@ namespace g4
 
         void Initialize(int argc, char **argv);
 
-        std::vector<G4String> _macros;
+        std::deque<G4String> _macros;
 
         int _argc;
         

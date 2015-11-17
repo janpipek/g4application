@@ -30,7 +30,7 @@ using namespace g4::util;
 
 namespace g4
 {
-    Application::Application(int argc, char** argv)
+    Application::Application(int argc, char** argv) : _interactiveSession(nullptr), _argc(argc), _argv(argv)
     {
         if (!argc)
         {
@@ -46,10 +46,6 @@ namespace g4
 
     void Application::Initialize(int argc, char** argv)
     {
-        _argc = argc;
-        _argv = argv;
-        _interactiveSession = 0;
-
         _componentManager = new ComponentManager();
         _componentRegistry = &ComponentRegistry::Instance();
 
@@ -128,24 +124,21 @@ namespace g4
         G4cin.get();
     }
 
-    void Application::RunUI()
+    void Application::ExecuteMacros()
     {
         G4UImanager* ui = G4UImanager::GetUIpointer();
-        if (_macros.size())   // batch mode
+        G4String command = "/control/execute ";
+
+        if (!_macros.size())
         {
-            // *** BATCH RUN (even more files)
-            // Whatever commands - they are applied HERE
-            G4String command = "/control/execute ";
-            for (auto fileName : _macros)
-            {
-                G4cout << "Executing macro file: " << fileName << endl;
-                ui->ApplyCommand(command + fileName);               
-            }
+            G4cout << "No macro files specified." << G4endl;
         }
-        else
+        while (_macros.size())   // batch mode
         {
-            G4cout << "No macro files specified." << endl;
-            // EnterInteractiveMode();
+            auto fileName = _macros.front();
+            _macros.pop_front();
+            G4cout << "Executing macro file: " << fileName << G4endl;
+            ui->ApplyCommand(command + fileName);               
         }
     }
 

@@ -17,30 +17,24 @@ namespace g4
      *
      * It provides following commands:
      *  - /app/generateRandomSeed
-     *  - /app/interactive
-     *  - /app/prepareInteractive
      *  - /app/pause
      *  - /app/addComponent
      */
-	class ApplicationMessenger : public G4UImessenger
-	{
+    class ApplicationMessenger : public G4UImessenger
+    {
         // TODO: Move a few commands into ConfigurationMessenger
-	public:
+    public:
         ApplicationMessenger(Application* application);
-		
-		virtual ~ApplicationMessenger();
-		
-		// override			
+        
+        virtual ~ApplicationMessenger();
+        
+        // override         
         void SetNewValue(G4UIcommand* command, G4String newValue) override;
-		
-	private:
+        
+    private:
         G4UIdirectory* _uiDirectory;
 
-		G4UIcmdWithAnInteger* _waitCommand;
-		
-        G4UIcmdWithoutParameter* _prepareInteractiveCommand;
-
-        G4UIcmdWithoutParameter* _interactiveCommand;
+        G4UIcmdWithAnInteger* _waitCommand;
 
         G4UIcmdWithoutParameter* _generateRandomSeedCommand;
 
