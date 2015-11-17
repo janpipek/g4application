@@ -103,13 +103,14 @@ namespace g4
         // delete _pluginLoader;
     }
 
-    void Application::CreateInstance(int argc, char **argv)
+    Application& Application::CreateInstance(int argc, char **argv)
     {
         if (instanceExists<Application>())
         {
             G4Exception("G4Application", "DuplicateInstance", FatalException, "Cannot create second instance of G4Application." );
         }
         new Application(argc, argv);
+        return Instance();
     }
 
     void Application::EnterInteractiveMode()

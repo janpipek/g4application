@@ -5,6 +5,8 @@
 #include "ConfigurationMessenger.hh"
 
 #include <globals.hh>
+#include <vector>
+#include <string>
 
 #ifdef G4VIS_USE
     class G4VisExecutive;
@@ -28,7 +30,7 @@ namespace g4
     {
     public:     
         // TODO: This class is a typical "god object". Refactor.
-        static void CreateInstance(int argc, char** argv);
+        static Application& CreateInstance(int argc, char** argv);
 
         ~Application();
 
@@ -74,7 +76,9 @@ namespace g4
           */
         void RunUI();
 
-        void AddBuiltinComponent(const G4String& name);
+        void AddMacro();
+
+        void AddBuiltinComponent(const G4String& name); // TODO: Strange here
 
         friend class util::Singleton<Application>;
 
@@ -82,6 +86,8 @@ namespace g4
         Application(int argc = 0, char** argv = nullptr);
 
         void Initialize(int argc, char **argv);
+
+        std::vector<std::string> _macros;
 
         int _argc;
         

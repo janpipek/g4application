@@ -18,8 +18,8 @@ int main(int argc, char** argv)
     /*try
     {*/
         // Run the application
-        Application::CreateInstance(argc, argv);
-        Application::Instance().RunUI();
+        Application& app = Application::CreateInstance(argc, argv);
+        app.RunUI();
     /*}
     catch (const exception& exc)
     {
