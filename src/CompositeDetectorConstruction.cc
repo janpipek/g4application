@@ -46,11 +46,7 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
         component->BuildGeometry(_worldVolume->GetLogicalVolume());
     }
 
-    // Construct the geometry of parallel worlds
-    for (auto it : components) 
-    {
-
-    }
+    // Parallel worlds are constructed elsewhere...
     return _worldVolume;
 }
 

@@ -75,7 +75,7 @@ namespace g4
         auto detectorConstruction = _initializer.GetDetectorConstruction();
         this->SetUserInitialization(detectorConstruction);
 
-        // Parallel worlds
+        // 2b) Parallel worlds
         auto parallelWorlds = _initializer.GetParallelWorlds();
         if (parallelWorlds.size())
         {
@@ -83,9 +83,13 @@ namespace g4
             {
                 detectorConstruction->RegisterParallelWorld(world);
                 auto parallelPhysics = new G4ParallelWorldPhysics(world->GetName(), true);
+                // This btw. registers the parallel world as mass layered geometry
                 physList->RegisterPhysics(parallelPhysics);
             }
+            // TODO: Circumvent "All materials have to be defined in the detectorconstruction" ???
+            //   GeometryHasBeenModified();
         }
+
         OBSERVERS_DO( OnGeometryInitialized );
         if (verboseLevel > 1) { G4cout << "RunManager: Geometry initialized." << G4endl; }
 
