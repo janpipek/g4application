@@ -14,7 +14,6 @@
 
 #ifdef G4UI_USE_QT
     #include <G4UIQt.hh>
-    // #include <QtGui/QMainWindow>
 #else
     #include <G4UItcsh.hh>
 #endif

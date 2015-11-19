@@ -44,6 +44,7 @@ There are a few example plug-ins that use most features of G4Application in the
 
 - simplePlugin : basic example that defines physics, geometry & generator
 - httpPlugin : a simple integrated HTTP server informing about the application state
+- rotationTest: a simple test of active/passive geometry in Geant4 (positioning of G4PVPlacement)
 - parallelTest : a simple test of parallel world mechanism
 
 Built-in components
@@ -89,7 +90,7 @@ Environment variables (alternatively can be set as CMake variables):
 * G4APP_SOURCE_PATH - if you use the provided FindG4Application.cmake (when building your modules),
     this path is used for searching libraries and include directories of g4application (required in plugins).
 
-Building tested on Linux (Fedora Core 18 & 20, Scientific Linux 6.4, Ubuntu 14.04), tests on other platforms are welcome.
+Building tested on Linux (Fedora Core 18, 20, 22, Scientific Linux 6.4, Ubuntu 14.04), tests on other platforms are welcome.
 
 History & motivation
 --------------------
@@ -112,7 +113,7 @@ Related projects
 - **g4application-dicom**: voxel geometries built from DICOM data. Implemented as a plug-in. https://github.com/janpipek/g4application-dicom
 
 - **pyg4app**: Python scripts to dynamically generate macro files in a somewhat
-structured manner. https://github.com/janpipek/pyg4app
+structured manner (currently out of sync). https://github.com/janpipek/pyg4app
 
 - **g4application-gammaknife**: not yet published model of Leksell Gamma Knife Perfexion.
 
