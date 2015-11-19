@@ -11,7 +11,7 @@ class G4UserRunAction;
 class G4UserStackingAction;
 class G4UserSteppingAction;
 class G4UserTrackingAction;
-class G4VUserPhysicsList;
+class G4VModularPhysicsList;
 class G4VPhysicalVolume;
 class G4VUserParallelWorld;
 
@@ -73,7 +73,7 @@ namespace g4
 
         virtual G4UserTrackingAction* CreateTrackingAction() { return nullptr; }
 
-        virtual G4VUserPhysicsList* CreatePhysicsList() { return nullptr; }
+        virtual G4VModularPhysicsList* CreatePhysicsList() { return nullptr; }
 
     protected:
         friend class ComponentManager;

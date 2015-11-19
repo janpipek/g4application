@@ -51,14 +51,14 @@ G4VUserDetectorConstruction* ComponentManager::GetDetectorConstruction()
     return new CompositeDetectorConstruction(this);
 }
 
-G4VUserPhysicsList* ComponentManager::GetPhysicsList()
+G4VModularPhysicsList* ComponentManager::GetPhysicsList()
 {
-    G4VUserPhysicsList* list = nullptr;
+    G4VModularPhysicsList* list = nullptr;
     // for (auto it : _components)
     for (auto it = _components.begin(); it != _components.end(); it++)
     {
         Component* component = it->second;
-        G4VUserPhysicsList* componentList = component->CreatePhysicsList();
+        G4VModularPhysicsList* componentList = component->CreatePhysicsList();
         if (componentList)
         {
             if (list)
@@ -77,6 +77,19 @@ G4VUserPhysicsList* ComponentManager::GetPhysicsList()
         G4Exception("ComponentManager", "NoPhysicsLists", FatalException, "No component defines the physics list.");
     }
     return list;
+}
+
+std::vector<G4VUserParallelWorld *> ComponentManager::GetParallelWorlds()
+{
+    std::vector<G4VUserParallelWorld*> result;
+    for (auto key_val : _components)
+    {
+        Component* component = key_val.second;
+        auto parallelWorlds = component->CreateParallelWorlds();
+        result.reserve(result.size() + parallelWorlds.size());
+        result.insert(result.end(), parallelWorlds.begin(), parallelWorlds.end());
+    }
+    return result;
 }
 
 void ComponentManager::ListComponents() const

@@ -39,11 +39,17 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
         G4Exception("CompositeDetectorConstruction", "NoWorldVolume", FatalException, "No world volume defined in any of the components.");
     }
 
-    // Construct the geometry of components
+    // Construct the geometry of components (in real world)
     for (auto it = components.begin(); it != components.end(); it++)
     {
         Component* component = it->second;
         component->BuildGeometry(_worldVolume->GetLogicalVolume());
+    }
+
+    // Construct the geometry of parallel worlds
+    for (auto it : components) 
+    {
+
     }
     return _worldVolume;
 }

@@ -4,6 +4,12 @@
 #include <unistd.h>
 #include <algorithm>
 
+#include <G4VUserParallelWorld.hh>
+#include <G4VModularPhysicsList.hh>
+#include <G4VUserParallelWorld.hh>
+#include <G4ParallelWorldPhysics.hh>
+#include <G4VUserDetectorConstruction.hh>
+
 #include "CompositeEventAction.hh"
 #include "CompositeRunAction.hh"
 #include "CompositeSteppingAction.hh"
@@ -58,14 +64,28 @@ namespace g4
         // 1) Physics
         if (verboseLevel > 1) { G4cout << "RunManager: Physics initializing..." << G4endl; }
         OBSERVERS_DO( OnPhysicsInitializing );
-        this->SetUserInitialization(_initializer.GetPhysicsList());
+        auto physList = _initializer.GetPhysicsList();
+        this->SetUserInitialization(physList);
         OBSERVERS_DO( OnPhysicsInitialized );
         if (verboseLevel > 1) { G4cout << "RunManager: Physics initialized." << G4endl; }
 
-        // 2) Geometry
+        // 2a) Geometry
         if (verboseLevel > 1) { G4cout << "RunManager: Geometry initializing..." << G4endl; }
         OBSERVERS_DO( OnGeometryInitializing );
-        this->SetUserInitialization(_initializer.GetDetectorConstruction());
+        auto detectorConstruction = _initializer.GetDetectorConstruction();
+        this->SetUserInitialization(detectorConstruction);
+
+        // Parallel worlds
+        auto parallelWorlds = _initializer.GetParallelWorlds();
+        if (parallelWorlds.size())
+        {
+            for (G4VUserParallelWorld* world : parallelWorlds)
+            {
+                detectorConstruction->RegisterParallelWorld(world);
+                auto parallelPhysics = new G4ParallelWorldPhysics(world->GetName(), true);
+                physList->RegisterPhysics(parallelPhysics);
+            }
+        }
         OBSERVERS_DO( OnGeometryInitialized );
         if (verboseLevel > 1) { G4cout << "RunManager: Geometry initialized." << G4endl; }
 

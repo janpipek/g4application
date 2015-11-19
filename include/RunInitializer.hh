@@ -5,7 +5,8 @@
 
 class G4VUserActionInitialization;
 class G4VUserDetectorConstruction;
-class G4VUserPhysicsList;
+class G4VModularPhysicsList;
+class G4VUserParallelWorld;
 
 namespace g4
 {
@@ -26,7 +27,9 @@ namespace g4
 
         virtual G4VUserDetectorConstruction* GetDetectorConstruction() = 0;
 
-        virtual G4VUserPhysicsList* GetPhysicsList() = 0;
+        virtual G4VModularPhysicsList* GetPhysicsList() = 0;
+
+        virtual std::vector<G4VUserParallelWorld*> GetParallelWorlds() = 0;
 
         // virtual std::vector<RunObserver*> GetRunObservers() { return {}; }
 

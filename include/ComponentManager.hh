@@ -7,10 +7,6 @@
 
 #include "RunInitializer.hh"
 
-class G4VUserDetectorConstruction;
-class G4VUserActionInitialization;
-class G4VUserPhysicsList;
-
 namespace g4
 {
     class Component;
@@ -38,16 +34,18 @@ namespace g4
 
         G4VUserDetectorConstruction* GetDetectorConstruction() override;
 
-        G4VUserPhysicsList* GetPhysicsList() override;
+        G4VModularPhysicsList* GetPhysicsList() override;
+
+        std::vector<G4VUserParallelWorld *> GetParallelWorlds() override;
 
         void ListComponents() const;
-
-        // std::vector<RunObserver*> GetRunObservers() override;
 
     private:
         std::map<G4String, Component*> _components;
 
         ComponentMessenger* _messenger;
+
+
     };
 }
 

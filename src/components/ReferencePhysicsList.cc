@@ -1,6 +1,6 @@
 #include "components/ReferencePhysicsList.hh"
 
-#include <G4VUserPhysicsList.hh>
+#include <G4VModularPhysicsList.hh>
 #include <G4PhysListFactory.hh>
 // #include <G4ios.hh>
 
@@ -16,7 +16,7 @@ ReferencePhysicsList::ReferencePhysicsList()
 
 }
 
-G4VUserPhysicsList* ReferencePhysicsList::CreatePhysicsList()
+G4VModularPhysicsList* ReferencePhysicsList::CreatePhysicsList()
 {
     if (Configuration::HasKey("component.ReferencePhysicsList.listName"))
     {
@@ -24,7 +24,7 @@ G4VUserPhysicsList* ReferencePhysicsList::CreatePhysicsList()
         G4PhysListFactory factory;
         if (factory.IsReferencePhysList(listName))
         {
-            G4VUserPhysicsList* list = factory.GetReferencePhysList(listName);
+            auto list = factory.GetReferencePhysList(listName);
             G4cout << "ReferencePhysicsList: loaded list " << listName << "." << G4endl;
             return list;
         }
