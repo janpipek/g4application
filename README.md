@@ -44,6 +44,7 @@ There are a few example plug-ins that use most features of G4Application in the
 
 - simplePlugin : basic example that defines physics, geometry & generator
 - httpPlugin : a simple integrated HTTP server informing about the application state
+- parallelTest : a simple test of parallel world mechanism
 
 Built-in components
 -------------------

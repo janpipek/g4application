@@ -1,0 +1,30 @@
+#!/usr/bin/env g4
+/app/addComponent DefaultWorld
+/app/addComponent ReferencePhysicsList
+/app/addComponent GPS
+/app/addComponent EventNumberLogging
+/app/addComponent MemoryLogging
+
+/conf/setDouble generator.energy 0.5
+/conf/setString component.ReferencePhysicsList.listName FTFP_BERT
+
+/plugin/open parallelTest
+/plugin/load parallelTest parallel1
+/plugin/load parallelTest parallel2
+
+/component/list
+
+/run/initialize
+
+/gps/particle proton
+/gps/energy 2000 MeV
+/gps/position -20 0 0 cm
+/gps/direction 1 0 0
+
+/vis/open OGLSQt
+/vis/drawVolume worlds
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+/vis/scene/endOfRunAction accumulate 
+
+/run/beamOn 10
