@@ -31,6 +31,8 @@ namespace g4
 
         virtual std::vector<G4VUserParallelWorld*> GetParallelWorlds() = 0;
 
+        virtual void UpdateBeforeRun() { }
+
         // virtual std::vector<RunObserver*> GetRunObservers() { return {}; }
 
         virtual ~RunInitializer() = default;

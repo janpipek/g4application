@@ -6,7 +6,7 @@
 
 using namespace g4;
 
-ComponentManager::ComponentManager()
+ComponentManager::ComponentManager() : _initialization(nullptr)
 {
     _messenger = new ComponentMessenger(this);
 }
@@ -107,6 +107,11 @@ std::vector<G4VUserParallelWorld *> ComponentManager::GetParallelWorlds()
         result.insert(result.end(), parallelWorlds.begin(), parallelWorlds.end());
     }
     return result;
+}
+
+void ComponentManager::UpdateBeforeRun()
+{
+    // _initialization->
 }
 
 void ComponentManager::ListComponents() const

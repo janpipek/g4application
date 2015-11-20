@@ -102,7 +102,13 @@ namespace g4
 
         // Initialize Geant4's own run manager
         RunManagerBaseClass::Initialize();
-        OBSERVERS_DO( OnRunInitialized );
+        OBSERVERS_DO( OnInitialized );
         G4cout << "Run initialized." << endl;
+    }
+
+    void RunManager::RunInitialization()
+    {
+        _initializer.UpdateBeforeRun();
+        RunManagerBaseClass::RunInitialization();
     }
 }

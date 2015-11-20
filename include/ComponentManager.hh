@@ -11,6 +11,7 @@ namespace g4
 {
     class Component;
     class ComponentMessenger;
+    class ComponentActionInitialization;
 
     /**
      * @brief The ComponentManager class
@@ -45,14 +46,14 @@ namespace g4
 
         std::vector<G4VUserParallelWorld *> GetParallelWorlds() override;
 
+        void UpdateBeforeRun() override;
+
         void ListComponents() const;
 
     private:
         std::map<G4String, Component*> _components;
 
         ComponentMessenger* _messenger;
-
-
     };
 }
 

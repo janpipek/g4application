@@ -54,7 +54,12 @@ namespace g4
         /**
           * @short Method called at the end of /run/initialize call.
           */
-        virtual void OnRunInitialized() { }
+        virtual void OnInitialized() { }
+
+        /**
+          * @short Method called at the end of /run/initialize call.
+          */
+        virtual void OnRunInitializing() { }
 
         /**
           * @short Method called when destructor is called for RunManager.

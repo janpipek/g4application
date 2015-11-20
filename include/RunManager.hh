@@ -39,7 +39,9 @@ namespace g4
           * This invokes all the builders from plugins.
           * It is called with /run/initialize
           */
-        virtual void Initialize() override;
+        void Initialize() override;
+
+        void RunInitialization() override;
 
         void AddObserver(RunObserver* observer);
 
