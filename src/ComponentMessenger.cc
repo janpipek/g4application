@@ -1,6 +1,7 @@
 #include "ComponentMessenger.hh"
 
 #include <G4UIcmdWithoutParameter.hh>
+#include <G4UIcmdWithAnInteger.hh>
 
 #include "ComponentManager.hh"
 
@@ -14,6 +15,10 @@ ComponentMessenger::ComponentMessenger(ComponentManager* manager)
     _listCommand = new G4UIcmdWithoutParameter("/component/list", this);
     _listCommand->SetGuidance("List loaded components.");
     _listCommand->SetToBeBroadcasted(false);
+
+    _verboseCommand = new G4UIcmdWithAnInteger("/component/verbose", this);
+    _verboseCommand->SetGuidance("Set component manager verbosity.");
+    _verboseCommand->SetToBeBroadcasted(false);
 }
 
 ComponentMessenger::~ComponentMessenger()
@@ -27,5 +32,9 @@ void ComponentMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
     if (command == _listCommand)
     {
         _manager->ListComponents();
+    }
+    else if (command == _verboseCommand)
+    {
+        _manager->SetVerboseLevel(_verboseCommand->ConvertToInt(newValue));
     }
 }

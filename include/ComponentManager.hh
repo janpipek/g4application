@@ -40,12 +40,16 @@ namespace g4
 
         void ListComponents() const;
 
+        void SetVerboseLevel(G4int vl) { _verboseLevel = vl; }
+
+        G4int GetVerboseLevel() const { return _verboseLevel; }
+
     private:
         std::map<G4String, Component*> _components;
 
         ComponentMessenger* _messenger;
 
-
+        G4int _verboseLevel;
     };
 }
 

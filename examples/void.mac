@@ -1,6 +1,8 @@
 # Simple macro that shows how it is possible to run a simulation
 # without any added code :-)
 
+/component/verbose 1
+
 /app/addComponent DefaultWorld
 /app/addComponent ReferencePhysicsList
 /app/addComponent GPS

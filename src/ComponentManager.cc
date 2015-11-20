@@ -6,7 +6,7 @@
 
 using namespace g4;
 
-ComponentManager::ComponentManager()
+ComponentManager::ComponentManager() : _verboseLevel(0)
 {
     _messenger = new ComponentMessenger(this);
 }
@@ -26,6 +26,10 @@ void ComponentManager::AddComponent(const G4String& name, Component *component)
     else
     {
         _components[name] = component;
+        if (_verboseLevel > 0)
+        {
+            G4cout << "ComponentManager: Added component " << name << "." << G4endl;
+        }
     }
 }
 
@@ -53,6 +57,10 @@ G4VUserDetectorConstruction* ComponentManager::GetDetectorConstruction()
 
 G4VModularPhysicsList* ComponentManager::GetPhysicsList()
 {
+    if (_verboseLevel > 0)
+    {
+        G4cout << "ComponentManager: Searching for physics list among loaded components..." << G4endl;
+    }
     G4VModularPhysicsList* list = nullptr;
     // for (auto it : _components)
     for (auto it = _components.begin(); it != _components.end(); it++)
@@ -68,6 +76,7 @@ G4VModularPhysicsList* ComponentManager::GetPhysicsList()
             else
             {
                 list = componentList;
+                G4cout << "ComponentManager: Using physics list from component " << it->first << G4endl;
             }
         }
     }
@@ -82,12 +91,20 @@ G4VModularPhysicsList* ComponentManager::GetPhysicsList()
 std::vector<G4VUserParallelWorld *> ComponentManager::GetParallelWorlds()
 {
     std::vector<G4VUserParallelWorld*> result;
+    if (_verboseLevel > 0)
+    {
+        G4cout << "ComponentManager: Creating parallel worlds..." << G4endl;
+    }
     for (auto key_val : _components)
     {
         Component* component = key_val.second;
         auto parallelWorlds = component->CreateParallelWorlds();
         result.reserve(result.size() + parallelWorlds.size());
         result.insert(result.end(), parallelWorlds.begin(), parallelWorlds.end());
+    }
+    if (_verboseLevel > 0)
+    {
+        G4cout << "ComponentManager: Total " << result.size() << " parallel worlds created." << G4endl;
     }
     return result;
 }
