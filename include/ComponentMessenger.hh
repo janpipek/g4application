@@ -23,7 +23,9 @@ namespace g4
 
         G4UIdirectory* _directory;
 
-        G4UIcmdWithoutParameter* _listCommand;
+        G4UIcommand* _listCommand;
+
+        G4UIcommand* _unloadCommand;
 
         G4UIcommand* _translateCommand;
 

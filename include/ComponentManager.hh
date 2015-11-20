@@ -30,6 +30,13 @@ namespace g4
 
         Component* GetComponent(const G4String& name) const;
 
+        /**
+         * @brief Unload a component.
+         *
+         * Note: In general, components
+         */
+        void UnloadComponent(const G4String& name);
+
         G4VUserActionInitialization* GetActionInitialization() override;
 
         G4VUserDetectorConstruction* GetDetectorConstruction() override;

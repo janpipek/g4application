@@ -18,3 +18,6 @@
 /conf/print
 /component/list
 /run/beamOn 1000
+
+/component/unload EventNumberLogging
+/run/beamOn 1000

@@ -41,6 +41,23 @@ Component* ComponentManager::GetComponent(const G4String& name) const
     }
 }
 
+void ComponentManager::UnloadComponent(const G4String &name)
+{
+    Component* component = GetComponent(name);
+    if (component)
+    {
+        G4cout << "Removing component " << name << "..." << G4endl;
+        component->Unload();
+        delete component;
+        G4cout << _components.erase(name) << G4endl;
+    }
+    else
+    {
+        // Warning
+        G4cout << "Component " << name << " not found." << G4endl;
+    }
+}
+
 G4VUserActionInitialization* ComponentManager::GetActionInitialization()
 {
     return new ComponentActionInitialization(this);

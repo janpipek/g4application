@@ -20,6 +20,8 @@ namespace g4
 
         protected:
             virtual void OnLoad() override;
+
+            virtual void Unload() override { } // Just make it allowed
         };
     }
 }

@@ -84,6 +84,17 @@ namespace g4
          * This enables to separate calling constructor and initialization.
          */
         virtual void OnLoad() { }
+
+        /**
+         * @short Method called by ComponentManager when removal is requested.
+         *
+         * By default, this is not possible (G4Exception). Override only if you
+         * know what you are doing.
+         */
+        virtual void Unload()
+        {
+            G4Exception("Component::Unload()", "Unloading forbidden", FatalException, "It is not possible to unload this component.");
+        }
     };
 }
 
