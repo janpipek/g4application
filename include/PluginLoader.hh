@@ -5,6 +5,7 @@
 #include <map>
 
 #include "Plugin.hh"
+#include "util/Verbosity.hh"
 
 namespace g4
 {
@@ -16,7 +17,7 @@ namespace g4
 
     std::string longLibraryName(const std::string& name);
     
-    class PluginLoader
+    class PluginLoader : public util::VerbosityMixin
     {
     public:
         PluginLoader(ComponentManager* componentManager);

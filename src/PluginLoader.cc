@@ -60,11 +60,15 @@ namespace g4
         const string shortName = shortLibraryName(name);
         const string longName = longLibraryName(name);
 
-        G4cout << "Loading plugin library `" << shortName << "` from " << longName << "." << endl;
+        if (GetVerboseLevel() > 0)
+        {
+            G4cout << "PluginLoader: Loading plugin library `" << shortName << "` from `" << longName << "`." << endl;
+        }
         
         // Try to load the file as dynamic library
         void* library = nullptr;
         library = dlopen(longName.c_str(), RTLD_LAZY );
+
 
         if (library)
         {
@@ -78,7 +82,10 @@ namespace g4
 
                 // AddPlugin(plugin);
                 _libraries.push_back(library);
-                G4cout << "Loaded plugin `" << shortName << "`." << endl;
+                if (GetVerboseLevel() > 0)
+                {
+                    G4cout << "PluginLoader: Loaded plugin `" << shortName << "`." << endl;
+                }
             }
             else
             {
@@ -108,6 +115,10 @@ namespace g4
 
     void PluginLoader::LoadAll(string pluginName)
     {
+        if (GetVerboseLevel() > 0)
+        {
+            G4cout << "PluginLoader: Loading all components from plugin `" << pluginName << "`..." << G4endl;
+        }
         Plugin* plugin = FindPlugin(pluginName);
         if (!plugin)
         {
@@ -118,6 +129,10 @@ namespace g4
         {
             string componentName = *compIt;
             Load(plugin, componentName);
+        }
+        if (GetVerboseLevel() > 0)
+        {
+            G4cout << "PluginLoader: Loaded all components from plugin `" << pluginName << "`." << G4endl;
         }
     }
 
@@ -159,25 +174,38 @@ namespace g4
             // _runManager->RemoveObserver(*it);
             delete (*it);
         }
-        cout << "Unloading " << _libraries.size() << " plugins." << endl;
+
         */
 
         // Unload all plugins
+        if (GetVerboseLevel() > 0)
+        {
+            G4cout << "PluginLoader: Destructor called." << G4endl;
+            G4cout << "PluginLoader: Unloading " << _libraries.size() << " plugins." << G4endl;
+        }
         for (vector<void*>::iterator it = _libraries.begin(); it != _libraries.end(); it++)
         {
             if (*it) dlclose(*it);
         }
         _libraries.clear();
+        if (GetVerboseLevel() > 0)
+        {
+            G4cout << "PluginLoader: Destructor finished." << G4endl;
+        }
     }
 
     void PluginLoader::Load(Plugin *plugin, const string& componentName)
     {
+        if (GetVerboseLevel() > 0)
+        {
+            G4cout << "Plugin Loader: Loading component `" << componentName << "` from plugin `" << plugin->GetName() << "`..." << G4endl;
+        }
         Component* component = plugin->GetComponent(componentName);
         G4String name = plugin->GetName() + "/" + componentName;
         if (component)
         {
             _componentManager->AddComponent(name, component);
-            G4cout << "Loaded component `" << name << "`." << endl;
+            G4cout << "Plugin Loader: Loaded component `" << componentName << "` from plugin " << plugin->GetName() << "." << G4endl;
         }
         else
         {

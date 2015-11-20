@@ -6,6 +6,7 @@
 #include <G4String.hh>
 
 #include "RunInitializer.hh"
+#include "util/Verbosity.hh"
 
 namespace g4
 {
@@ -17,7 +18,7 @@ namespace g4
      *
      * Threading: shared
      */
-    class ComponentManager : public RunInitializer
+    class ComponentManager : public RunInitializer, public util::VerbosityMixin
     {
     public:
         ComponentManager();
@@ -40,16 +41,10 @@ namespace g4
 
         void ListComponents() const;
 
-        void SetVerboseLevel(G4int vl) { _verboseLevel = vl; }
-
-        G4int GetVerboseLevel() const { return _verboseLevel; }
-
     private:
         std::map<G4String, Component*> _components;
 
         ComponentMessenger* _messenger;
-
-        G4int _verboseLevel;
     };
 }
 

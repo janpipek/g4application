@@ -6,14 +6,22 @@
 
 using namespace g4;
 
-ComponentManager::ComponentManager() : _verboseLevel(0)
+ComponentManager::ComponentManager()
 {
     _messenger = new ComponentMessenger(this);
+    if (GetVerboseLevel() > 0)
+    {
+        G4cout << "ComponentManager: Constructor finished." << G4endl;
+    }
 }
 
 ComponentManager::~ComponentManager()
 {
     delete _messenger;
+    if (GetVerboseLevel() > 0)
+    {
+        G4cout << "ComponentManager: Destructor called (and finished)." << G4endl;
+    }
 }
 
 void ComponentManager::AddComponent(const G4String& name, Component *component)
@@ -26,9 +34,9 @@ void ComponentManager::AddComponent(const G4String& name, Component *component)
     else
     {
         _components[name] = component;
-        if (_verboseLevel > 0)
+        if (GetVerboseLevel() > 0)
         {
-            G4cout << "ComponentManager: Added component " << name << "." << G4endl;
+            G4cout << "ComponentManager: Added component `" << name << "`." << G4endl;
         }
     }
 }
@@ -47,17 +55,33 @@ Component* ComponentManager::GetComponent(const G4String& name) const
 
 G4VUserActionInitialization* ComponentManager::GetActionInitialization()
 {
+    if (GetVerboseLevel() > 0)
+    {
+        G4cout << "ComponentManager: Creating component action intialization..." << G4endl;
+    }
     return new ComponentActionInitialization(this);
+    if (GetVerboseLevel() > 0)
+    {
+        G4cout << "ComponentManager: Created component action initialization." << G4endl;
+    }
 }
 
 G4VUserDetectorConstruction* ComponentManager::GetDetectorConstruction()
 {
+    if (GetVerboseLevel() > 0)
+    {
+        G4cout << "ComponentManager: Creating composite detector construction..." << G4endl;
+    }
     return new CompositeDetectorConstruction(this);
+    if (GetVerboseLevel() > 0)
+    {
+        G4cout << "ComponentManager: Created composite detector construction." << G4endl;
+    }
 }
 
 G4VModularPhysicsList* ComponentManager::GetPhysicsList()
 {
-    if (_verboseLevel > 0)
+    if (GetVerboseLevel() > 0)
     {
         G4cout << "ComponentManager: Searching for physics list among loaded components..." << G4endl;
     }
@@ -76,7 +100,10 @@ G4VModularPhysicsList* ComponentManager::GetPhysicsList()
             else
             {
                 list = componentList;
-                G4cout << "ComponentManager: Using physics list from component " << it->first << G4endl;
+                if (GetVerboseLevel() > 0)
+                {
+                    G4cout << "ComponentManager: Using physics list from component `" << it->first << "`" << G4endl;
+                }
             }
         }
     }
@@ -91,7 +118,7 @@ G4VModularPhysicsList* ComponentManager::GetPhysicsList()
 std::vector<G4VUserParallelWorld *> ComponentManager::GetParallelWorlds()
 {
     std::vector<G4VUserParallelWorld*> result;
-    if (_verboseLevel > 0)
+    if (GetVerboseLevel() > 0)
     {
         G4cout << "ComponentManager: Creating parallel worlds..." << G4endl;
     }
@@ -99,10 +126,17 @@ std::vector<G4VUserParallelWorld *> ComponentManager::GetParallelWorlds()
     {
         Component* component = key_val.second;
         auto parallelWorlds = component->CreateParallelWorlds();
-        result.reserve(result.size() + parallelWorlds.size());
-        result.insert(result.end(), parallelWorlds.begin(), parallelWorlds.end());
+        if (parallelWorlds.size())
+        {
+            if (GetVerboseLevel() > 0)
+            {
+                G4cout << "ComponentManager: Adding " << parallelWorlds.size() << " parallel worlds from component `" << key_val.first << "`..." << G4endl;
+            }
+            result.reserve(result.size() + parallelWorlds.size());
+            result.insert(result.end(), parallelWorlds.begin(), parallelWorlds.end());
+        }
     }
-    if (_verboseLevel > 0)
+    if (GetVerboseLevel() > 0)
     {
         G4cout << "ComponentManager: Total " << result.size() << " parallel worlds created." << G4endl;
     }

@@ -35,6 +35,6 @@ void ComponentMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
     }
     else if (command == _verboseCommand)
     {
-        _manager->SetVerboseLevel(_verboseCommand->ConvertToInt(newValue));
+        _manager->SetVerboseLevel(_verboseCommand->GetNewIntValue(newValue));
     }
 }

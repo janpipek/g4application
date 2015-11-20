@@ -24,9 +24,9 @@ namespace g4
 
         G4UIdirectory* _directory;
 
-        G4UIcommand* _listCommand;
+        G4UIcmdWithoutParameter* _listCommand;
 
-        G4UIcommand* _verboseCommand;
+        G4UIcmdWithAnInteger* _verboseCommand;
     };
 }
 

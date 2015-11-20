@@ -4,6 +4,7 @@
 #include <G4UImessenger.hh>
 
 class G4UIcmdWithAString;
+class G4UIcmdWithAnInteger;
 class G4UIdirectory;
 
 namespace g4
@@ -45,6 +46,8 @@ namespace g4
         G4UIcmdWithAString* _loadAllCommand;
 
         G4UIcmdWithAString* _listComponentsCommand;
+
+        G4UIcmdWithAnInteger* _verboseCommand;
     };
 }
 
