@@ -20,4 +20,4 @@
 # Show configuration
 /conf/print
 
-/run/beamOn 100
+/run/beamOn 5

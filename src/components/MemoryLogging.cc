@@ -24,7 +24,11 @@ public:
     {
         if (IsMaster())
         {
-           printMemoryConsumptionInfo();
+            G4cout << "-------------------------" << G4endl;
+            G4cout << "Begin of run memory usage" << G4endl;
+            G4cout << "-------------------------" << G4endl;
+            printMemoryConsumptionInfo();
+            G4cout << "-------------------------" << G4endl;
         }
     }
 
@@ -32,7 +36,11 @@ public:
     {
         if (IsMaster())
         {
-           printMemoryConsumptionInfo();
+             G4cout << "-------------------------" << G4endl;
+             G4cout << " End of run memory usage" << G4endl;
+             G4cout << "-------------------------" << G4endl;
+             printMemoryConsumptionInfo();
+             G4cout << "-------------------------" << G4endl;
         }
     }
 };
@@ -44,13 +52,8 @@ G4UserRunAction* MemoryLogging::CreateRunAction()
 
 void printMemoryConsumptionInfo()
 {
-    G4cout << G4endl;
-    G4cout << "------------" << G4endl;
-    G4cout << "Memory usage" << G4endl;
-    G4cout << "------------" << G4endl;
     G4cout << "Current: " << getCurrentRSS() / (1024. * 1024) << " MB" << G4endl;
     G4cout << "Peak: " << getPeakRSS() / (1024. * 1024) << " MB" << G4endl;
-    G4cout << "------------" << G4endl;
 }
 
 /*

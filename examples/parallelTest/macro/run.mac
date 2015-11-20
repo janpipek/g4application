@@ -1,4 +1,7 @@
 #!/usr/bin/env g4
+/component/verbose 1
+/plugin/verbose 1
+
 /app/addComponent DefaultWorld
 /app/addComponent ReferencePhysicsList
 /app/addComponent GPS
@@ -6,7 +9,7 @@
 /app/addComponent MemoryLogging
 
 /conf/setDouble generator.energy 0.5
-/conf/setString component.ReferencePhysicsList.listName FTFP_BERT
+/conf/setString component.ReferencePhysicsList.listName FTFP_BERT_LIV
 
 /plugin/open parallelTest
 /plugin/load parallelTest parallel1
