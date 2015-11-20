@@ -59,7 +59,7 @@ namespace g4
 
         // Visualization
         #ifdef G4VIS_USE
-          _visManager = new G4VisExecutive;
+          _visManager = new G4VisExecutive("quiet");
           _visManager->Initialize();
         #endif
 
