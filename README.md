@@ -1,5 +1,4 @@
-g4application
-=============
+# g4application
 
 A library and a simple generic application for Geant4. It works as a universal executable
 for geant4 tasks. It provides a component and plug-in API to plug in
@@ -8,8 +7,8 @@ specific behaviour (in one or more plug-ins in parallel).
 Apart from this, g4application offers features that are not tightly connected
 to plugin system but can make your life with Geant4 easier.
 
-Main features
--------------
+## Main features
+
 * typical macro-based / interactive workflow
 * components
 * plugins
@@ -18,17 +17,46 @@ Main features
 * composite user action - these allow adding of more user actions of the same type
 * a few built-in user actions (see below)
 
-Component system
-----------------
-...
+## Component system
 
-Plug-in system
--------------
+### Components
+
+A component is a class (set of classes) that can be turned on (and perhaps off) by
+a single method call / user macro command. Each of the components can define:
+
+* world volume *(only one component may return this)*
+* geometry (to be included in world volume)
+* parallel world geometry
+* physics list *(only one component may return this currently)*
+* user action classes
+
+By default, the component is empty. The user has to override methods they are interested in.
+
+#### Built-in components
+
+* DefaultWorld - provides a world physical volume
+* EventNumberLogging - prints event numbers (with configurable frequency)
+* MemoryLogging - prints memory usage before and after the run
+* ReferencePhysicsList - provides one of the lists known to `G4PhysListFactory` specified by its name
+* GPS - provides GPS (i.e. `G4GeneralParticleSource`) to be configured using its commands
+
+### Composite user actions
+
+By default, it is not possible to include more the one for each G4User...Action classes in one Geant4 application.
+This limitation is even more pressing when different part of the application are developed separately.
+So g4application includes a **composite user action class** that can contain more instances of the respective
+action type and executes them in the FIFO order. These are:
+
+* CompositeEventAction
+* CompositeRunAction
+* CompositeStackingAction
+* CompositeSteppingAction
+* CompositeTrackingAction
+
+### Plug-ins
+
 Plug-ins of g4application are separate dynamic libraries that are
-loaded at runtime. Each plug-in can contain one or more components
-that provide physics, particle generator
-or geometry and define custom behaviour when various stages of application are
-entered.
+loaded at runtime. Each plug-in can contain one or more components.
 
 The plug-in project has to include a class inheriting from `g4::Plugin` and export it using `MAKE_G4_PLUGIN` macro. See examples for details.
 
@@ -39,6 +67,10 @@ Loading a plugin:
     /plugin/load somePlugin someComponent  # Use a single component
     /plugin/listComponents somePlugin      # Print all component names from the plugin
 
+The plugin DLL is searched for using standard Unix lookup mechanism.
+
+#### Example plugins
+
 There are a few example plug-ins that use most features of G4Application in the
 `examples` subdirectory.
 
@@ -47,16 +79,8 @@ There are a few example plug-ins that use most features of G4Application in the
 - rotationTest: a simple test of active/passive geometry in Geant4 (positioning of G4PVPlacement)
 - parallelTest : a simple test of parallel world mechanism
 
-Built-in components
--------------------
-* DefaultWorld - provides a world physical volume
-* EventNumberLogging - prints event numbers (with configurable frequency)
-* MemoryLogging - prints memory usage before and after the run
-* ReferencePhysicsList - provides one of the lists known to `G4PhysListFactory` specified by its name
-* GPS - provides GPS (i.e. `G4GeneralParticleSource`) to be configured using its commands
+## Configuration
 
-Configuration
--------------
 The application holds one map of string key / (string/int/float) pairs in a static class `Configuration`.
 The classes that want to listen to configuration updates, have to inherit from `ConfigurationObserver`.
 
@@ -70,8 +94,8 @@ User commands:
 ```
 
 
-How to build
-------------
+## How to build
+
 You will need:
 
 * cmake >= 2.6 (not tested for lower)
@@ -86,14 +110,14 @@ After building, you will obtain:
 
 Environment variables (alternatively can be set as CMake variables):
 
-* G4APP_PATH - when you set this, the built libraries and executable will be copied there (optional).
-* G4APP_SOURCE_PATH - if you use the provided FindG4Application.cmake (when building your modules),
+* `G4APP_PATH` - when you set this, the built libraries and executable will be copied there (optional).
+* `G4APP_SOURCE_PATH` - if you use the provided FindG4Application.cmake (when building your modules),
     this path is used for searching libraries and include directories of g4application (required in plugins).
 
 Building tested on Linux (Fedora Core 18, 20, 22, Scientific Linux 6.4, Ubuntu 14.04), tests on other platforms are welcome.
 
-History & motivation
---------------------
+## History & motivation
+
 2010-2012: I was developing two similar models of Leksell Gamma Knife at a same time and I wanted them to share a lot of code.
 In the end, I made the application call the plug-ins
 instead of two application using the same library.
@@ -104,12 +128,12 @@ instead of two application using the same library.
 
 2015: Complete API redesign, only Geant4 10.1+ is supported (see branch **geant9** for older version).
 
-Known issues
-------------
+## Known issues
+
 * See GitHub Issues page.
 
-Related projects
-----------------
+## Related projects
+
 - **g4application-dicom**: voxel geometries built from DICOM data. Implemented as a plug-in. https://github.com/janpipek/g4application-dicom
 
 - **pyg4app**: Python scripts to dynamically generate macro files in a somewhat
@@ -117,7 +141,7 @@ structured manner (currently out of sync). https://github.com/janpipek/pyg4app
 
 - **g4application-gammaknife**: not yet published model of Leksell Gamma Knife Perfexion.
 
-Contact
--------
+## Contact
+
 I'd be happy to accept feature requests, cooperation, questions, bug reports...
 Please write to jan.pipek AT gmail.com
