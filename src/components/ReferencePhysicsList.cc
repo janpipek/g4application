@@ -2,7 +2,7 @@
 
 #include <G4VModularPhysicsList.hh>
 #include <G4PhysListFactory.hh>
-// #include <G4ios.hh>
+#include <G4HadronicProcessStore.hh>
 
 #include "Configuration.hh"
 
@@ -19,28 +19,38 @@ ReferencePhysicsList::ReferencePhysicsList()
 G4VModularPhysicsList* ReferencePhysicsList::CreatePhysicsList()
 {
     if (Configuration::HasKey("component.ReferencePhysicsList.listName"))
-    {
+    {    
         G4String listName = Configuration::Get<string>("component.ReferencePhysicsList.listName");
         G4PhysListFactory factory;
-        if (factory.IsReferencePhysList(listName))
+
+        // Make physics as quiet as possible
+        factory.SetVerbose(0);
+        G4HadronicProcessStore::Instance()->SetVerbose(0);
+
+        
+        auto list = factory.GetReferencePhysList(listName);
+        if (!list)
         {
-            auto list = factory.GetReferencePhysList(listName);
-            G4cout << "ReferencePhysicsList: loaded list " << listName << "." << G4endl;
-            return list;
-        }
-        else
-        {
-            vector<G4String> availableLists = factory.AvailablePhysLists();
             G4cerr << "Unknown physics list: " << listName << G4endl;
-            G4cerr << "  Candidates: " << listName << G4endl;
-            for (auto it = availableLists.begin() ; it != availableLists.end(); it++)
+            G4cerr << "  Available general: " << G4endl;
+            for (auto name : factory.AvailablePhysLists())
             {
-                G4cerr << "  * " << *it << G4endl;
+                G4cerr << "  * " << name << G4endl;
             }
+            G4cerr << G4endl;
+            G4cerr << "  Available EM:" << G4endl;
+            for (auto name : factory.AvailablePhysListsEM())
+            {
+                G4cerr << "  * " << name << G4endl;
+            }            
             G4ExceptionDescription message;
             message << "Unknown physics list: " << listName;
             G4Exception("ReferencePhysicsList", "UnknownReferencePhysicsList", FatalException, message);
         }
+        
+        G4cout << "ReferencePhysicsList: loaded list " << listName << "." << G4endl;
+        list->SetVerboseLevel(0);
+        return list;
     }
     else
     {
