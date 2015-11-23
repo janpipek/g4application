@@ -1,6 +1,5 @@
 #include "ComponentManager.hh"
 
-#include "ComponentMessenger.hh"
 #include "ComponentActionInitialization.hh"
 #include "CompositeDetectorConstruction.hh"
 

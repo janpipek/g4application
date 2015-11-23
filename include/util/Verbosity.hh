@@ -32,7 +32,8 @@ namespace g4
                         G4Exception("VerbosityMixin", "NoMessengerDirectory", FatalException, "Cannot create verbosity messenger without a directory name");
                     }
                     _messenger = std::make_shared<G4GenericMessenger>(this, messengerDirectory);
-                    _messenger->DeclareMethod("verbose", &VerbosityMixin::SetVerboseLevel, "Set verbosity level.");
+                    _messenger->DeclareMethod("verbose", &VerbosityMixin::SetVerboseLevel, "Set verbosity level.")
+                            .SetParameterName("verboseLevel", false);
                 }
             }
 

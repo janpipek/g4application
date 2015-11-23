@@ -4,6 +4,8 @@
 #include <string>
 #include <map>
 
+#include <G4GenericMessenger.hh>
+
 #include "Plugin.hh"
 #include "util/Verbosity.hh"
 
@@ -30,7 +32,7 @@ namespace g4
           *
           * The name, if not absolute path, should be in $LD_LIBRARY_PATH
           */
-        void Open(std::string name);
+        void Open(G4String name);
 
         /**
          * @brief Load a single component from the plugin.
@@ -38,17 +40,17 @@ namespace g4
          * @param pluginName Name of the plugin
          * @param componentName Name of the component
          */
-        void Load(std::string pluginName, std::string componentName);
+        void Load(G4String pluginName, G4String componentName);
 
         /**
          * @brief Load all components from the plugin.
          */
-        void LoadAll(std::string pluginName);
+        void LoadAll(G4String pluginName);
 
         /**
          * @brief Write a list of components in the plugin.
          */
-        void ListComponents(std::string pluginName);
+        void ListComponents(G4String pluginName);
 
         /**
           * @short Add a plugin.
@@ -67,18 +69,19 @@ namespace g4
         ~PluginLoader();
 
     protected:
-        Plugin* FindPlugin(const std::string& name);
+        Plugin* FindPlugin(const G4String& name);
 
-        void Load(Plugin* plugin, const std::string& componentName);
+        void ExecuteLoad(Plugin* plugin, const G4String& componentName);
         
     private:                  
-        PluginMessenger* _messenger;
+        // PluginMessenger* _messenger;
+        G4GenericMessenger _messenger;
 
         ComponentManager* _componentManager;
                 
         std::vector<void*> _libraries;
 
-        std::map<std::string, Plugin*> _plugins;
+        std::map<G4String, Plugin*> _plugins;
     };
 }
 

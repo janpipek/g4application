@@ -6,7 +6,6 @@
 
 #include <G4StateManager.hh>
 
-#include "PluginMessenger.hh"
 #include "ComponentManager.hh"
 
 using namespace std;
@@ -42,12 +41,27 @@ namespace g4
     typedef Plugin*(*plugin_load_function)();
     
     PluginLoader::PluginLoader(ComponentManager *componentManager) :
-        _componentManager(componentManager), VerbosityMixin(true, "/plugin/")
+        VerbosityMixin(true, "/plugin/"), _messenger(this, "/plugin/"), _componentManager(componentManager)
     {
-        _messenger = new PluginMessenger(this);
+        _messenger.DeclareMethod("open", &PluginLoader::Open, "Open a plugin from current directory.")
+                .SetParameterName("pluginName", false)
+                .SetStates(G4State_PreInit);
+
+        _messenger.DeclareMethod("loadAll", &PluginLoader::LoadAll, "Load all components from a plugin.")
+                .SetParameterName("pluginName", false)
+                .SetStates(G4State_PreInit);
+
+        G4UIcommand* loadCommand = _messenger.DeclareMethod("load", &PluginLoader::Load, "Load a component from a plugin.")
+                .SetStates(G4State_PreInit).command;
+
+        loadCommand->GetParameter(0)->SetParameterName("pluginName");;
+        loadCommand->GetParameter(1)->SetParameterName("componentName");
+
+        _messenger.DeclareMethod("listComponents", &PluginLoader::ListComponents, "List all components in a plugin")
+                .SetParameterName("pluginName", false);
     }
     
-    void PluginLoader::Open(std::string name)
+    void PluginLoader::Open(G4String name)
     {
         // Check for application state
         G4ApplicationState state = G4StateManager::GetStateManager()->GetCurrentState();
@@ -103,17 +117,17 @@ namespace g4
         }
     }
 
-    void PluginLoader::Load(string pluginName, string componentName)
+    void PluginLoader::Load(G4String pluginName, G4String componentName)
     {
         Plugin* plugin = FindPlugin(pluginName);
         if (!plugin)
         {
             G4Exception("PluginLoader", "CantLoad", FatalException, "No such plugin opened.");
         }
-        Load(plugin, componentName);
+        ExecuteLoad(plugin, componentName);
     }
 
-    void PluginLoader::LoadAll(string pluginName)
+    void PluginLoader::LoadAll(G4String pluginName)
     {
         if (GetVerboseLevel() > 0)
         {
@@ -128,7 +142,7 @@ namespace g4
         for (auto compIt = componentNames.begin(); compIt != componentNames.end(); compIt++)
         {
             string componentName = *compIt;
-            Load(plugin, componentName);
+            ExecuteLoad(plugin, componentName);
         }
         if (GetVerboseLevel() > 0)
         {
@@ -136,7 +150,7 @@ namespace g4
         }
     }
 
-    void PluginLoader::ListComponents(string pluginName)
+    void PluginLoader::ListComponents(G4String pluginName)
     {
         Plugin* plugin = FindPlugin(pluginName);
         if (!plugin)
@@ -154,7 +168,7 @@ namespace g4
         G4cout << "------------------------------------------" << G4endl;
     }
 
-    Plugin *PluginLoader::FindPlugin(const string &name)
+    Plugin *PluginLoader::FindPlugin(const G4String& name)
     {
         auto it = _plugins.find(name);
         if (it != _plugins.end())
@@ -167,7 +181,6 @@ namespace g4
             
     PluginLoader::~PluginLoader()
     {
-        delete _messenger;
         // Destroy all plugin objects
         /* for (vector<Plugin*>::iterator it = _plugins.begin(); it != _plugins.end(); it++)
         {
@@ -194,7 +207,7 @@ namespace g4
         }
     }
 
-    void PluginLoader::Load(Plugin *plugin, const string& componentName)
+    void PluginLoader::ExecuteLoad(Plugin *plugin, const G4String &componentName)
     {
         if (GetVerboseLevel() > 0)
         {
