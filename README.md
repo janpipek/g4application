@@ -116,6 +116,16 @@ Environment variables (alternatively can be set as CMake variables):
 
 Building tested on Linux (Fedora Core 18, 20, 22, Scientific Linux 6.4, Ubuntu 14.04), tests on other platforms are welcome.
 
+### Included 3rd-party code
+
+g4application includes code from the following projects:
+
+* JsonCPP - <https://github.com/open-source-parsers/jsoncpp> (MIT licence)
+* The Lean Mean C++ Option Parser - <http://optionparser.sourceforge.net/> (MIT-like licence)
+* Web++ - <https://github.com/konteck/wpp> (MIT licence)
+
+Thanks to the original authors!
+
 ## History & motivation
 
 2010-2012: I was developing two similar models of Leksell Gamma Knife at a same time and I wanted them to share a lot of code.
