@@ -1,12 +1,12 @@
 #include "ComponentActionInitialization.hh"
 
 #include <G4VUserPrimaryGeneratorAction.hh>
-#include <globals.hh>
 
 #include "CompositeEventAction.hh"
 #include "CompositeRunAction.hh"
 #include "CompositeSteppingAction.hh"
 #include "CompositeTrackingAction.hh"
+#include "macros.hh"
 
 using namespace g4;
 
@@ -39,7 +39,7 @@ G4VUserPrimaryGeneratorAction* ComponentActionInitialization::GetPrimaryGenerato
         {
             if (generatorAction)
             {
-                G4Exception("ComponentActionInitialization", "MultiplePrimaryGeneratorActions", FatalException, "Multiple component define the primary generator action.");
+                G4Exception(EXCEPTION_WHERE, "MultiplePrimaryGeneratorActions", FatalException, "Multiple component define the primary generator action.");
             }
             else
             {
@@ -49,7 +49,7 @@ G4VUserPrimaryGeneratorAction* ComponentActionInitialization::GetPrimaryGenerato
     }
     if (!generatorAction)
     {
-        G4Exception("ComponentActionInitialization", "NoPrimaryGeneratorActions", FatalException, "No component defines the primary generator action.");
+        G4Exception(EXCEPTION_WHERE, "NoPrimaryGeneratorActions", FatalException, "No component defines the primary generator action.");
     }
     return generatorAction;
 }

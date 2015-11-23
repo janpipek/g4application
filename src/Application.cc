@@ -23,6 +23,7 @@
 #include "PluginLoader.hh"
 #include "ApplicationMessenger.hh"
 #include "RunManager.hh"
+#include "macros.hh"
 
 using namespace std;
 using namespace g4::util;
@@ -37,7 +38,7 @@ namespace g4
         }
         else if (!argv)
         {
-            G4Exception("G4Application", "WrongArgv", FatalException, "argv not set although argc >= 1" );
+            G4Exception(EXCEPTION_WHERE, "WrongArgv", FatalException, "argv not set although argc >= 1" );
         }
         G4cout << "Application: Instance created." << G4endl;
         Initialize(argc, argv);
@@ -102,7 +103,7 @@ namespace g4
     {
         if (instanceExists<Application>())
         {
-            G4Exception("G4Application", "DuplicateInstance", FatalException, "Cannot create second instance of G4Application." );
+            G4Exception(EXCEPTION_WHERE, "DuplicateInstance", FatalException, "Cannot create second instance of G4Application." );
         }
         new Application(argc, argv);
         return Instance();
@@ -164,7 +165,7 @@ namespace g4
         {
             G4ExceptionDescription message;
             message << "Component " << name << " does not exist.";
-            G4Exception("Application", "UnknownComponent", FatalException, message);
+            G4Exception(EXCEPTION_WHERE, "UnknownComponent", FatalException, message);
         }
         _componentManager->AddComponent(name, component);
         G4cout << "Loaded built-in component " << name << "." << G4endl;

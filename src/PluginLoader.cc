@@ -7,6 +7,7 @@
 #include <G4StateManager.hh>
 
 #include "ComponentManager.hh"
+#include "macros.hh"
 
 using namespace std;
 
@@ -122,7 +123,7 @@ namespace g4
         Plugin* plugin = FindPlugin(pluginName);
         if (!plugin)
         {
-            G4Exception("PluginLoader", "CantLoad", FatalException, "No such plugin opened.");
+            G4Exception(EXCEPTION_WHERE, "CantLoad", FatalException, "No such plugin opened.");
         }
         ExecuteLoad(plugin, componentName);
     }
@@ -136,7 +137,7 @@ namespace g4
         Plugin* plugin = FindPlugin(pluginName);
         if (!plugin)
         {
-            G4Exception("PluginLoader", "CantLoad", FatalException, "No such plugin opened.");
+            G4Exception(EXCEPTION_WHERE, "CantLoad", FatalException, "No such plugin opened.");
         }
         vector<string> componentNames = plugin->GetAvailableComponents();
         for (auto compIt = componentNames.begin(); compIt != componentNames.end(); compIt++)
@@ -155,7 +156,7 @@ namespace g4
         Plugin* plugin = FindPlugin(pluginName);
         if (!plugin)
         {
-            G4Exception("PluginLoader", "CantListComponents", FatalException, "No such plugin opened.");
+            G4Exception(EXCEPTION_WHERE, "CantListComponents", FatalException, "No such plugin opened.");
         }
         G4cout << "------------------------------------------" << G4endl;
         G4cout << "Components of " << pluginName << " plugin:" << G4endl;
@@ -213,6 +214,11 @@ namespace g4
         {
             G4cout << "Plugin Loader: Loading component `" << componentName << "` from plugin `" << plugin->GetName() << "`..." << G4endl;
         }
+        if (G4StateManager::GetStateManager()->GetCurrentState() != G4State_PreInit)
+        {
+            G4Exception(EXCEPTION_WHERE, "InvalidState", FatalException, "Cannot load component after run manager has been initialized.");
+        }
+        // TODO: Check for the application state
         Component* component = plugin->GetComponent(componentName);
         G4String name = plugin->GetName() + "/" + componentName;
         if (component)

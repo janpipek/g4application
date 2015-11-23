@@ -2,6 +2,7 @@
 
 #include "ComponentActionInitialization.hh"
 #include "CompositeDetectorConstruction.hh"
+#include "macros.hh"
 
 using namespace g4;
 
@@ -28,7 +29,7 @@ void ComponentManager::AddComponent(const G4String& name, Component *component)
     component->OnLoad(); // TODO: ???
     if (GetComponent(name))
     {
-        G4Exception("ComponentManager", "DuplicitComponentName", FatalException, G4String("A component with the name `" + name + "` already registered."));
+        G4Exception(EXCEPTION_WHERE, "DuplicitComponentName", FatalException, G4String("A component with the name `" + name + "` already registered."));
     }
     else
     {
@@ -94,7 +95,7 @@ G4VModularPhysicsList* ComponentManager::GetPhysicsList()
         {
             if (list)
             {
-                G4Exception("ComponentManager", "MultiplePhysicsLists", FatalException, "Multiple components define the physics list.");
+                G4Exception(EXCEPTION_WHERE, "MultiplePhysicsLists", FatalException, "Multiple components define the physics list.");
             }
             else
             {
@@ -109,7 +110,7 @@ G4VModularPhysicsList* ComponentManager::GetPhysicsList()
     if (!list)
     {
         // TODO: If you use component manager in an app, this may be a valid condition
-        G4Exception("ComponentManager", "NoPhysicsLists", FatalException, "No component defines the physics list.");
+        G4Exception(EXCEPTION_WHERE, "NoPhysicsLists", FatalException, "No component defines the physics list.");
     }
     return list;
 }

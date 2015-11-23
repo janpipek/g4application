@@ -5,7 +5,7 @@
 #include <G4HadronicProcessStore.hh>
 
 #include "Configuration.hh"
-
+#include "macros.hh"
 
 using namespace g4::components;
 using namespace g4;
@@ -45,7 +45,7 @@ G4VModularPhysicsList* ReferencePhysicsList::CreatePhysicsList()
             }            
             G4ExceptionDescription message;
             message << "Unknown physics list: " << listName;
-            G4Exception("ReferencePhysicsList", "UnknownReferencePhysicsList", FatalException, message);
+            G4Exception(EXCEPTION_WHERE, "UnknownReferencePhysicsList", FatalException, message);
         }
         
         G4cout << "ReferencePhysicsList: loaded list " << listName << "." << G4endl;

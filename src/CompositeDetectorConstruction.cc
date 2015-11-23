@@ -4,6 +4,7 @@
 
 #include "ComponentManager.hh"
 #include "Component.hh"
+#include "macros.hh"
 
 using namespace g4;
 
@@ -26,7 +27,7 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
         {
             if (_worldVolume)
             {
-                G4Exception("CompositeDetectorConstruction", "MultipleWorldVolumes", FatalException, "Multiple components define the world volume.");
+                G4Exception(EXCEPTION_WHERE, "MultipleWorldVolumes", FatalException, "Multiple components define the world volume.");
             }
             else
             {
@@ -36,7 +37,7 @@ G4VPhysicalVolume* CompositeDetectorConstruction::Construct()
     }
     if (!_worldVolume)
     {
-        G4Exception("CompositeDetectorConstruction", "NoWorldVolume", FatalException, "No world volume defined in any of the components.");
+        G4Exception(EXCEPTION_WHERE, "NoWorldVolume", FatalException, "No world volume defined in any of the components.");
     }
 
     // Construct the geometry of components (in real world)
