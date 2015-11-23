@@ -1,10 +1,6 @@
 #ifndef PLUGIN_HH
 #define PLUGIN_HH
 
-// Helper macros used when looking for symbols in libraries
-#define QUOTEME_(x) #x
-#define QUOTEME(x) QUOTEME_(x)
-
 // If present, this function will be called when the plugin is loaded.
 #define PLUGIN_MAIN_FUNCTION plugin_main
 
