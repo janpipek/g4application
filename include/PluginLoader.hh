@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 #include <G4GenericMessenger.hh>
 
@@ -22,7 +23,7 @@ namespace g4
     class PluginLoader : public util::VerbosityMixin
     {
     public:
-        PluginLoader(ComponentManager* componentManager);
+        PluginLoader(std::shared_ptr<ComponentManager> componentManager);
         
         /**
           * @short Load a plugin dynamic library (.so) with full name +name+.
@@ -77,7 +78,7 @@ namespace g4
         // PluginMessenger* _messenger;
         G4GenericMessenger _messenger;
 
-        ComponentManager* _componentManager;
+        std::shared_ptr<ComponentManager> _componentManager;
                 
         std::vector<void*> _libraries;
 

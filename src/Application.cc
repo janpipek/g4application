@@ -18,7 +18,6 @@
     #include <G4UItcsh.hh>
 #endif
 
-#include "ComponentManager.hh"
 #include "ComponentRegistry.hh"
 #include "PluginLoader.hh"
 #include "RunManager.hh"
@@ -33,17 +32,19 @@ namespace g4
     {
         G4cout << "Application: Instance created." << G4endl;
 
+        _componentManager = make_shared<ComponentManager>();
+
         _messenger.DeclareMethod("builtin", &Application::AddBuiltinComponent, "Add one of the integrated components.")
                 .SetParameterName("componentName", false);
 
-        _componentManager = new ComponentManager();
+        // _componentManager = new ComponentManager();
         _componentRegistry = &ComponentRegistry::Instance();
 
         // _messenger = new ApplicationMessenger(this);
         _configurationMessenger = new ConfigurationMessenger();
 
         // Custom run manager
-        _runManager = new RunManager(*_componentManager);
+        _runManager = new RunManager(*_componentManager.get());
 
         // Plugin-loading system
         _pluginLoader = new PluginLoader(_componentManager);

@@ -41,7 +41,7 @@ namespace g4
 
     typedef Plugin*(*plugin_load_function)();
     
-    PluginLoader::PluginLoader(ComponentManager *componentManager) :
+    PluginLoader::PluginLoader(shared_ptr<ComponentManager> componentManager) :
         VerbosityMixin(true, "/plugin/"), _messenger(this, "/plugin/"), _componentManager(componentManager)
     {
         _messenger.DeclareMethod("open", &PluginLoader::Open, "Open a plugin from current directory.")

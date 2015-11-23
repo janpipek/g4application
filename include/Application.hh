@@ -1,12 +1,15 @@
 #ifndef APPLICATION_HH
 #define APPLICATION_HH
 
-#include "util/Singleton.hh"
-#include "ConfigurationMessenger.hh"
+#include <deque>
+#include <memory>
 
 #include <globals.hh>
 #include <G4GenericMessenger.hh>
-#include <deque>
+
+#include "util/Singleton.hh"
+#include "ConfigurationMessenger.hh"
+#include "ComponentManager.hh"
 
 #ifdef G4VIS_USE
     class G4VisExecutive;
@@ -35,7 +38,8 @@ namespace g4
         
         PluginLoader* GetPluginLoader() const { return _pluginLoader; }
 
-        ComponentManager* GetComponentManager() const { return _componentManager; }
+        // TODO: Not used
+        std::shared_ptr<ComponentManager> GetComponentManager() const { return _componentManager; }
 
         /**
           * @short Generate random random seed.
@@ -43,6 +47,7 @@ namespace g4
           * This enables multiple program runs with the same macro file
           * to generate different results. Uses system rand() function.
           */
+        // TODO: Not used, return this in a way
         void GenerateRandomSeed();
 
         void ApplyCommand(const std::string& command);
@@ -105,7 +110,7 @@ namespace g4
         // TODO: Temporary, not wise to have it here.
         ConfigurationMessenger* _configurationMessenger;
 
-        ComponentManager* _componentManager;
+        std::shared_ptr<ComponentManager> _componentManager;
 
         ComponentRegistry* _componentRegistry;
     };
