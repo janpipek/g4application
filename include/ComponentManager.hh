@@ -4,6 +4,7 @@
 #include <map>
 
 #include <G4String.hh>
+#include <G4GenericMessenger.hh>
 
 #include "RunInitializer.hh"
 #include "util/Verbosity.hh"
@@ -11,12 +12,15 @@
 namespace g4
 {
     class Component;
-    class ComponentMessenger;
 
     /**
      * @brief The ComponentManager class
      *
      * Threading: shared
+     *
+     * UI commands (in /component/ directory)
+     *   - /component/verbose
+     *   - /component/list
      */
     class ComponentManager : public RunInitializer, public util::VerbosityMixin
     {
@@ -39,12 +43,12 @@ namespace g4
 
         std::vector<G4VUserParallelWorld *> GetParallelWorlds() override;
 
-        void ListComponents() const;
+        void ListComponents();
 
     private:
         std::map<G4String, Component*> _components;
 
-        ComponentMessenger* _messenger;
+        G4GenericMessenger _messenger;
     };
 }
 

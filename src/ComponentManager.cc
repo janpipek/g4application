@@ -7,9 +7,9 @@
 using namespace g4;
 
 ComponentManager::ComponentManager()
-    : VerbosityMixin(true, "/component/"), _messenger(nullptr)
+    : VerbosityMixin(true, "/component/"), _messenger(this, "/component/")
 {
-    _messenger = new ComponentMessenger(this);
+    _messenger.DeclareMethod("list", &ComponentManager::ListComponents);
     if (GetVerboseLevel() > 0)
     {
         G4cout << "ComponentManager: Constructor finished." << G4endl;
@@ -18,7 +18,6 @@ ComponentManager::ComponentManager()
 
 ComponentManager::~ComponentManager()
 {
-    delete _messenger;
     if (GetVerboseLevel() > 0)
     {
         G4cout << "ComponentManager: Destructor called (and finished)." << G4endl;
@@ -144,7 +143,7 @@ std::vector<G4VUserParallelWorld *> ComponentManager::GetParallelWorlds()
     return result;
 }
 
-void ComponentManager::ListComponents() const
+void ComponentManager::ListComponents()
 {
     G4cout << G4endl;
     G4cout << "-----------------" << G4endl;
