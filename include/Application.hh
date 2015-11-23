@@ -36,7 +36,7 @@ namespace g4
 
         RunManager* GetRunManager() const { return _runManager; }
         
-        PluginLoader* GetPluginLoader() const { return _pluginLoader; }
+        std::shared_ptr<PluginLoader> GetPluginLoader() const { return _pluginLoader; }
 
         // TODO: Not used
         std::shared_ptr<ComponentManager> GetComponentManager() const { return _componentManager; }
@@ -100,9 +100,7 @@ namespace g4
         RunManager* _runManager;
         
         G4UIsession* _interactiveSession;
-        
-        PluginLoader* _pluginLoader;
-        
+
         G4GenericMessenger _messenger;
 
         // ApplicationMessenger* _messenger;
@@ -111,6 +109,8 @@ namespace g4
         ConfigurationMessenger* _configurationMessenger;
 
         std::shared_ptr<ComponentManager> _componentManager;
+
+        std::shared_ptr<PluginLoader> _pluginLoader;
 
         ComponentRegistry* _componentRegistry;
     };

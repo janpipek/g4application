@@ -34,6 +34,9 @@ namespace g4
 
         _componentManager = make_shared<ComponentManager>();
 
+        // Plugin-loading system
+        _pluginLoader = make_shared<PluginLoader>(_componentManager);
+
         _messenger.DeclareMethod("builtin", &Application::AddBuiltinComponent, "Add one of the integrated components.")
                 .SetParameterName("componentName", false);
 
@@ -46,15 +49,13 @@ namespace g4
         // Custom run manager
         _runManager = new RunManager(*_componentManager.get());
 
-        // Plugin-loading system
-        _pluginLoader = new PluginLoader(_componentManager);
-
         // Visualization
         #ifdef G4VIS_USE
           _visManager = new G4VisExecutive("quiet");
           _visManager->Initialize();
         #endif
 
+        // TODO: why this?
         G4Random::setTheEngine(new CLHEP::RanecuEngine);
     }
 
@@ -82,12 +83,7 @@ namespace g4
           delete _visManager;
         #endif
 
-        // delete _componentManager;
-
-        // delete _messenger;
-        // delete _uiDirectory;
         delete _runManager;
-        // delete _pluginLoader;
     }
 
     void Application::EnterInteractiveMode()

@@ -72,4 +72,6 @@ int main(int argc, char** argv)
 
     delete[] options;
     delete[] buffer;
+
+    delete &app;
 }
