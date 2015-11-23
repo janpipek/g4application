@@ -6,6 +6,8 @@
 
 #include <globals.hh>
 
+#include "macros.hh"
+
 namespace g4
 {
     /**
@@ -35,7 +37,7 @@ namespace g4
         {
             if (!action)
             {
-                G4Exception("CompositeAction", "AddNullSubAction", FatalException, "Cannot add null subaction.");
+                G4Exception(EXCEPTION_WHERE, "AddNullSubAction", FatalException, "Cannot add null subaction.");
             }
             if (find(_actions.begin(), _actions.end(), action) == _actions.end())
             {

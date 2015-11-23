@@ -4,6 +4,7 @@
 #include <G4UserRunAction.hh>
 #include <globals.hh>
 
+#include "macros.hh"
 #include "CompositeAction.hh"
 
 namespace g4
@@ -33,7 +34,7 @@ namespace g4
                 {
                     if (run)
                     {
-                        G4Exception("CompositeRunAction", "DuplicateRunCreation", FatalException, "More than one run action defines a custom run.");
+                        G4Exception(EXCEPTION_WHERE, "DuplicateRunCreation", FatalException, "More than one run action defines a custom run.");
                     }
                     else
                     {
