@@ -32,7 +32,7 @@ using namespace g4;
 
 namespace g4
 {
-    RunManager::RunManager(RunInitializer& init)
+    RunManager::RunManager(std::shared_ptr<RunInitializer> init)
         : _initializer(init)
     { }
 
@@ -64,7 +64,7 @@ namespace g4
         // 1) Physics
         if (verboseLevel > 1) { G4cout << "RunManager: Physics initializing..." << G4endl; }
         OBSERVERS_DO( OnPhysicsInitializing );
-        auto physList = _initializer.GetPhysicsList();
+        auto physList = _initializer->GetPhysicsList();
         this->SetUserInitialization(physList);
         OBSERVERS_DO( OnPhysicsInitialized );
         if (verboseLevel > 1) { G4cout << "RunManager: Physics initialized." << G4endl; }
@@ -72,11 +72,11 @@ namespace g4
         // 2a) Geometry
         if (verboseLevel > 1) { G4cout << "RunManager: Geometry initializing..." << G4endl; }
         OBSERVERS_DO( OnGeometryInitializing );
-        auto detectorConstruction = _initializer.GetDetectorConstruction();
+        auto detectorConstruction = _initializer->GetDetectorConstruction();
         this->SetUserInitialization(detectorConstruction);
 
         // 2b) Parallel worlds
-        auto parallelWorlds = _initializer.GetParallelWorlds();
+        auto parallelWorlds = _initializer->GetParallelWorlds();
         if (parallelWorlds.size())
         {
             for (G4VUserParallelWorld* world : parallelWorlds)
@@ -95,7 +95,7 @@ namespace g4
 
         // 3) Actions
         if (verboseLevel > 1) { G4cout << "RunManager: Actions initializing..." << G4endl; }
-        this->SetUserInitialization(_initializer.GetActionInitialization());
+        this->SetUserInitialization(_initializer->GetActionInitialization());
         if (verboseLevel > 1) { G4cout << "RunManager: Actions initialized." << G4endl; }
 
         if (verboseLevel > 0) { G4cout << "RunManager: Initializing Geant4 run manager..." << endl; }

@@ -47,7 +47,7 @@ namespace g4
         _configurationMessenger = new ConfigurationMessenger();
 
         // Custom run manager
-        _runManager = make_shared<RunManager>(*_componentManager.get());
+        _runManager = make_shared<RunManager>(_componentManager);
 
         // Visualization
         #ifdef G4VIS_USE

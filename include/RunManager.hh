@@ -1,6 +1,8 @@
 #ifndef RunManager_HH
 #define RunManager_HH
 
+#include <memory>
+
 #include <G4RunManager.hh>
 #include <G4MTRunManager.hh>
 
@@ -29,7 +31,7 @@ namespace g4
     class RunManager : public RunManagerBaseClass
     {
     public:
-        RunManager(RunInitializer& init);
+        RunManager(std::shared_ptr<RunInitializer> init);
 
         virtual ~RunManager();
 
@@ -46,7 +48,7 @@ namespace g4
         void RemoveObserver(RunObserver* observer);
 
     private:
-        RunInitializer& _initializer;
+        std::shared_ptr<RunInitializer> _initializer;
 
         std::vector<RunObserver*> _observers;
     };
