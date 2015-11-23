@@ -9,6 +9,7 @@
 
 using namespace g4;
 using namespace std;
+using namespace option;
 
 enum optionIndex { UNKNOWN, INTERACTIVE, HELP, VERSION };
 
@@ -24,13 +25,16 @@ const option::Descriptor usage[] =
 
 /**
   * @short Simple main function.
+  *
+  * Most of the code deals with argument processing.
   */
 int main(int argc, char** argv)
 {
     argc -= (argc>0); argv += (argc>0);
-    option::Stats  stats(usage, argc, argv);
-    option::Option options[stats.options_max], buffer[stats.buffer_max];
-    option::Parser parse(usage, argc, argv, options, buffer);
+    Stats  stats(usage, argc, argv);
+    Option* options = new Option[stats.options_max];
+    Option* buffer = new Option[stats.buffer_max];
+    Parser parse(usage, argc, argv, options, buffer);
 
     if (parse.error()) return 1;
 
@@ -65,5 +69,7 @@ int main(int argc, char** argv)
     }
 
     G4cout << "Application exiting normally..." << G4endl;
-}
 
+    delete[] options;
+    delete[] buffer;
+}
