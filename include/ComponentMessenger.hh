@@ -3,7 +3,6 @@
 
 #include <G4UImessenger.hh>
 
-class G4UIcmdWithAnInteger;
 class G4UIcmdWithoutParameter;
 
 namespace g4
@@ -25,8 +24,6 @@ namespace g4
         G4UIdirectory* _directory;
 
         G4UIcmdWithoutParameter* _listCommand;
-
-        G4UIcmdWithAnInteger* _verboseCommand;
     };
 }
 

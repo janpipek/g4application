@@ -42,7 +42,7 @@ namespace g4
     typedef Plugin*(*plugin_load_function)();
     
     PluginLoader::PluginLoader(ComponentManager *componentManager) :
-        _componentManager(componentManager)
+        _componentManager(componentManager), VerbosityMixin(true, "/plugin/")
     {
         _messenger = new PluginMessenger(this);
     }

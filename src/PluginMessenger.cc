@@ -39,10 +39,6 @@ namespace g4
         componentNameParam->SetGuidance("Name of the component.");
         _loadCommand->SetParameter(componentNameParam);
 
-        _verboseCommand = new G4UIcmdWithAnInteger("/plugin/verbose", this);
-        _verboseCommand->SetGuidance("Set plugin loader verbosity.");
-        _verboseCommand->SetToBeBroadcasted(false);
-
         _listComponentsCommand = new G4UIcmdWithAString("/plugin/listComponents", this);
     }
 
@@ -52,7 +48,6 @@ namespace g4
         delete _loadCommand;
         delete _loadAllCommand;
         delete _listComponentsCommand;
-        delete _verboseCommand;
 
         delete _directory;
     }
@@ -77,10 +72,6 @@ namespace g4
         else if (command == _listComponentsCommand)
         {
             _loader->ListComponents(newValue);
-        }
-        else if (command == _verboseCommand)
-        {
-            _loader->SetVerboseLevel(_verboseCommand->GetNewIntValue(newValue));
         }
     }
 }

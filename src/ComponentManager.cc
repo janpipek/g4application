@@ -7,6 +7,7 @@
 using namespace g4;
 
 ComponentManager::ComponentManager()
+    : VerbosityMixin(true, "/component/"), _messenger(nullptr)
 {
     _messenger = new ComponentMessenger(this);
     if (GetVerboseLevel() > 0)
