@@ -47,7 +47,7 @@ namespace g4
         _configurationMessenger = new ConfigurationMessenger();
 
         // Custom run manager
-        _runManager = new RunManager(*_componentManager.get());
+        _runManager = make_shared<RunManager>(*_componentManager.get());
 
         // Visualization
         #ifdef G4VIS_USE
@@ -82,8 +82,6 @@ namespace g4
         #ifdef G4VIS_USE
           delete _visManager;
         #endif
-
-        delete _runManager;
     }
 
     void Application::EnterInteractiveMode()
