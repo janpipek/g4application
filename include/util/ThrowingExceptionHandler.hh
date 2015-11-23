@@ -44,6 +44,7 @@ namespace g4
                 {
                     throw Geant4Exception(originOfException, exceptionCode, severity, description);
                 }
+                return false;
             }
         private:
             bool _alsoWarning;
