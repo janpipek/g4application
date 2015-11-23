@@ -4,8 +4,8 @@
 /plugin/loadAll httpPlugin
 /plugin/loadAll simplePlugin
 
-/app/addComponent ReferencePhysicsList
-/app/addComponent DefaultWorld
+/component/builtin ReferencePhysicsList
+/component/builtin DefaultWorld
 
 /conf/setString component.ReferencePhysicsList.listName FTFP_BERT
 

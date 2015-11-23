@@ -5,8 +5,8 @@
 /plugin/open libsimplePlugin.so
 /plugin/loadAll simplePlugin
 
-/app/addComponent DefaultWorld
-/app/addComponent ReferencePhysicsList
+/component/builtin DefaultWorld
+/component/builtin ReferencePhysicsList
 
 # Set a configuration value
 /conf/setDouble generator.energy 0.5

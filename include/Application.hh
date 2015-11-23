@@ -5,6 +5,7 @@
 #include "ConfigurationMessenger.hh"
 
 #include <globals.hh>
+#include <G4GenericMessenger.hh>
 #include <deque>
 
 #ifdef G4VIS_USE
@@ -27,10 +28,7 @@ namespace g4
       */
     class Application : public util::Singleton<Application>
     {
-    public:     
-        // TODO: This class is a typical "god object". Refactor.
-        static Application& CreateInstance(int argc, char** argv);
-
+    public:
         ~Application();
 
         RunManager* GetRunManager() const { return _runManager; }
@@ -80,20 +78,14 @@ namespace g4
           */
         void AddMacro(const G4String& name);
 
-        void AddBuiltinComponent(const G4String& name); // TODO: Strange here
+        void AddBuiltinComponent(G4String name); // TODO: Strange here
 
         friend class util::Singleton<Application>;
 
     private:
-        Application(int argc = 0, char** argv = nullptr);
-
-        void Initialize(int argc, char **argv);
+        Application();
 
         std::deque<G4String> _macros;
-
-        int _argc;
-        
-        char** _argv;
         
         // Visualization Manager
         #ifdef G4VIS_USE
@@ -106,7 +98,9 @@ namespace g4
         
         PluginLoader* _pluginLoader;
         
-        ApplicationMessenger* _messenger;
+        G4GenericMessenger _messenger;
+
+        // ApplicationMessenger* _messenger;
 
         // TODO: Temporary, not wise to have it here.
         ConfigurationMessenger* _configurationMessenger;

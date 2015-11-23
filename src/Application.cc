@@ -21,7 +21,6 @@
 #include "ComponentManager.hh"
 #include "ComponentRegistry.hh"
 #include "PluginLoader.hh"
-#include "ApplicationMessenger.hh"
 #include "RunManager.hh"
 #include "macros.hh"
 
@@ -30,26 +29,17 @@ using namespace g4::util;
 
 namespace g4
 {
-    Application::Application(int argc, char** argv) : _interactiveSession(nullptr), _argc(argc), _argv(argv)
+    Application::Application() : _interactiveSession(nullptr), _messenger(this, "/component/")
     {
-        if (!argc)
-        {
-            G4cerr << "Warning: G4Application created without argc/argv!" << G4endl;
-        }
-        else if (!argv)
-        {
-            G4Exception(EXCEPTION_WHERE, "WrongArgv", FatalException, "argv not set although argc >= 1" );
-        }
         G4cout << "Application: Instance created." << G4endl;
-        Initialize(argc, argv);
-    }
 
-    void Application::Initialize(int argc, char** argv)
-    {
+        _messenger.DeclareMethod("builtin", &Application::AddBuiltinComponent, "Add one of the integrated components.")
+                .SetParameterName("componentName", false);
+
         _componentManager = new ComponentManager();
         _componentRegistry = &ComponentRegistry::Instance();
 
-        _messenger = new ApplicationMessenger(this);
+        // _messenger = new ApplicationMessenger(this);
         _configurationMessenger = new ConfigurationMessenger();
 
         // Custom run manager
@@ -71,7 +61,7 @@ namespace g4
     {
         if (!_interactiveSession) {
             #ifdef G4UI_USE_QT
-                _interactiveSession = new G4UIQt(_argc, _argv); // There are no arguments but nevermind.
+                _interactiveSession = new G4UIQt(0, nullptr); // There are no arguments but nevermind.
             #else
                 #ifdef G4UI_USE_TCSH
                     _interactiveSession = new G4UIterminal(new G4UItcsh);
@@ -97,16 +87,6 @@ namespace g4
         // delete _uiDirectory;
         delete _runManager;
         // delete _pluginLoader;
-    }
-
-    Application& Application::CreateInstance(int argc, char **argv)
-    {
-        if (instanceExists<Application>())
-        {
-            G4Exception(EXCEPTION_WHERE, "DuplicateInstance", FatalException, "Cannot create second instance of G4Application." );
-        }
-        new Application(argc, argv);
-        return Instance();
     }
 
     void Application::EnterInteractiveMode()
@@ -158,7 +138,7 @@ namespace g4
         UI->ApplyCommand(command);
     }
 
-    void Application::AddBuiltinComponent(const G4String& name)
+    void Application::AddBuiltinComponent(G4String name)
     {
         Component* component = _componentRegistry->GetComponent(name);
         if (!component)

@@ -3,11 +3,11 @@
 
 /component/verbose 1
 
-/app/addComponent DefaultWorld
-/app/addComponent ReferencePhysicsList
-/app/addComponent GPS
-/app/addComponent EventNumberLogging
-/app/addComponent MemoryLogging
+/component/builtin DefaultWorld
+/component/builtin ReferencePhysicsList
+/component/builtin GPS
+/component/builtin EventNumberLogging
+/component/builtin MemoryLogging
 
 # Set a configuration value
 /conf/setString component.ReferencePhysicsList.listName FTFP_BERT

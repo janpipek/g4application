@@ -20,10 +20,6 @@ TEST_CASE( "It is possible to run the application", "[run][app]" ) {
         excHandler = new ThrowingExceptionHandler();
     }
 
-    SECTION("No duplicate instances") {
-        REQUIRE_THROWS(Application::CreateInstance(0, nullptr));
-    }
-
     SECTION("Proper class initialization") {
         REQUIRE(app->GetComponentManager() != nullptr);
         REQUIRE(app->GetPluginLoader() != nullptr);

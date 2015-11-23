@@ -48,7 +48,7 @@ int main(int argc, char** argv)
         return 0;
     }
 
-    Application& app = Application::CreateInstance(argc, argv);
+    Application& app = Application::Instance();
 
     // Load all macros from command line
     for (int i = 0; i < parse.nonOptionsCount(); ++i)
