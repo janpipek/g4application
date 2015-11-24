@@ -62,7 +62,7 @@ namespace g4
 
     protected:
         /**
-          * @short Call a member method on all actions (with argument).
+          * @short Call a member method on all actions (with one argument).
           */
         template<typename ArgType> void Invoke(void (ActionType::*func)(ArgType), ArgType arg)
         {

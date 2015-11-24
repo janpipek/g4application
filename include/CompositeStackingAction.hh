@@ -31,6 +31,22 @@ namespace g4
             }
             return classification;
         }
+
+        void NewStage() override
+        {
+            for (auto action : _actions)
+            {
+                action->NewStage();
+            }
+        }
+
+        void PrepareNewEvent() override
+        {
+            for (auto action : _actions)
+            {
+                action->PrepareNewEvent();
+            }
+        }
     };
 }
 
