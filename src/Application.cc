@@ -66,8 +66,10 @@ namespace g4
             #ifdef G4UI_USE_QT
             if (_interactiveName.empty() || _interactiveName == "qt")
             {
-                int argc = 0;
-                char** argv = nullptr;
+                // Artificial parameters - shouldnt't the correct be used?
+                int argc = 1;
+                char** argv = (char**)malloc(sizeof(char*));
+                argv[0] = "g4";
                 _interactiveSession = new G4UIQt(argc, argv); // There are no arguments but nevermind.
                 return;
             }
