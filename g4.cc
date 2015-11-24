@@ -17,8 +17,8 @@ enum optionIndex { UNKNOWN, INTERACTIVE, HELP, VERSION };
 const option::Descriptor usage[] =
 {
     {UNKNOWN, 0, "", "", option::Arg::None, "Usage: g4 [options] <macro1> <macro2> ...\n\nOptions:"},
-    {HELP, 0, "h", "help", option::Arg::None,               "-h,  --help           Print usage and exit."},
-    {VERSION, 0, "V", "version", option::Arg::None,         " -v, --version        Print version info and exit."},
+    {HELP, 0, "h", "help", option::Arg::None,               "-h,  --help          Print usage and exit."},
+    {VERSION, 0, "V", "version", option::Arg::None,         "-v, --version        Print version info and exit."},
     {INTERACTIVE, 0, "i", "interactive", option::Arg::Optional, "-i, --interactive    Start interactive mode [optional parameter: qt*/tcsh]."},
     {0,0,0,0,0,0}
 };

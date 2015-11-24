@@ -40,6 +40,13 @@ By default, the component is empty. The user has to override methods they are in
 * ReferencePhysicsList - provides one of the lists known to `G4PhysListFactory` specified by its name
 * GPS - provides GPS (i.e. `G4GeneralParticleSource`) to be configured using its commands
 
+Add them using:
+
+```
+/component/builtin GPS    
+/component/builtin DefaultWorld
+```
+
 ### Composite user actions
 
 By default, it is not possible to include more the one for each G4User...Action classes in one Geant4 application.
@@ -47,11 +54,11 @@ This limitation is even more pressing when different part of the application are
 So g4application includes a **composite user action class** that can contain more instances of the respective
 action type and executes them in the FIFO order. These are:
 
-* CompositeEventAction
-* CompositeRunAction
-* CompositeStackingAction
-* CompositeSteppingAction
-* CompositeTrackingAction
+* `CompositeEventAction`
+* `CompositeRunAction`
+* `CompositeStackingAction`
+* `CompositeSteppingAction`
+* `CompositeTrackingAction`
 
 ### Plug-ins
 
@@ -74,10 +81,10 @@ The plugin DLL is searched for using standard Unix lookup mechanism.
 There are a few example plug-ins that use most features of G4Application in the
 `examples` subdirectory.
 
-- simplePlugin : basic example that defines physics, geometry & generator
-- httpPlugin : a simple integrated HTTP server informing about the application state
-- rotationTest: a simple test of active/passive geometry in Geant4 (positioning of G4PVPlacement)
-- parallelTest : a simple test of parallel world mechanism
+- **simplePlugin**: basic example that defines physics, geometry & generator
+- **httpPlugin**: a simple integrated HTTP server informing about the application state
+- **rotationTest**: a simple test of active/passive geometry in Geant4 (positioning of G4PVPlacement)
+- **parallelTest**: a simple test of parallel world mechanism
 
 ## Configuration
 
@@ -125,6 +132,17 @@ g4application includes code from the following projects:
 * Web++ - <https://github.com/konteck/wpp> (MIT licence)
 
 Thanks to the original authors!
+
+## Running the app
+
+```
+Usage: g4 [options] <macro1> <macro2> ...
+
+Options:
+-h,  --help          Print usage and exit.
+-v, --version        Print version info and exit.
+-i, --interactive    Start interactive mode [optional parameter: qt*/tcsh].
+```
 
 ## History & motivation
 
