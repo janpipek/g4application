@@ -17,9 +17,9 @@ enum optionIndex { UNKNOWN, INTERACTIVE, HELP, VERSION };
 const option::Descriptor usage[] =
 {
     {UNKNOWN, 0, "", "", option::Arg::None, "Usage: g4 [options] <macro1> <macro2> ...\n\nOptions:"},
-    {HELP, 0, "h", "help", option::Arg::None,               "  --help           Print usage and exit."},
-    {VERSION, 0, "V", "version", option::Arg::None,         "  --version        Print version info and exit."},
-    {INTERACTIVE, 0, "i", "interactive", option::Arg::None, "  --interactive    Start interactive mode."},
+    {HELP, 0, "h", "help", option::Arg::None,               "-h,  --help           Print usage and exit."},
+    {VERSION, 0, "V", "version", option::Arg::None,         " -v, --version        Print version info and exit."},
+    {INTERACTIVE, 0, "i", "interactive", option::Arg::Optional, "-i, --interactive    Start interactive mode [optional parameter: qt*/tcsh]."},
     {0,0,0,0,0,0}
 };
 
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 
     if (parse.error()) return 1;
 
-    if (options[HELP] || argc == 0) {
+    if (options[HELP] || options[UNKNOWN] || argc == 0) {
         option::printUsage(std::cout, usage);
         return 0;
     }
@@ -58,6 +58,11 @@ int main(int argc, char** argv)
 
     if (options[INTERACTIVE])
     {
+        if (options[INTERACTIVE].arg)
+        {
+            G4String name = options[INTERACTIVE].arg;
+            app.SetInteractiveModeType(name);
+        }
         app.PrepareInteractiveMode();
     }
 

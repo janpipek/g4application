@@ -14,7 +14,8 @@
 
 #ifdef G4UI_USE_QT
     #include <G4UIQt.hh>
-#else
+#endif
+#ifdef G4UI_USE_TCSH
     #include <G4UItcsh.hh>
 #endif
 
@@ -51,7 +52,7 @@ namespace g4
 
         // Visualization
         #ifdef G4VIS_USE
-          _visManager = new G4VisExecutive("quiet");
+          _visManager = make_shared<G4VisExecutive>("quiet");
           _visManager->Initialize();
         #endif
 
@@ -63,29 +64,33 @@ namespace g4
     {
         if (!_interactiveSession) {
             #ifdef G4UI_USE_QT
-                _interactiveSession = new G4UIQt(0, nullptr); // There are no arguments but nevermind.
-            #else
-                #ifdef G4UI_USE_TCSH
-                    _interactiveSession = new G4UIterminal(new G4UItcsh);
-                #else
-                    _interactiveSession = new G4UIterminal();
-                #endif
+            if (_interactiveName.empty() || _interactiveName == "qt")
+            {
+                int argc = 0;
+                char** argv = nullptr;
+                _interactiveSession = new G4UIQt(argc, argv); // There are no arguments but nevermind.
+                return;
+            }
             #endif
+            #ifdef G4UI_USE_TCSH
+            if (_interactiveName == "tcsh")
+            {
+                _interactiveSession = new G4UIterminal(new G4UItcsh);
+                return;
+            }
+            #endif
+            G4Exception(EXCEPTION_WHERE, "UnknownUI", FatalException, (G4String("Unknown UI type: ") + _interactiveName).c_str());
         }
     }
 
     Application::~Application()
     {
-        G4cout << "Closing application..." << endl;
-
-        // Visualization
-        #ifdef G4VIS_USE
-          delete _visManager;
-        #endif
+        G4cout << "Closing application..." << G4endl;
     }
 
     void Application::EnterInteractiveMode()
     {
+        cout << "Entering interactive mode..." << endl;    // On purpose to std out
         if (!_interactiveSession)
         {
             PrepareInteractiveMode();
@@ -115,6 +120,7 @@ namespace g4
             G4cout << "Executing macro file: " << fileName << G4endl;
             ui->ApplyCommand(command + fileName);               
         }
+        G4cout << "Application: Executed all macros." << endl;
     }
 
     void Application::GenerateRandomSeed()

@@ -64,6 +64,8 @@ namespace g4
           */
         void EnterInteractiveMode();
 
+        void SetInteractiveModeType(G4String name) { name.toLower(); _interactiveName = name; }
+
         /**
           * @short Wait for the user to press ENTER.
           */
@@ -93,10 +95,12 @@ namespace g4
         
         // Visualization Manager
         #ifdef G4VIS_USE
-          G4VisExecutive* _visManager;
+          std::shared_ptr<G4VisExecutive> _visManager;
         #endif
         
         G4UIsession* _interactiveSession;
+
+        G4String _interactiveName;
 
         G4GenericMessenger _messenger;
 
