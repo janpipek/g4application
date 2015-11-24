@@ -4,6 +4,7 @@
 
 #include "CompositeEventAction.hh"
 #include "CompositeRunAction.hh"
+#include "CompositeStackingAction.hh"
 #include "CompositeSteppingAction.hh"
 #include "CompositeTrackingAction.hh"
 #include "macros.hh"
@@ -17,6 +18,7 @@ void ComponentActionInitialization::Build() const
     BuildCompositeAction<CompositeRunAction, G4UserRunAction>(&Component::CreateRunAction);
     BuildCompositeAction<CompositeSteppingAction, G4UserSteppingAction>(&Component::CreateSteppingAction);
     BuildCompositeAction<CompositeTrackingAction, G4UserTrackingAction>(&Component::CreateTrackingAction);
+    BuildCompositeAction<CompositeStackingAction, G4UserStackingAction>(&Component::CreateStackingAction);
 
     SetUserAction(GetPrimaryGeneratorAction());
 }
