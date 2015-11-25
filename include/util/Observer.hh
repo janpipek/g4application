@@ -4,6 +4,9 @@
 /**
   * @short A pair of Observer<->Publisher templates based
   * on the Observer design pattern.
+  *
+  * Note: Both objects involved in the relationship must not be copied (enforced)
+  *    (Maybe, a clever gymnastics with pointers could solve this)
   */
 
 #include <vector>
@@ -28,6 +31,9 @@ namespace g4
           * and automatically deregisters itself in the destructor
           * (the class is safe from this point of view).
           *
+          * These objects are not copyable because the relationships are stored
+          * as pointers.
+          *
           * @see Publisher
           */
         template<typename T> class Observer
@@ -41,6 +47,12 @@ namespace g4
                 }
             }
 
+            Observer() = default;
+
+            Observer& operator=(const Observer<T>&) = delete;
+
+            Observer(const T&) = delete;
+
         protected:
             /**
               * @short Method called by the publisher after change.
@@ -50,7 +62,7 @@ namespace g4
         private:
             friend class Publisher<T>;
 
-            typedef Publisher<T>* stored_pointer_type;
+            using stored_pointer_type = Publisher<T>*;
 
             void RemovePublisher(stored_pointer_type publisher)
             {
@@ -95,10 +107,16 @@ namespace g4
         template<typename T> class Publisher
         {
         private:
-            typedef Observer<T>* stored_pointer_type;
+            using stored_pointer_type = Observer<T>*;
 
         public:
             friend class Observer<T>;
+
+            Publisher() = default;
+
+            Publisher& operator=(const Publisher<T>&) = delete;
+
+            Publisher(const T&) = delete;
 
             /**
               * @short Add an observer.
@@ -124,6 +142,7 @@ namespace g4
                 auto needle = std::find(_observers.begin(), _observers.end(), observer);
                 if (needle != _observers.end())
                 {
+
                     _observers.erase(needle);
                     observer->RemovePublisher(this);
                 }
