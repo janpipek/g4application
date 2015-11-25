@@ -67,13 +67,11 @@ namespace g4
         template<typename ArgType> void Invoke(void (ActionType::*func)(ArgType), ArgType arg)
         {
             // All sub-actions
-            for (typename std::list<ActionType*>::iterator it = _actions.begin(); it != _actions.end(); it++)
+            for (auto action : _actions)
             {
-                ActionType& action = **it;
-
                 // Weird syntax for calling pointed-to-member-function
                 // According to http://www.parashift.com/c++-faq/macro-for-ptr-to-memfn.html
-                ((action).*(func))(arg);
+                ((*action).*(func))(arg);
             }
         }
 

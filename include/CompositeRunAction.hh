@@ -25,11 +25,10 @@ namespace g4
         G4Run* GenerateRun() override
         {
             G4Run* run = nullptr;
-            for (auto it = _actions.begin(); it != _actions.end(); it++)
+            for (auto action : _actions)
             {
-                G4UserRunAction& action = **it;
-                action.SetMaster(IsMaster());
-                G4Run* candidate = action.GenerateRun();
+                action->SetMaster(IsMaster());
+                G4Run* candidate = action->GenerateRun();
                 if (candidate)
                 {
                     if (run)
