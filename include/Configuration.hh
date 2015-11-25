@@ -4,11 +4,10 @@
 #include <boost/variant.hpp>
 
 #include <map>
+#include <string>
 #include <vector>
 #include <iostream>
 #include <cstdio>
-
-#include <G4String.hh>
 
 namespace g4
 {
@@ -18,7 +17,7 @@ namespace g4
      * Covers three basic reasonable types for parameters:
      * - int, double & string (bool treated as integer)
      */
-    typedef boost::variant<int, double, G4String> ConfigurationValue;
+    typedef boost::variant<int, double, std::string> ConfigurationValue;
 
     /**
       * @short Get configuration value as desired type.
@@ -53,7 +52,7 @@ namespace g4
          *
          * Guarded by boost exception.
          */
-        template<typename ValueType> static ValueType Get(const G4String& key)// const
+        template<typename ValueType> static ValueType Get(const std::string& key)// const
         {
             try
             {
@@ -71,7 +70,7 @@ namespace g4
           *
           * @param fallback This value is returned if the key is not found.
           */
-        template<typename ValueType> static ValueType Get(const G4String& key, const ValueType& fallback)
+        template<typename ValueType> static ValueType Get(const std::string& key, const ValueType& fallback)
         {
             if (HasKey(key)) 
             {
@@ -88,15 +87,15 @@ namespace g4
           *
           * Included to enable C string literals. 
           */
-        static G4String Get(const G4String& key, const char* fallback)
+        static std::string Get(const std::string& key, const char* fallback)
         {
-            return Get<G4String>(key, fallback);
+            return Get<std::string>(key, fallback);
         }
 
         /**
          * @short Get a stored value without casting.
          */
-        static ConfigurationValue& Get(const G4String& key)
+        static ConfigurationValue& Get(const std::string& key)
         {
             return _entries[key];
         }
@@ -104,7 +103,7 @@ namespace g4
         /**
          * @short Get the underlying map object.
          */
-        static std::map<G4String, ConfigurationValue> GetItems();
+        static std::map<std::string, ConfigurationValue> GetItems();
 
         /**
          * @short Set value.
@@ -115,12 +114,12 @@ namespace g4
          *
          * The listeners get notified only if there really is a change.
          */
-        static void Set(const G4String& key, const ConfigurationValue& value, ConfigurationObserver* observerToIgnore = 0);
+        static void Set(const std::string& key, const ConfigurationValue& value, ConfigurationObserver* observerToIgnore = 0);
 
         /**
          * @short Whether there is a configuration value of a given name.
          */
-        static bool HasKey(const G4String& key);
+        static bool HasKey(const std::string& key);
 
         /**
          * @short Set value, but only if not present.
@@ -128,7 +127,7 @@ namespace g4
          * This allows classes that use configuration, to provide meaningful values
          * when these are not set from outside.
          */
-        static void SetDefaultValue(const G4String& key, const ConfigurationValue& value);
+        static void SetDefaultValue(const std::string& key, const ConfigurationValue& value);
 
         /**
          * @short Print the configuration in a human-readable form.
@@ -136,7 +135,7 @@ namespace g4
         static void Print(std::ostream& stream);
 
     private:
-        static std::map<G4String, ConfigurationValue> _entries;
+        static std::map<std::string, ConfigurationValue> _entries;
 
         static std::vector<ConfigurationObserver*> _observers;
 
@@ -144,7 +143,7 @@ namespace g4
 
         static void RemoveObserver(ConfigurationObserver* observer);
 
-        static void NotifyObservers(const G4String& key, ConfigurationObserver *observerToIgnore);
+        static void NotifyObservers(const std::string& key, ConfigurationObserver *observerToIgnore);
 
     };
 
@@ -173,7 +172,7 @@ namespace g4
          *
          * Respond to all keys you are interested in and do nothing for others.
          */
-        virtual void ConfigurationChanged(const G4String& key) = 0;
+        virtual void ConfigurationChanged(const std::string& key) = 0;
     };
 }
 

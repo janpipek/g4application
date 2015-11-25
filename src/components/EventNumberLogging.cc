@@ -40,7 +40,7 @@ public:
         _loggingFrequency = Configuration::Get<int>(LOGGING_FREQUENCY_KEY);
     }
 
-    virtual void ConfigurationChanged(const G4String& key)
+    virtual void ConfigurationChanged(const std::string& key)
     {
         if (key == LOGGING_FREQUENCY_KEY)
         {

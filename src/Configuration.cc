@@ -14,7 +14,7 @@ using namespace std;
 
 namespace g4
 {
-    std::map<G4String, ConfigurationValue> Configuration::_entries;
+    std::map<std::string, ConfigurationValue> Configuration::_entries;
 
     std::vector<ConfigurationObserver*> Configuration::_observers;
 
@@ -53,7 +53,7 @@ namespace g4
         // observerMutex.unlock();
     }
 
-    void Configuration::NotifyObservers(const G4String &key, ConfigurationObserver* observerToIgnore = 0)
+    void Configuration::NotifyObservers(const std::string &key, ConfigurationObserver* observerToIgnore = 0)
     {
         for (auto it = _observers.begin(); it != _observers.end(); it++)
         {
@@ -62,7 +62,7 @@ namespace g4
         }
     }
 
-    void Configuration::Set(const G4String &key, const ConfigurationValue &value, ConfigurationObserver* observerToIgnore)
+    void Configuration::Set(const std::string &key, const ConfigurationValue &value, ConfigurationObserver* observerToIgnore)
     {
         #if defined(G4MULTITHREADED)
         if (G4Threading::IsWorkerThread())
@@ -80,12 +80,12 @@ namespace g4
         }
     }
 
-    bool Configuration::HasKey(const G4String &key)
+    bool Configuration::HasKey(const std::string &key)
     {
         return _entries.count(key);
     }
 
-    void Configuration::SetDefaultValue(const G4String &key, const ConfigurationValue &value)
+    void Configuration::SetDefaultValue(const std::string &key, const ConfigurationValue &value)
     {
         if (!HasKey(key))
         {
@@ -108,7 +108,7 @@ namespace g4
         stream << "-------------" << endl;
     }
 
-    std::map<G4String, ConfigurationValue> Configuration::GetItems()
+    std::map<std::string, ConfigurationValue> Configuration::GetItems()
     {
         return _entries;
     }
