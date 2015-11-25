@@ -7,6 +7,7 @@
 #include <G4UIterminal.hh>
 #include <G4UIsession.hh>
 #include <Randomize.hh>
+#include <G4ScoringManager.hh>
 
 #ifdef G4VIS_USE
     #include <G4VisExecutive.hh>
@@ -43,6 +44,8 @@ namespace g4
 
         // _componentManager = new ComponentManager();
         _componentRegistry = &ComponentRegistry::Instance();
+
+        G4ScoringManager::GetScoringManager();
 
         // _messenger = new ApplicationMessenger(this);
         _configurationMessenger = new ConfigurationMessenger();
