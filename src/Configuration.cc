@@ -5,6 +5,11 @@
 #include <limits>
 #include <mutex>
 
+#include <G4Threading.hh>
+#include <globals.hh>
+
+#include "macros.hh"
+
 using namespace std;
 
 namespace g4
@@ -59,6 +64,13 @@ namespace g4
 
     void Configuration::Set(const G4String &key, const ConfigurationValue &value, ConfigurationObserver* observerToIgnore)
     {
+        #if defined(G4MULTITHREADED)
+        if (G4Threading::IsWorkerThread())
+        {
+            G4Exception(EXCEPTION_WHERE, "SetInWorkerThread", FatalException, "Trying to set configuration value in worker thread.");
+        }
+        #endif
+
         // TODO: enable only in main thread? Or add mutex?
         ConfigurationValue oldValue = _entries[key];
         if (!(oldValue == value))
