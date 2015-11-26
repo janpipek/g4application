@@ -6,6 +6,7 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
+*.dll
 
 # Compiled Static libraries
 *.lai
@@ -22,6 +23,9 @@ cmake_install.cmake
 *.files
 *.includes
 *.config
+
+# Eclipse...
+/.project
 
 g4
 Makefile
