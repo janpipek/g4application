@@ -1,6 +1,11 @@
 #ifndef GENERICPARALLELWORLD_HH
 #define GENERICPARALLELWORLD_HH
 
+#include <functional>
+
+#include <G4String.hh>
+#include <G4VUserParallelWorld.hh>
+
 namespace g4
 {
    /**
@@ -33,6 +38,7 @@ namespace g4
         {
             _constructSDHandler();
         }
+
     private:
         handler_type _constructHandler;
 
