@@ -1,3 +1,5 @@
+__Note: This application was developed for a historic version of Geant4. It is not developed anymore. If anyone wants to continue the work, I will be most happy to pass it over.__
+
 # g4application
 
 A library and a simple generic application for Geant4. It works as a universal executable
